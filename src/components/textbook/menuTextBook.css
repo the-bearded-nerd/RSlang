@@ -1,0 +1,16 @@
+.menu {
+  display: flex;
+  font-size: 25px;
+  justify-content: center;
+  gap: 25px;
+}
+.typeSection {
+  list-style: none;
+  color: #000000;
+}
+.active {
+  background-color: rgb(255 107 251 / 50%);
+  padding: 25px;
+  border-bottom: 8px solid #ffffff;
+  color: #ffffff;
+}

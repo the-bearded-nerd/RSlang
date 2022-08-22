@@ -1,0 +1,7 @@
+.box-btn-page {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 15px;
+  font-size: 25px;
+}
