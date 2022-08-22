@@ -25,6 +25,11 @@ export interface InforWordsProps {
   objectWord: CurrentWords;
 }
 
+export interface PropsAudioWords {
+  objectWord: CurrentWords;
+  currentDisabled: boolean;
+  setDisabled: (disabled: boolean) => void;
+}
 export interface PropsBtnPage {
   setNumberPage: () => void;
 }
@@ -37,6 +42,9 @@ export interface StateAudio {
   setAudio: (id: string) => void;
 }
 
+export interface EventClick {
+  ev: (e: Event) => void;
+}
 export interface PropsWords {
   hard: number;
   numberPage: number;

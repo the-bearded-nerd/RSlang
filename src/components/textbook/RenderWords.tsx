@@ -6,6 +6,8 @@ import WordInfo from './WordsInfo';
 
 function RenderWords({ hard, numberPage }: PropsWords) {
   const [currentWords, setWords] = React.useState<CurrentWords[]>([]);
+  const [currentDisabled, setDisabled] = React.useState<boolean>(false);
+
   React.useEffect(() => {
     Words.getWords(hard, numberPage)
       .then((res) => res)
@@ -14,7 +16,12 @@ function RenderWords({ hard, numberPage }: PropsWords) {
   return (
     <>
       {currentWords.map((e) => (
-        <WordInfo key={e.id} objectWord={e} />
+        <WordInfo
+          key={e.id}
+          objectWord={e}
+          currentDisabled={currentDisabled}
+          setDisabled={setDisabled}
+        />
       ))}
     </>
   );

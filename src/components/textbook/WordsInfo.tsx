@@ -1,15 +1,15 @@
 /* eslint-disable react/no-danger */
 import React from 'react';
 import DOMPurify from 'dompurify';
-import { InforWordsProps } from '../interface/interfaces';
 import BtnAddWord from './BtnAddWord';
 import BtnStudiedWord from './BtnStudiedWord';
 import './wordInfo.css';
 import AudioWords from './AudioWords';
+import { PropsAudioWords } from '../interface/interfaces';
 
 const baseURL = 'https://rslang-fe2022q1.herokuapp.com/';
 
-function WordInfo({ objectWord }: InforWordsProps) {
+function WordInfo({ objectWord, currentDisabled, setDisabled }: PropsAudioWords) {
   const correctionTextMeaning = DOMPurify.sanitize(objectWord.textMeaning);
   const correctionTranslateTextMeaning = DOMPurify.sanitize(objectWord.textMeaningTranslate);
   const correctionTextExample = DOMPurify.sanitize(objectWord.textExample);
@@ -24,7 +24,11 @@ function WordInfo({ objectWord }: InforWordsProps) {
           <span>{objectWord.transcription} </span>
         </div>
         <div>{objectWord.wordTranslate}</div>
-        <AudioWords objectWord={objectWord} />
+        <AudioWords
+          objectWord={objectWord}
+          currentDisabled={currentDisabled}
+          setDisabled={setDisabled}
+        />
         <div dangerouslySetInnerHTML={{ __html: correctionTextMeaning }} />
         <div dangerouslySetInnerHTML={{ __html: correctionTranslateTextMeaning }} />
         <div dangerouslySetInnerHTML={{ __html: correctionTextExample }} />
