@@ -5,6 +5,7 @@ import { InforWordsProps } from '../interface/interfaces';
 import BtnAddWord from './BtnAddWord';
 import BtnStudiedWord from './BtnStudiedWord';
 import './wordInfo.css';
+import AudioWords from './AudioWords';
 
 const baseURL = 'https://rslang-fe2022q1.herokuapp.com/';
 
@@ -23,7 +24,7 @@ function WordInfo({ objectWord }: InforWordsProps) {
           <span>{objectWord.transcription} </span>
         </div>
         <div>{objectWord.wordTranslate}</div>
-        <span>ЗВУК</span>
+        <AudioWords objectWord={objectWord} />
         <div dangerouslySetInnerHTML={{ __html: correctionTextMeaning }} />
         <div dangerouslySetInnerHTML={{ __html: correctionTranslateTextMeaning }} />
         <div dangerouslySetInnerHTML={{ __html: correctionTextExample }} />

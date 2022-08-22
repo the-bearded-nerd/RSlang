@@ -33,6 +33,10 @@ export interface PropsIdHard {
   setIdHard: (id: number) => void;
 }
 
+export interface StateAudio {
+  setAudio: (id: string) => void;
+}
+
 export interface PropsWords {
   hard: number;
   numberPage: number;
