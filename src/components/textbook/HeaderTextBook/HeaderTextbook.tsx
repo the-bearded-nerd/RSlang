@@ -1,5 +1,5 @@
 import React from 'react';
-import { TypeSection } from '../interface/interfaces';
+import { TypeSection } from '../../interface/interfaces';
 import './menuTextBook.css';
 
 function HeaderTextbook({ typeSection, setIdHard, setNumberPage }: TypeSection) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import './btnWord.css';
+import '../BtnStudiedWord/btnWord.css';
 
 function BtnAddWord() {
   return (

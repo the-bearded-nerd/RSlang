@@ -1,10 +1,10 @@
 import React from 'react';
-import Words from '../../utils/Words/Words';
+import Words from '../../../utils/Words/Words';
 
-import { CurrentWords, PropsWords } from '../interface/interfaces';
-import WordInfo from './WordsInfo';
+import { CurrentWords, PropsWords } from '../../interface/interfaces';
+import WordInfo from '../WordInfo/WordsInfo';
 
-function RenderWords({ hard, numberPage }: PropsWords) {
+function WordsTextBook({ hard, numberPage }: PropsWords) {
   const [currentWords, setWords] = React.useState<CurrentWords[]>([]);
   const [currentDisabled, setDisabled] = React.useState<boolean>(false);
 
@@ -27,4 +27,4 @@ function RenderWords({ hard, numberPage }: PropsWords) {
   );
 }
 
-export default RenderWords;
+export default WordsTextBook;

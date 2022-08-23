@@ -4,7 +4,7 @@ import React from 'react';
 import './App.css';
 import User from './components/User/User';
 
-import Textbook from './components/textbook/Textbook';
+import Textbook from './components/textbook/TextBook/Textbook';
 
 function App() {
   return (

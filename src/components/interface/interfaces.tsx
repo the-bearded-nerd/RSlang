@@ -30,6 +30,10 @@ export interface PropsAudioWords {
   currentDisabled: boolean;
   setDisabled: (disabled: boolean) => void;
 }
+
+export interface PropsLocalDisabled {
+  setLocalDisabled: (disabled: boolean) => void;
+}
 export interface PropsBtnPage {
   setNumberPage: () => void;
 }

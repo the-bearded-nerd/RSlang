@@ -1,11 +1,11 @@
 /* eslint-disable react/no-danger */
 import React from 'react';
 import DOMPurify from 'dompurify';
-import BtnAddWord from './BtnAddWord';
-import BtnStudiedWord from './BtnStudiedWord';
+import BtnStudiedWord from '../BtnStudiedWord/BtnStudiedWord';
 import './wordInfo.css';
-import AudioWords from './AudioWords';
-import { PropsAudioWords } from '../interface/interfaces';
+import AudioWords from '../AudioWord/AudioWords';
+import { PropsAudioWords } from '../../interface/interfaces';
+import BtnAddWord from '../BtnAddWord/BtnAddWord';
 
 const baseURL = 'https://rslang-fe2022q1.herokuapp.com/';
 

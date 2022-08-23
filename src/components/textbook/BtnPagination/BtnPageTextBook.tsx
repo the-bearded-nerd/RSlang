@@ -1,5 +1,5 @@
 import React from 'react';
-import { PropsBtnPage } from '../interface/interfaces';
+import { PropsBtnPage } from '../../interface/interfaces';
 
 export function BtnNextPage({ setNumberPage }: PropsBtnPage) {
   return (

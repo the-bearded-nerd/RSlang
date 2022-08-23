@@ -1,8 +1,8 @@
 import React from 'react';
-import { BtnNextPage, BtnPrevPage } from './BtnPageTextBook';
-import HeaderTextbook from './HeaderTextbook';
-import RenderWords from './RenderWords';
-import './btnPageTextBook.css';
+import { BtnNextPage, BtnPrevPage } from '../BtnPagination/BtnPageTextBook';
+import HeaderTextbook from '../HeaderTextBook/HeaderTextbook';
+import WordsTextBook from '../RenderWords/RenderWords';
+import '../BtnPagination/btnPageTextBook.css';
 
 function Textbook() {
   const [currentCount, setCount] = React.useState<number>(1);
@@ -25,11 +25,11 @@ function Textbook() {
         setNumberPage={() => setCount(1)}
       />
       <h2>Слова</h2>
-      <RenderWords hard={idHard} numberPage={currentCount - 1} />
+      <WordsTextBook hard={idHard} numberPage={currentCount - 1} />
       <div className="box-btn-page">
         <BtnPrevPage setNumberPage={() => setCount(currentCount < 2 ? 1 : currentCount - 1)} />
         <div>{currentCount}</div>
-        <BtnNextPage setNumberPage={() => setCount(currentCount === 29 ? 29 : currentCount + 1)} />
+        <BtnNextPage setNumberPage={() => setCount(currentCount === 30 ? 30 : currentCount + 1)} />
       </div>
     </>
   );
