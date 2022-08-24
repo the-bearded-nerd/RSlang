@@ -5,8 +5,16 @@ import WordsTextBook from '../RenderWords/RenderWords';
 import '../BtnPagination/btnPageTextBook.css';
 
 function Textbook() {
-  const [currentCount, setCount] = React.useState<number>(1);
-  const [idHard, setIdHard] = React.useState<number>(0);
+  const resultPage: number = JSON.parse(localStorage.getItem('numberPage') || '1');
+  const resultHard: number = JSON.parse(localStorage.getItem('levelHard') || '0');
+  const [currentCount, setCount] = React.useState<number>(resultPage);
+  const [idHard, setIdHard] = React.useState<number>(resultHard);
+
+  React.useEffect(() => {
+    localStorage.setItem('numberPage', JSON.stringify(currentCount));
+    localStorage.setItem('levelHard', JSON.stringify(idHard));
+  }, [currentCount, idHard]);
+
   return (
     <>
       <h1>Учебник</h1>
