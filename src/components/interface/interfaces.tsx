@@ -37,13 +37,10 @@ export interface PropsLocalDisabled {
 }
 export interface PropsBtnPage {
   setNumberPage: () => void;
-  setPaginationDisabled: (cal: boolean) => void;
   currentCount: number;
 }
 
 export interface PropsWords {
   hard: number;
   numberPage: number;
-
-  setPaginationDisabled: (val: boolean) => void;
 }

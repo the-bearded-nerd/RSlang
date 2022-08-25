@@ -4,12 +4,7 @@ import Words from '../../../utils/Words/Words';
 import { CurrentWords, PropsWords } from '../../interface/interfaces';
 import WordInfo from '../WordInfo/WordsInfo';
 
-function WordsTextBook({
-  hard,
-  numberPage,
-  setPaginationDisabled,
-  isPaginationDisabled,
-}: PropsWords) {
+function WordsTextBook({ hard, numberPage }: PropsWords) {
   const [currentWords, setWords] = React.useState<CurrentWords[]>([]);
 
   const [currentDisabled, setDisabled] = React.useState<boolean>(false);
@@ -17,12 +12,9 @@ function WordsTextBook({
   React.useEffect(() => {
     Words.getWords(hard, numberPage)
       .then((res) => res)
-      .then((data) =>
-        setTimeout(() => {
-          setWords(data);
-          setPaginationDisabled(false);
-        }, 500)
-      );
+      .then((data) => {
+        setWords(data);
+      });
   }, [hard, numberPage]);
 
   return (
@@ -33,7 +25,6 @@ function WordsTextBook({
           objectWord={e}
           currentDisabled={currentDisabled}
           setDisabled={setDisabled}
-          isPaginationDisabled={isPaginationDisabled}
         />
       ))}
     </>
