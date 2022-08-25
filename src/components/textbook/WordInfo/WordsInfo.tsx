@@ -3,7 +3,6 @@ import React from 'react';
 import DOMPurify from 'dompurify';
 import BtnStudiedWord from '../BtnStudiedWord/BtnStudiedWord';
 import './wordInfo.css';
-import AudioWords from '../AudioWord/AudioWords';
 import { PropsAudioWords } from '../../interface/interfaces';
 import BtnAddWord from '../BtnAddWord/BtnAddWord';
 
@@ -15,6 +14,12 @@ function WordInfo({ objectWord, currentDisabled, setDisabled }: PropsAudioWords)
   const correctionTextExample = DOMPurify.sanitize(objectWord.textExample);
   const correctionTranslateTextExample = DOMPurify.sanitize(objectWord.textExampleTranslate);
 
+  const [isLocalDisabled, setLocalDisabled] = React.useState(true);
+
+  const booleanState = currentDisabled !== true ? currentDisabled : isLocalDisabled;
+
+  const [flag, setFlag] = React.useState<boolean>(false);
+
   return (
     <div className="word">
       <img className="image-word" src={`${baseURL}${objectWord.image}`} alt="img" width={200} />
@@ -24,11 +29,44 @@ function WordInfo({ objectWord, currentDisabled, setDisabled }: PropsAudioWords)
           <span>{objectWord.transcription} </span>
         </div>
         <div>{objectWord.wordTranslate}</div>
-        <AudioWords
-          objectWord={objectWord}
-          currentDisabled={currentDisabled}
-          setDisabled={setDisabled}
-        />
+        <div className="audio-word">
+          <button
+            type="button"
+            disabled={booleanState}
+            onClick={(e) => {
+              const audioWordMeaning = new Audio();
+              audioWordMeaning.src = `${baseURL}${objectWord.audioMeaning}`;
+              const audioWordExample = new Audio();
+              audioWordExample.src = `${baseURL}${objectWord.audioExample}`;
+              const audioWord = new Audio();
+              audioWord.src = `${baseURL}${objectWord.audio}`;
+
+              audioWord.addEventListener('ended', () => {
+                audioWordMeaning.play();
+              });
+              audioWordMeaning.addEventListener('ended', () => {
+                audioWordExample.play();
+              });
+              audioWordExample.addEventListener('ended', () => {
+                setDisabled(false);
+                setLocalDisabled(true);
+              });
+              if (e.target) {
+                setLocalDisabled(false);
+              }
+              if (flag) {
+                setFlag(false);
+              } else {
+                setFlag(true);
+                audioWord.play();
+              }
+
+              setDisabled(true);
+            }}
+          >
+            click
+          </button>
+        </div>
         <div dangerouslySetInnerHTML={{ __html: correctionTextMeaning }} />
         <div dangerouslySetInnerHTML={{ __html: correctionTranslateTextMeaning }} />
         <div dangerouslySetInnerHTML={{ __html: correctionTextExample }} />
