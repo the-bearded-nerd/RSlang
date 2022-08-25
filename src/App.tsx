@@ -1,24 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import AuthorizationForm from './components/AuthorizationForm/AuthorizationForm';
+import SignOut from './components/SignOut/SignOut';
+import Users from './utils/Users/User';
+import RegistrationForm from './components/RegistrationForm/RegistrationForm';
+import UserAggregatedWords from './utils/UsersAggregatedWords/UserAggregatedWords';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {Users.isAuthorized() ? <SignOut /> : <AuthorizationForm />}
+      <RegistrationForm />
+      <button
+        type="button"
+        onClick={async () => {
+          const hardWords = await UserAggregatedWords.getDifficultWords();
+          console.log(hardWords);
+        }}
+      >
+        Сложные слова
+      </button>
+      <button
+        type="button"
+        onClick={async () => {
+          const learnedWords = await UserAggregatedWords.getLearnedtWords();
+          console.log(learnedWords);
+        }}
+      >
+        Выученные слова
+      </button>
     </div>
   );
 }

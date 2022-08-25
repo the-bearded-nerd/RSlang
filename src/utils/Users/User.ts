@@ -71,18 +71,42 @@ class Users {
     const response = await fetch(requestURL, {
       method: 'POST',
       headers: {
+        Accept: 'application/json',
         'Content-Type': 'application/json;charset=utf-8',
       },
       body: JSON.stringify({ email, password }),
     });
     if (response.ok) {
       const responseJSON = await response.json();
-      localStorage.setItem('userData', responseJSON);
+      localStorage.setItem('userName', responseJSON.name);
+      localStorage.setItem('userId', responseJSON.userId);
+      localStorage.setItem('refreshToken', responseJSON.refreshToken);
+      localStorage.setItem('token', responseJSON.token);
     }
     return {
       ok: response.ok,
       errcode: response.ok ? null : response.status,
     };
+  }
+
+  static signout() {
+    localStorage.clear();
+  }
+
+  static isAuthorized() {
+    return !!localStorage.getItem('userName');
+  }
+
+  static getName() {
+    return localStorage.getItem('userName');
+  }
+
+  static getToken() {
+    return localStorage.getItem('token');
+  }
+
+  static getId() {
+    return localStorage.getItem('userId');
   }
 }
 
