@@ -1,7 +1,7 @@
 import React from 'react';
 import { BtnNextPage, BtnPrevPage } from '../BtnPagination/BtnPageTextBook';
 import HeaderTextbook from '../HeaderTextBook/HeaderTextbook';
-import WordsTextBook from '../RenderWords/RenderWords';
+import WordsTextBook from '../WordsTextBook/WordsTextBook';
 import '../BtnPagination/btnPageTextBook.css';
 
 function Textbook() {
@@ -31,13 +31,20 @@ function Textbook() {
         ]}
         setIdHard={(id) => setIdHard(id)}
         setNumberPage={() => setCount(1)}
+        idHard={idHard}
       />
       <h2>Слова</h2>
       <WordsTextBook hard={idHard} numberPage={currentCount - 1} />
       <div className="box-btn-page">
-        <BtnPrevPage setNumberPage={() => setCount(currentCount < 2 ? 1 : currentCount - 1)} />
+        <BtnPrevPage
+          setNumberPage={() => setCount(currentCount < 2 ? 1 : currentCount - 1)}
+          currentCount={currentCount}
+        />
         <div>{currentCount}</div>
-        <BtnNextPage setNumberPage={() => setCount(currentCount === 30 ? 30 : currentCount + 1)} />
+        <BtnNextPage
+          setNumberPage={() => setCount(currentCount === 30 ? 30 : currentCount + 1)}
+          currentCount={currentCount}
+        />
       </div>
     </>
   );
