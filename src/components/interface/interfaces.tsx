@@ -2,6 +2,7 @@ export interface TypeSection {
   typeSection: string[];
   setIdHard: (id: number) => void;
   setNumberPage: () => void;
+  idHard: number;
 }
 
 export interface CurrentWords {
@@ -36,20 +37,13 @@ export interface PropsLocalDisabled {
 }
 export interface PropsBtnPage {
   setNumberPage: () => void;
+  setPaginationDisabled: (cal: boolean) => void;
+  currentCount: number;
 }
 
-export interface PropsIdHard {
-  setIdHard: (id: number) => void;
-}
-
-export interface StateAudio {
-  setAudio: (id: string) => void;
-}
-
-export interface EventClick {
-  ev: (e: Event) => void;
-}
 export interface PropsWords {
   hard: number;
   numberPage: number;
+
+  setPaginationDisabled: (val: boolean) => void;
 }
