@@ -1,20 +1,15 @@
 import React from 'react';
 import './App.css';
-import AuthorizationForm from './components/AuthorizationForm/AuthorizationForm';
-import SignOut from './components/SignOut/SignOut';
-import Users from './utils/Users/User';
-import RegistrationForm from './components/RegistrationForm/RegistrationForm';
-import UserAggregatedWords from './utils/UsersAggregatedWords/UserAggregatedWords';
+import User from './components/User/User';
 
 function App() {
   return (
     <div className="App">
-      {Users.isAuthorized() ? <SignOut /> : <AuthorizationForm />}
-      <RegistrationForm />
+      {/* {Users.isAuthorized() ? <SignOut /> : <AuthorizationForm />}
       <button
         type="button"
         onClick={async () => {
-          const hardWords = await UserAggregatedWords.getDifficultWords();
+          const hardWords = await UserAggregatedWords.getSetDifficultWords();
           console.log(hardWords);
         }}
       >
@@ -23,12 +18,18 @@ function App() {
       <button
         type="button"
         onClick={async () => {
-          const learnedWords = await UserAggregatedWords.getLearnedtWords();
+          const learnedWords = await UserAggregatedWords.getSetLearnedtWords();
           console.log(learnedWords);
         }}
       >
         Выученные слова
       </button>
+      <button type="button" onClick={() => setModalActive(true)}>
+        Открыть модалку
+      </button>
+
+      <Modal active={modalActive} setActive={setModalActive} /> */}
+      <User />
     </div>
   );
 }

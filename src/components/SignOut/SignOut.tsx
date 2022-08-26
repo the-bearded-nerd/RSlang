@@ -9,8 +9,8 @@ function SignOut() {
   };
   return (
     <form action="" onSubmit={onSubmitHandler}>
-      <label htmlFor="SignOut">Hi, {Users.getName()}!</label>
-      <input type="submit" name="SignOut" value="SignOut" />
+      <label htmlFor="SignOut">Привет, {Users.getName()}!</label>
+      <input type="submit" name="SignOut" value="Выйти" />
     </form>
   );
 }

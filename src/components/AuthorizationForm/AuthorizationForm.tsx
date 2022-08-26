@@ -13,28 +13,33 @@ function AuthorizationForm() {
 
   return (
     <form onSubmit={onSubmitHandler}>
-      <label htmlFor="email">
-        Email:
-        <input
-          type="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </label>
-      <label htmlFor="password">
-        Password:
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          minLength={8}
-          required
-        />
-      </label>
-      <input type="submit" value="Submit" />
+      <div className="signin-email">
+        <label htmlFor="email">
+          Email:
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </label>
+      </div>
+      <div className="signin-password">
+        <label htmlFor="password">
+          Password:
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            minLength={8}
+            required
+          />
+        </label>
+      </div>
+
+      <input type="submit" value="Войти" />
     </form>
   );
 }

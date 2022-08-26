@@ -39,6 +39,24 @@ class UserAggregatedWords {
     return UserAggregatedWords.getWordsByDifficulty('learned');
   }
 
+  static async getSetDifficultWords() {
+    const response = await UserAggregatedWords.getWordsByDifficulty('hard');
+    const hardWords = response[0].paginatedResults;
+    const fieldName = '_id';
+    const IDs = hardWords.map((elem: any) => elem[fieldName]);
+    const result = new Set(IDs);
+    return result;
+  }
+
+  static async getSetLearnedtWords() {
+    const response = await UserAggregatedWords.getWordsByDifficulty('learned');
+    const learnedWords = response[0].paginatedResults;
+    const fieldName = '_id';
+    const IDs = learnedWords.map((elem: any) => elem[fieldName]);
+    const result = new Set(IDs);
+    return result;
+  }
+
   static async getWordsById(userId: string, wordId: string) {
     const requestURL = new URL(`/users/${userId}/aggregatedWords/${wordId}`, baseURL);
     const token = Users.getToken();
