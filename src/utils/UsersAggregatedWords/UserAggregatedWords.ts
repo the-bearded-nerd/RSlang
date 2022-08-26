@@ -32,11 +32,13 @@ class UserAggregatedWords {
   }
 
   static async getDifficultWords() {
-    return UserAggregatedWords.getWordsByDifficulty('hard');
+    let result = await UserAggregatedWords.getWordsByDifficulty('hard');
+    return result[0].paginatedResults;
   }
 
   static async getLearnedtWords() {
-    return UserAggregatedWords.getWordsByDifficulty('learned');
+    let result = await UserAggregatedWords.getWordsByDifficulty('learned');
+    return result[0].paginatedResults;
   }
 
   static async getSetDifficultWords() {
