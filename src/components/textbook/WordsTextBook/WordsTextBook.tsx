@@ -9,6 +9,8 @@ function WordsTextBook({ hard, numberPage }: PropsWords) {
 
   const [currentDisabled, setDisabled] = React.useState<boolean>(false);
 
+  const [flag, setFlag] = React.useState<boolean>(false);
+
   React.useEffect(() => {
     Words.getWords(hard, numberPage)
       .then((res) => res)
@@ -25,6 +27,8 @@ function WordsTextBook({ hard, numberPage }: PropsWords) {
           objectWord={e}
           currentDisabled={currentDisabled}
           setDisabled={setDisabled}
+          setFlag={setFlag}
+          flag={flag}
         />
       ))}
     </>

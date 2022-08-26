@@ -30,6 +30,8 @@ export interface PropsAudioWords {
   objectWord: CurrentWords;
   currentDisabled: boolean;
   setDisabled: (disabled: boolean) => void;
+  setFlag: (v: boolean) => void;
+  flag: boolean;
 }
 
 export interface PropsLocalDisabled {

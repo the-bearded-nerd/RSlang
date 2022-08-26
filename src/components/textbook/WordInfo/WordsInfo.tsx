@@ -8,7 +8,7 @@ import BtnAddWord from '../BtnAddWord/BtnAddWord';
 
 const baseURL = 'https://rslang-fe2022q1.herokuapp.com/';
 
-function WordInfo({ objectWord, currentDisabled, setDisabled }: PropsAudioWords) {
+function WordInfo({ objectWord, currentDisabled, setDisabled, setFlag, flag }: PropsAudioWords) {
   const correctionTextMeaning = DOMPurify.sanitize(objectWord.textMeaning);
   const correctionTranslateTextMeaning = DOMPurify.sanitize(objectWord.textMeaningTranslate);
   const correctionTextExample = DOMPurify.sanitize(objectWord.textExample);
@@ -17,9 +17,26 @@ function WordInfo({ objectWord, currentDisabled, setDisabled }: PropsAudioWords)
   const [isLocalDisabled, setLocalDisabled] = React.useState(true);
 
   const booleanState = currentDisabled !== true ? currentDisabled : isLocalDisabled;
+  const audioWordMeaning = new Audio();
+  const audioWordExample = new Audio();
+  const audioWord = new Audio();
 
-  const [flag, setFlag] = React.useState<boolean>(false);
+  const setPlay = (audio: HTMLAudioElement) => {
+    audio.play();
+  };
 
+  const [audioElement, setAudioElement] = React.useState<HTMLAudioElement>();
+  React.useEffect(() => {
+    if (!flag) {
+      const v = audioElement;
+      v?.pause();
+      setDisabled(false);
+      setLocalDisabled(true);
+      setFlag(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [audioElement, flag]);
   return (
     <div className="word">
       <img className="image-word" src={`${baseURL}${objectWord.image}`} alt="img" width={200} />
@@ -34,33 +51,38 @@ function WordInfo({ objectWord, currentDisabled, setDisabled }: PropsAudioWords)
             type="button"
             disabled={booleanState}
             onClick={(e) => {
-              const audioWordMeaning = new Audio();
-              audioWordMeaning.src = `${baseURL}${objectWord.audioMeaning}`;
-              const audioWordExample = new Audio();
-              audioWordExample.src = `${baseURL}${objectWord.audioExample}`;
-              const audioWord = new Audio();
-              audioWord.src = `${baseURL}${objectWord.audio}`;
-
-              audioWord.addEventListener('ended', () => {
-                audioWordMeaning.play();
-              });
-              audioWordMeaning.addEventListener('ended', () => {
-                audioWordExample.play();
-              });
-              audioWordExample.addEventListener('ended', () => {
-                setDisabled(false);
-                setLocalDisabled(true);
-              });
               if (e.target) {
                 setLocalDisabled(false);
               }
-              if (flag) {
-                setFlag(false);
-              } else {
+              audioWordMeaning.src = `${baseURL}${objectWord.audioMeaning}`;
+              audioWordExample.src = `${baseURL}${objectWord.audioExample}`;
+              audioWord.src = `${baseURL}${objectWord.audio}`;
+              if (flag === false) {
                 setFlag(true);
-                audioWord.play();
-              }
 
+                setPlay(audioWord);
+                setAudioElement(audioWord);
+                audioWord.addEventListener('ended', () => {
+                  setPlay(audioWordMeaning);
+                  setAudioElement(audioWordMeaning);
+                });
+                audioWordMeaning.addEventListener('ended', () => {
+                  setPlay(audioWordExample);
+                  setAudioElement(audioWordExample);
+                  audioWordExample.play();
+                });
+                audioWordExample.addEventListener('ended', () => {
+                  setDisabled(false);
+                  setLocalDisabled(true);
+                  setFlag(false);
+                });
+              } else {
+                setFlag(false);
+                audioWord.pause();
+                audioWordExample.pause();
+                audioWordMeaning.pause();
+                setDisabled(true);
+              }
               setDisabled(true);
             }}
           >
