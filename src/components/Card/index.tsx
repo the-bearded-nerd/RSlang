@@ -1,28 +1,43 @@
 import React, { Component } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import './index.css';
+
+import IWords from '../../types/IWords';
+
+// Constants
+import url from '../../constants/url';
 
 interface CardProps {
   data: CardOptions;
 }
 
 interface CardOptions {
+  currentWord: IWords;
   wordStatus: boolean;
-  btns: JSX.Element[];
+  roundWords: IWords[];
+  rightAnswer: number;
   finishRound: () => void;
 }
 
 export default class Card extends Component<CardProps> {
+  currentWord;
+
   wordStatus;
 
-  btns;
+  roundWords;
+
+  rightAnswer;
 
   finishRound;
 
   constructor(props: CardProps) {
     super(props);
     const { data } = this.props;
+    this.currentWord = data.currentWord;
     this.wordStatus = data.wordStatus;
+    this.roundWords = data.roundWords;
+    this.rightAnswer = data.rightAnswer;
     this.finishRound = data.finishRound;
-    this.btns = data.btns;
   }
 
   componentDidMount() {
@@ -37,19 +52,34 @@ export default class Card extends Component<CardProps> {
     this.finishRound();
   };
 
-  render() {
+  renderAnswers() {
+    const guessClass = this.wordStatus ? 'guessed' : 'unguessed';
     return (
-      <>
-        <div>Card</div>
-        <div>{this.wordStatus ? 'отгадано' : 'не отгадано'}</div>
-        {this.btns.map((btn) => {
-          const clone = React.cloneElement(btn, { disabled: true });
-          return clone;
+      <div className="answers">
+        {this.roundWords.map((item, i) => {
+          const className = i === this.rightAnswer ? guessClass : '';
+          return (
+            <div className={`non-active ${className}`} key={uuidv4()} role="button" tabIndex={0}>
+              <span>{i + 1}</span>
+              <span>{item.wordTranslate}</span>
+            </div>
+          );
         })}
+      </div>
+    );
+  }
+
+  render() {
+    const { image } = this.currentWord;
+    return (
+      <div className="card">
+        <img src={`${url}${image}`} alt="" />
+        <div>{this.wordStatus ? 'отгадано' : 'не отгадано'}</div>
+        {this.renderAnswers()}
         <button type="button" onClick={this.finish}>
           Далее
         </button>
-      </>
+      </div>
     );
   }
 }

@@ -5,13 +5,10 @@ import Result from '../Result';
 import Words from '../../utils/Words/Words';
 import IWords from '../../types/IWords';
 
+import GameState from '../../types/GameState';
+
 interface GameProps {
   restartGame: () => void;
-}
-
-interface GameState {
-  isLoading: boolean;
-  isGameFinished: boolean;
 }
 
 export default class Game extends Component<GameProps, GameState> {
@@ -52,7 +49,7 @@ export default class Game extends Component<GameProps, GameState> {
     }
 
     return (
-      <div>
+      <div className="game">
         {!isGameFinished ? <Round data={data} cb={finishGame} /> : <Result cb={restartGame} />}
       </div>
     );

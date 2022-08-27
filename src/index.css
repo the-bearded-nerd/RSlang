@@ -13,6 +13,7 @@ code {
 #root {
   display: flex;
   flex-direction:  column;
+  justify-content: center;
   height: 100vh;
   background-image: linear-gradient(rgb(24, 90, 157) 0%, rgb(67, 206, 162) 100%); 
 
