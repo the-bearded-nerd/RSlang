@@ -26,10 +26,11 @@ export default class Quiz extends Component<QuizProps> {
 
   constructor(props: QuizProps) {
     super(props);
-    this.changeQuizStatus = props.data.changeQuizStatus;
-    this.setWordStatus = props.data.setWordStatus;
-    this.btns = props.data.btns;
-    this.audio = props.data.audio;
+    const { changeQuizStatus, setWordStatus, btns, audio } = props.data;
+    this.changeQuizStatus = changeQuizStatus;
+    this.setWordStatus = setWordStatus;
+    this.btns = btns;
+    this.audio = audio;
     this.playAudio();
   }
 
@@ -63,6 +64,11 @@ export default class Quiz extends Component<QuizProps> {
     this.audio.play();
   };
 
+  clickHandler = () => {
+    this.setWordStatus(false);
+    this.changeQuizStatus();
+  };
+
   render() {
     return (
       <div className="audio-game-content">
@@ -72,7 +78,9 @@ export default class Quiz extends Component<QuizProps> {
           </button>
         </div>
         <div className="answers">{this.btns}</div>
-        <button type="button">Skip</button>
+        <button type="button" onClick={this.clickHandler}>
+          Skip
+        </button>
       </div>
     );
   }

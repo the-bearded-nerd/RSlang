@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 
 export default class Result extends Component {
-  constructor() {
-    super({});
+  constructor(props = {}) {
+    super(props);
   }
 
   render() {
-    return <div>Result</div>;
+    return (
+      <div className="audio-call-result">
+        <div>Result</div>
+        <button type="button">Играть ещё</button>
+      </div>
+    );
   }
 }

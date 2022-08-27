@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, MouseEvent, MouseEventHandler } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import Quiz from '../Quiz';
@@ -18,6 +18,7 @@ interface RoundState {
 
 interface RoundProps {
   data: IWords[];
+  cb: () => void;
 }
 
 export default class Round extends Component<RoundProps, RoundState> {
@@ -33,15 +34,17 @@ export default class Round extends Component<RoundProps, RoundState> {
 
   audio: HTMLAudioElement;
 
+  finishGame: () => void;
+
   constructor(props: RoundProps) {
     super(props);
     this.state = {
       isQuizActive: true,
       currentRound: 0,
     };
-    const { data } = this.props;
+    const { data, cb } = this.props;
     const { currentRound } = this.state;
-    this.data = data;
+    this.data = shuffle(data);
     this.currentWord = data[currentRound];
     this.audio = new Audio(`${url}${this.currentWord.audio}`);
     this.wordStatus = false;
@@ -49,6 +52,7 @@ export default class Round extends Component<RoundProps, RoundState> {
     this.btns = [];
     this.setRandomWords();
     this.setAnswersBtns();
+    this.finishGame = cb;
   }
 
   setRandomWords() {
@@ -81,7 +85,7 @@ export default class Round extends Component<RoundProps, RoundState> {
     this.btns = shuffle(answers);
   }
 
-  clickHandler = (e: any) => {
+  clickHandler = (e: MouseEvent) => {
     const target = e.currentTarget as HTMLButtonElement;
     const status = target.className === 'isRight';
     this.setWordStatus(status);
@@ -97,16 +101,20 @@ export default class Round extends Component<RoundProps, RoundState> {
 
   finishRound = () => {
     const { currentRound, isQuizActive } = this.state;
-    const num = currentRound + 1;
-    this.currentWord = this.data[num];
-    this.wordStatus = false;
-    this.audio.src = `${url}${this.currentWord.audio}`;
-    this.setRandomWords();
-    this.setAnswersBtns();
-    this.setState({
-      currentRound: num,
-      isQuizActive: !isQuizActive,
-    });
+    if (currentRound < this.data.length - 1) {
+      const num = currentRound + 1;
+      this.currentWord = this.data[num];
+      this.wordStatus = false;
+      this.audio.src = `${url}${this.currentWord.audio}`;
+      this.setRandomWords();
+      this.setAnswersBtns();
+      this.setState({
+        currentRound: num,
+        isQuizActive: !isQuizActive,
+      });
+    } else {
+      this.finishGame();
+    }
   };
 
   render() {

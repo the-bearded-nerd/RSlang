@@ -31,12 +31,20 @@ export default class Game extends Component<{}, GameState> {
     });
   }
 
+  finishGame = () => {
+    this.setState({
+      isGameFinished: true,
+    });
+  };
+
   render() {
     const { isLoading } = this.state;
     if (isLoading) {
       return <div>Loading</div>;
     }
     const { isGameFinished } = this.state;
-    return <div>{!isGameFinished ? <Round data={this.data} /> : <Result />}</div>;
+    return (
+      <div>{!isGameFinished ? <Round data={this.data} cb={this.finishGame} /> : <Result />}</div>
+    );
   }
 }
