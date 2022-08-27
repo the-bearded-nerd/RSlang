@@ -27,7 +27,11 @@ class AudioCall extends Component<{}, AudioCallState> {
     const { isGameStarted } = this.state;
     return (
       <div className="audio-call">
-        {!isGameStarted ? <Greeting cb={this.changeState} /> : <Game />}
+        {!isGameStarted ? (
+          <Greeting cb={this.changeState} />
+        ) : (
+          <Game restartGame={this.changeState} />
+        )}
       </div>
     );
   }

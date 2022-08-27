@@ -5,20 +5,27 @@ import Result from '../Result';
 import Words from '../../utils/Words/Words';
 import IWords from '../../types/IWords';
 
+interface GameProps {
+  restartGame: () => void;
+}
+
 interface GameState {
   isLoading: boolean;
   isGameFinished: boolean;
 }
 
-export default class Game extends Component<{}, GameState> {
+export default class Game extends Component<GameProps, GameState> {
   data: IWords[];
 
-  constructor(props = {}) {
+  restartGame: () => void;
+
+  constructor(props: GameProps) {
     super(props);
     this.state = {
       isLoading: true,
       isGameFinished: false,
     };
+    this.restartGame = props.restartGame;
     this.data = [];
   }
 
@@ -38,13 +45,16 @@ export default class Game extends Component<{}, GameState> {
   };
 
   render() {
-    const { isLoading } = this.state;
+    const { isLoading, isGameFinished } = this.state;
+    const { data, finishGame, restartGame } = this;
     if (isLoading) {
       return <div>Loading</div>;
     }
-    const { isGameFinished } = this.state;
+
     return (
-      <div>{!isGameFinished ? <Round data={this.data} cb={this.finishGame} /> : <Result />}</div>
+      <div>
+        {!isGameFinished ? <Round data={data} cb={finishGame} /> : <Result cb={restartGame} />}
+      </div>
     );
   }
 }
