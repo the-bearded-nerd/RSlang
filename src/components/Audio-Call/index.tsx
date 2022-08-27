@@ -1,29 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React, { Component } from 'react';
 import './index.css';
 
-import Words from '../../utils/Words/Words';
-import IWords from '../../types/IWords';
+import Greeting from '../Greeting';
+import Game from '../Game';
 
-import Greeting from '../Audio-Call-Greeting';
-import AudioGame from '../Audio-Game';
+interface AudioCallState {
+  isGameStarted: boolean;
+}
 
-function AudioCall() {
-  const [words, setWords] = useState<IWords[]>([]);
-  const [isGameStarted, setGameStatus] = useState(false);
+class AudioCall extends Component<{}, AudioCallState> {
+  constructor(props = {}) {
+    super(props);
+    this.state = {
+      isGameStarted: false,
+    };
+  }
 
-  const switchGameStatus = () => {
-    setGameStatus(!isGameStarted);
+  changeState = () => {
+    const { isGameStarted } = this.state;
+    this.setState({
+      isGameStarted: !isGameStarted,
+    });
   };
 
-  useEffect(() => {
-    Words.getWords().then((res: IWords[]) => setWords(res));
-  }, []);
-
-  return (
-    <div className="audio-game">
-      {!isGameStarted ? <Greeting fn={switchGameStatus} /> : <AudioGame data={words} />}
-    </div>
-  );
+  render() {
+    const { isGameStarted } = this.state;
+    return (
+      <div className="audio-call">
+        {!isGameStarted ? <Greeting cb={this.changeState} /> : <Game />}
+      </div>
+    );
+  }
 }
 
 export default AudioCall;

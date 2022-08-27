@@ -1,0 +1,16 @@
+.audio-game-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.audio-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.answers {
+    display: flex;
+    justify-content: center;
+}
