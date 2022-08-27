@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import User from './components/User/User';
+import UserAggregatedWords from './utils/UsersAggregatedWords/UserAggregatedWords';
 
 function App() {
   return (
@@ -30,6 +31,15 @@ function App() {
 
       <Modal active={modalActive} setActive={setModalActive} /> */}
       <User />
+      <button
+        type="button"
+        onClick={async () => {
+          const hardWords = await UserAggregatedWords.getSetDifficultWords();
+          console.log(hardWords);
+        }}
+      >
+        Сложные слова
+      </button>
     </div>
   );
 }

@@ -5,9 +5,9 @@ const baseURL = 'https://rslang-fe2022q1.herokuapp.com/';
 class UserAggregatedWords {
   static async getWordsByDifficulty(
     difficulty: string,
+    wordsPerPage = 4000,
     group?: number,
-    page?: number,
-    wordsPerPage?: number
+    page?: number
   ) {
     const id = Users.getId();
     const requestURL = new URL(`/users/${id}/aggregatedWords`, baseURL);
@@ -32,12 +32,12 @@ class UserAggregatedWords {
   }
 
   static async getDifficultWords() {
-    let result = await UserAggregatedWords.getWordsByDifficulty('hard');
-    return result[0].paginatedResults;
+    const result = await UserAggregatedWords.getWordsByDifficulty('hard');
+    return result;
   }
 
   static async getLearnedtWords() {
-    let result = await UserAggregatedWords.getWordsByDifficulty('learned');
+    const result = await UserAggregatedWords.getWordsByDifficulty('learned');
     return result[0].paginatedResults;
   }
 
