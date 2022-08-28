@@ -2,16 +2,23 @@ import React, { Component } from 'react';
 import Round from '../Round';
 import Result from '../Result';
 
-import Words from '../../utils/Words/Words';
 import IWords from '../../types/IWords';
-
 import GameState from '../../types/GameState';
 
 interface GameProps {
+  options: GamePropsData;
+}
+
+interface GamePropsData {
+  data: IWords[];
   restartGame: () => void;
 }
 
 export default class Game extends Component<GameProps, GameState> {
+  guessedWords: IWords[];
+
+  unGuessedWords: IWords[];
+
   data: IWords[];
 
   restartGame: () => void;
@@ -19,21 +26,22 @@ export default class Game extends Component<GameProps, GameState> {
   constructor(props: GameProps) {
     super(props);
     this.state = {
-      isLoading: true,
       isGameFinished: false,
     };
-    this.restartGame = props.restartGame;
-    this.data = [];
+    const { data, restartGame } = props.options;
+    this.data = data;
+    this.restartGame = restartGame;
+    this.guessedWords = [];
+    this.unGuessedWords = [];
   }
 
-  componentDidMount() {
-    Words.getWords().then((res) => {
-      this.data = res;
-      this.setState({
-        isLoading: false,
-      });
-    });
-  }
+  saveRoundResult = (current: IWords, status: boolean) => {
+    if (status) {
+      this.guessedWords.push(current);
+    } else {
+      this.unGuessedWords.push(current);
+    }
+  };
 
   finishGame = () => {
     this.setState({
@@ -42,15 +50,22 @@ export default class Game extends Component<GameProps, GameState> {
   };
 
   render() {
-    const { isLoading, isGameFinished } = this.state;
-    const { data, finishGame, restartGame } = this;
-    if (isLoading) {
-      return <div>Loading</div>;
-    }
-
+    const { isGameFinished } = this.state;
+    const { data, finishGame, restartGame, saveRoundResult } = this;
+    const { guessedWords, unGuessedWords } = this;
+    const roundOptions = {
+      data,
+      saveRoundResult,
+      finishGame,
+    };
+    const resultOptions = {
+      guessedWords,
+      unGuessedWords,
+      restartGame,
+    };
     return (
       <div className="game">
-        {!isGameFinished ? <Round data={data} cb={finishGame} /> : <Result cb={restartGame} />}
+        {!isGameFinished ? <Round data={roundOptions} /> : <Result data={resultOptions} />}
       </div>
     );
   }

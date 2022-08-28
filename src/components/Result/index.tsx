@@ -1,15 +1,31 @@
 import React, { Component } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
+import IWords from '../../types/IWords';
 
 interface ResultProps {
-  cb: () => void;
+  data: ResultPropsData;
+}
+
+interface ResultPropsData {
+  restartGame: () => void;
+  guessedWords: IWords[];
+  unGuessedWords: IWords[];
 }
 
 export default class Result extends Component<ResultProps> {
+  guessedWords;
+
+  unGuessedWords;
+
   restartGame;
 
   constructor(props: ResultProps) {
     super(props);
-    this.restartGame = props.cb;
+    const { guessedWords, unGuessedWords, restartGame } = props.data;
+    this.guessedWords = guessedWords;
+    this.unGuessedWords = unGuessedWords;
+    this.restartGame = restartGame;
   }
 
   componentDidMount() {
@@ -26,10 +42,29 @@ export default class Result extends Component<ResultProps> {
     }
   };
 
+  renderResult() {
+    return (
+      <div className="words-status">
+        <h3>Отгаданные слова</h3>
+        <ul className="result">
+          {this.guessedWords.map((el) => (
+            <li key={uuidv4()}>{`${el.word} - ${el.wordTranslate}`}</li>
+          ))}
+        </ul>
+        <h3>Неотгаданные слова</h3>
+        <ul className="result">
+          {this.unGuessedWords.map((el) => (
+            <li key={uuidv4()}>{`${el.word} - ${el.wordTranslate}`}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+
   render() {
     return (
       <div className="audio-call-result">
-        <div>Result</div>
+        {this.renderResult()}
         <button type="button" onClick={this.restartGame}>
           Играть ещё
         </button>

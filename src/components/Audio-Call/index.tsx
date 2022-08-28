@@ -4,23 +4,34 @@ import './index.css';
 import Greeting from '../Greeting';
 import Game from '../Game';
 
-interface AudioCallState {
-  isGameStarted: boolean;
-  isFullscreen: boolean;
-}
+import LocalStorageService from '../../utils/LocalStorageService';
+import Words from '../../utils/Words/Words';
+
+import IWords from '../../types/IWords';
+import AudioCallState from '../../types/AudioCallState';
 
 class AudioCall extends Component<{}, AudioCallState> {
+  level: number;
+
+  data: IWords[];
+
   constructor(props = {}) {
     super(props);
     this.state = {
       isGameStarted: false,
       isFullscreen: false,
     };
+    this.data = [];
+    this.level = 0;
   }
 
   componentDidMount() {
     const { onFullscreenChange } = this;
     document.addEventListener('fullscreenchange', onFullscreenChange);
+    const storageData = LocalStorageService.getItem('gameWords');
+    if (storageData) {
+      this.data = LocalStorageService.getItem('gameWords') as IWords[];
+    }
   }
 
   onFullscreenChange = () => {
@@ -30,11 +41,20 @@ class AudioCall extends Component<{}, AudioCallState> {
     });
   };
 
-  changeState = () => {
-    const { isGameStarted } = this.state;
-    this.setState({
-      isGameStarted: !isGameStarted,
+  getData() {
+    console.log(this.level);
+    Words.getWords().then((res) => {
+      this.data = res;
+      this.changeGameStatus();
     });
+  }
+
+  startGame = () => {
+    if (this.data.length) {
+      this.changeGameStatus();
+    } else {
+      this.getData();
+    }
   };
 
   changeFullscreen = () => {
@@ -46,18 +66,33 @@ class AudioCall extends Component<{}, AudioCallState> {
     }
   };
 
+  changeGameStatus = () => {
+    const { isGameStarted } = this.state;
+    this.setState({
+      isGameStarted: !isGameStarted,
+    });
+  };
+
+  changeLevel = (num: number) => {
+    this.level = num;
+  };
+
   render() {
     const { isGameStarted } = this.state;
+    const gameOptions = {
+      data: this.data,
+      restartGame: this.startGame,
+    };
+    const greetOptions = {
+      startGame: this.startGame,
+      changeLevel: this.changeLevel,
+    };
     return (
       <div className="audio-call">
         <button className="fullscreen" type="button" onClick={this.changeFullscreen}>
           Fullscreen
         </button>
-        {!isGameStarted ? (
-          <Greeting cb={this.changeState} />
-        ) : (
-          <Game restartGame={this.changeState} />
-        )}
+        {!isGameStarted ? <Greeting options={greetOptions} /> : <Game options={gameOptions} />}
       </div>
     );
   }

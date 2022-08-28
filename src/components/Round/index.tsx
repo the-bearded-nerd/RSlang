@@ -19,8 +19,13 @@ interface RoundState {
 }
 
 interface RoundProps {
+  data: RoundPropsData;
+}
+
+interface RoundPropsData {
   data: IWords[];
-  cb: () => void;
+  saveRoundResult: (current: IWords, status: boolean) => void;
+  finishGame: () => void;
 }
 
 export default class Round extends Component<RoundProps, RoundState> {
@@ -34,7 +39,9 @@ export default class Round extends Component<RoundProps, RoundState> {
 
   roundWords: IWords[];
 
-  rightAnswer: number;
+  rightAnswer;
+
+  saveRoundResult;
 
   finishGame: () => void;
 
@@ -44,7 +51,7 @@ export default class Round extends Component<RoundProps, RoundState> {
       isQuizActive: true,
       currentRound: 0,
     };
-    const { data, cb } = this.props;
+    const { data, finishGame, saveRoundResult } = props.data;
     const { currentRound } = this.state;
     this.data = shuffle(data);
 
@@ -56,7 +63,8 @@ export default class Round extends Component<RoundProps, RoundState> {
     this.rightAnswer = 0;
 
     this.getRoundWords();
-    this.finishGame = cb;
+    this.saveRoundResult = saveRoundResult;
+    this.finishGame = finishGame;
   }
 
   getRoundWords() {
@@ -82,7 +90,9 @@ export default class Round extends Component<RoundProps, RoundState> {
 
   finishRound = () => {
     const { currentRound, isQuizActive } = this.state;
+    const { data, saveRoundResult, wordStatus } = this;
     if (currentRound < this.data.length - 1) {
+      saveRoundResult(data[currentRound], wordStatus);
       const num = currentRound + 1;
       this.currentWord = this.data[num];
       this.wordStatus = false;

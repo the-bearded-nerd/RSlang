@@ -70,11 +70,12 @@ export default class Card extends Component<CardProps> {
   }
 
   render() {
-    const { image } = this.currentWord;
+    const { image, word } = this.currentWord;
     return (
       <div className="card">
         <img src={`${url}${image}`} alt="" />
-        <div>{this.wordStatus ? 'отгадано' : 'не отгадано'}</div>
+        <p>{this.wordStatus ? 'отгадано' : 'не отгадано'}</p>
+        <p>{word}</p>
         {this.renderAnswers()}
         <button type="button" onClick={this.finish}>
           Далее
