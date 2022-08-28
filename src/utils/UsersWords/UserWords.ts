@@ -1,5 +1,6 @@
-const baseURL = 'https://rslang-fe2022q1.herokuapp.com/';
 import Users from '../Users/User';
+
+const baseURL = 'https://rslang-fe2022q1.herokuapp.com/';
 
 class UsersWords {
   static async getWords(id: string) {
@@ -19,7 +20,7 @@ class UsersWords {
     const token = Users.getToken();
     const response = await fetch(requestURL, {
       method: 'POST',
-      credentials: 'include',
+      credentials: 'omit',
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: 'application/json',
@@ -39,7 +40,7 @@ class UsersWords {
     const token = Users.getToken();
     const response = await fetch(requestURL, {
       method: 'GET',
-      credentials: 'include',
+      credentials: 'omit',
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: 'application/json',
@@ -58,7 +59,7 @@ class UsersWords {
     const token = Users.getToken();
     const response = await fetch(requestURL, {
       method: 'PUT',
-      credentials: 'include',
+      credentials: 'omit',
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: 'application/json',
@@ -112,7 +113,7 @@ class UsersWords {
   static async resetDifficulty(wordId: string) {
     const isCreated = await UsersWords.getWord(wordId);
     if (isCreated) {
-      UsersWords.updateWord(wordId, '');
+      UsersWords.updateWord(wordId, ' ');
     }
   }
 }
