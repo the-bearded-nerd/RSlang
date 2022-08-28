@@ -6,6 +6,7 @@ import Game from '../Game';
 
 interface AudioCallState {
   isGameStarted: boolean;
+  isFullscreen: boolean;
 }
 
 class AudioCall extends Component<{}, AudioCallState> {
@@ -13,8 +14,21 @@ class AudioCall extends Component<{}, AudioCallState> {
     super(props);
     this.state = {
       isGameStarted: false,
+      isFullscreen: false,
     };
   }
+
+  componentDidMount() {
+    const { onFullscreenChange } = this;
+    document.addEventListener('fullscreenchange', onFullscreenChange);
+  }
+
+  onFullscreenChange = () => {
+    const status = !!document.fullscreenElement;
+    this.setState({
+      isFullscreen: status,
+    });
+  };
 
   changeState = () => {
     const { isGameStarted } = this.state;
@@ -23,10 +37,22 @@ class AudioCall extends Component<{}, AudioCallState> {
     });
   };
 
+  changeFullscreen = () => {
+    const { isFullscreen } = this.state;
+    if (!isFullscreen) {
+      document.body.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  };
+
   render() {
     const { isGameStarted } = this.state;
     return (
       <div className="audio-call">
+        <button className="fullscreen" type="button" onClick={this.changeFullscreen}>
+          Fullscreen
+        </button>
         {!isGameStarted ? (
           <Greeting cb={this.changeState} />
         ) : (
