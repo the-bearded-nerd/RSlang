@@ -1,14 +1,22 @@
 /* eslint-disable react/no-danger */
 import React from 'react';
 import DOMPurify from 'dompurify';
-import BtnStudiedWord from '../BtnStudiedWord/BtnStudiedWord';
 import './wordInfo.css';
-import { PropsAudioWords } from '../../interface/interfaces';
+import { PropsWordInfo } from '../../interface/interfaces';
 import BtnAddWord from '../BtnAddWord/BtnAddWord';
+
+// import BtnStudiedWord from '../BtnStudiedWord/BtnStudiedWord';
 
 const baseURL = 'https://rslang-fe2022q1.herokuapp.com/';
 
-function WordInfo({ objectWord, currentDisabled, setDisabled, setFlag, flag }: PropsAudioWords) {
+function WordInfo({
+  objectWord,
+  currentDisabled,
+  setDisabled,
+  setFlag,
+  flag,
+  className,
+}: PropsWordInfo) {
   const correctionTextMeaning = DOMPurify.sanitize(objectWord.textMeaning);
   const correctionTranslateTextMeaning = DOMPurify.sanitize(objectWord.textMeaningTranslate);
   const correctionTextExample = DOMPurify.sanitize(objectWord.textExample);
@@ -28,8 +36,8 @@ function WordInfo({ objectWord, currentDisabled, setDisabled, setFlag, flag }: P
   const [audioElement, setAudioElement] = React.useState<HTMLAudioElement>();
   React.useEffect(() => {
     if (!flag) {
-      const v = audioElement;
-      v?.pause();
+      const valueAudio = audioElement;
+      valueAudio?.pause();
       setDisabled(false);
       setLocalDisabled(true);
       setFlag(false);
@@ -37,8 +45,9 @@ function WordInfo({ objectWord, currentDisabled, setDisabled, setFlag, flag }: P
       setDisabled(true);
     }
   }, [audioElement, flag]);
+
   return (
-    <div className="word">
+    <div className={className}>
       <img className="image-word" src={`${baseURL}${objectWord.image}`} alt="img" width={200} />
       <div className="box-word">
         <div className="name-word">
@@ -94,8 +103,8 @@ function WordInfo({ objectWord, currentDisabled, setDisabled, setFlag, flag }: P
         <div dangerouslySetInnerHTML={{ __html: correctionTextExample }} />
         <div dangerouslySetInnerHTML={{ __html: correctionTranslateTextExample }} />
         <div className="wrapper-btn-word">
-          <BtnAddWord />
-          <BtnStudiedWord />
+          <BtnAddWord id={objectWord.id} />
+          {/* <BtnStudiedWord id={objectWord.id} /> */}
         </div>
       </div>
     </div>

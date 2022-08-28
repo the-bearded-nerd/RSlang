@@ -1,0 +1,6 @@
+.word {
+  background-color: aliceblue;
+}
+.word.active {
+  background-color: blueviolet;
+}

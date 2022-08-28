@@ -8,7 +8,7 @@
   list-style: none;
   color: #000000;
 }
-.active {
+.menu .active {
   background-color: rgb(255 107 251 / 50%);
   padding: 25px;
   border-bottom: 8px solid #ffffff;

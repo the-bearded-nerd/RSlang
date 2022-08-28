@@ -1,10 +1,11 @@
 import React from 'react';
 import Users from '../../../utils/Users/User';
+import UsersWords from '../../../utils/UsersWords/UserWords';
+import { IdWord } from '../../interface/interfaces';
 import './btnWord.css';
 
-function BtnStudiedWord() {
+function BtnStudiedWord({ id }: IdWord) {
   const resultAuthorizad = Users.isAuthorized();
-  console.log(resultAuthorizad);
   return (
     <>
       <button
@@ -12,7 +13,9 @@ function BtnStudiedWord() {
         title={!resultAuthorizad ? 'Пожалуйста авторизуйтесь' : ''}
         className="Btn-Word"
         type="button"
-        onClick={(e) => console.log(e)}
+        onClick={() => {
+          UsersWords.setLearned(id);
+        }}
       >
         Слово изучено
       </button>
