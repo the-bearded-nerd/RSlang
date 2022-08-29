@@ -5,17 +5,16 @@ import './wordInfo.css';
 import { PropsWordInfo } from '../../interface/interfaces';
 import BtnAddWord from '../BtnAddWord/BtnAddWord';
 
-// import BtnStudiedWord from '../BtnStudiedWord/BtnStudiedWord';
-
 const baseURL = 'https://rslang-fe2022q1.herokuapp.com/';
 
 function WordInfo({
   objectWord,
   currentDisabled,
   setDisabled,
-  setFlag,
-  flag,
+  isflagPlayAudio,
+  flagPlayAudio,
   className,
+  setUserAggregatedWords,
 }: PropsWordInfo) {
   const correctionTextMeaning = DOMPurify.sanitize(objectWord.textMeaning);
   const correctionTranslateTextMeaning = DOMPurify.sanitize(objectWord.textMeaningTranslate);
@@ -35,16 +34,16 @@ function WordInfo({
 
   const [audioElement, setAudioElement] = React.useState<HTMLAudioElement>();
   React.useEffect(() => {
-    if (!flag) {
+    if (!flagPlayAudio) {
       const valueAudio = audioElement;
       valueAudio?.pause();
       setDisabled(false);
       setLocalDisabled(true);
-      setFlag(false);
+      isflagPlayAudio(false);
     } else {
       setDisabled(true);
     }
-  }, [audioElement, flag]);
+  }, [audioElement, flagPlayAudio]);
 
   return (
     <div className={className}>
@@ -66,9 +65,8 @@ function WordInfo({
               audioWordMeaning.src = `${baseURL}${objectWord.audioMeaning}`;
               audioWordExample.src = `${baseURL}${objectWord.audioExample}`;
               audioWord.src = `${baseURL}${objectWord.audio}`;
-              if (flag === false) {
-                setFlag(true);
-
+              if (flagPlayAudio === false) {
+                isflagPlayAudio(true);
                 setPlay(audioWord);
                 setAudioElement(audioWord);
                 audioWord.addEventListener('ended', () => {
@@ -83,10 +81,10 @@ function WordInfo({
                 audioWordExample.addEventListener('ended', () => {
                   setDisabled(false);
                   setLocalDisabled(true);
-                  setFlag(false);
+                  isflagPlayAudio(false);
                 });
               } else {
-                setFlag(false);
+                isflagPlayAudio(false);
                 audioWord.pause();
                 audioWordExample.pause();
                 audioWordMeaning.pause();
@@ -103,8 +101,11 @@ function WordInfo({
         <div dangerouslySetInnerHTML={{ __html: correctionTextExample }} />
         <div dangerouslySetInnerHTML={{ __html: correctionTranslateTextExample }} />
         <div className="wrapper-btn-word">
-          <BtnAddWord id={objectWord.id} />
-          {/* <BtnStudiedWord id={objectWord.id} /> */}
+          <BtnAddWord
+            objectWord={objectWord}
+            setUserAggregatedWords={setUserAggregatedWords}
+            className={className}
+          />
         </div>
       </div>
     </div>

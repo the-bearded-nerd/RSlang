@@ -15,12 +15,9 @@ function WordsTextBook({
 }: PropsWords) {
   const [currentWords, setWords] = React.useState<CurrentWords[]>([]);
   const [currentDisabled, setDisabled] = React.useState<boolean>(false);
-  const [flag, setFlag] = React.useState<boolean>(false);
+  const [flagPlayAudio, isflagPlayAudio] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    UserAggregatedWords.getDifficultWords()
-      .then((res) => res)
-      .then((data) => setUserAggregatedWords(data));
     if (hard !== 6) {
       Words.getWords(hard, numberPage)
         .then((res) => res)
@@ -37,23 +34,33 @@ function WordsTextBook({
   }, [hard, numberPage]);
 
   function checkW(word: string) {
-    const result = userAggregatedWords.some((e) => e.word === word);
-    console.log(result, '8');
+    const fillter = userAggregatedWords.filter((e) => e.word === word);
+    if (userAggregatedWords && !fillter) {
+      return userAggregatedWords;
+    }
+    const result = userAggregatedWords.find((e) => e.word === word);
     return result;
   }
+
+  React.useEffect(() => {
+    UserAggregatedWords.getDifficultWords()
+      .then((res) => res)
+      .then((data) => setUserAggregatedWords(data));
+  }, []);
 
   return (
     <>
       {currentWords.map((e) => (
         <WordInfo
-          key={`${e.id}`}
+          key={e.id}
           objectWord={e}
           currentDisabled={currentDisabled}
           setDisabled={setDisabled}
-          setFlag={setFlag}
-          flag={flag}
+          isflagPlayAudio={isflagPlayAudio}
+          flagPlayAudio={flagPlayAudio}
           userAggregatedWords={userAggregatedWords}
           className={checkW(e.word) ? 'word active' : 'word'}
+          setUserAggregatedWords={setUserAggregatedWords}
         />
       ))}
     </>

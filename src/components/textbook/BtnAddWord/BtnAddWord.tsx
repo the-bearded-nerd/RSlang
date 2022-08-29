@@ -1,15 +1,16 @@
 import React from 'react';
 import Users from '../../../utils/Users/User';
+import UserAggregatedWords from '../../../utils/UsersAggregatedWords/UserAggregatedWords';
 
 import UsersWords from '../../../utils/UsersWords/UserWords';
 import { IdWord } from '../../interface/interfaces';
 import '../BtnStudiedWord/btnWord.css';
 
-function BtnAddWord({ id }: IdWord) {
+function BtnAddWord({ objectWord, setUserAggregatedWords, className }: IdWord) {
   const resultAuthorizad = Users.isAuthorized();
+  const wordActive = className.includes('word active');
 
-  const [activeAggregatedWords, isActiveAggregatedWords] = React.useState<boolean>();
-  const textBtn = activeAggregatedWords ? 'Удалить из сложных слов' : 'Добавить сложное слово';
+  const textBtn = wordActive ? 'Удалить из сложных слов' : 'Добавить сложное слово';
 
   return (
     <>
@@ -19,12 +20,15 @@ function BtnAddWord({ id }: IdWord) {
         className="btn-Word"
         type="button"
         onClick={() => {
-          if (activeAggregatedWords) {
-            isActiveAggregatedWords(false);
-            UsersWords.deleteWord(id);
+          UserAggregatedWords.getDifficultWords();
+          if (wordActive) {
+            setUserAggregatedWords((prev) => prev.filter((el) => el.word !== objectWord.word));
+
+            UsersWords.resetDifficulty(objectWord.id);
           } else {
-            isActiveAggregatedWords(true);
-            UsersWords.setDifficult(id);
+            setUserAggregatedWords((prev) => [...prev, objectWord]);
+
+            UsersWords.setDifficult(objectWord.id);
           }
         }}
       >

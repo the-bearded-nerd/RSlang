@@ -6,7 +6,6 @@ export interface TypeSection {
 }
 
 export interface CurrentWords {
-  [x: string]: any;
   audio: string;
   audioExample: string;
   audioMeaning: string;
@@ -31,10 +30,11 @@ export interface PropsWordInfo {
   objectWord: CurrentWords;
   currentDisabled: boolean;
   setDisabled: (disabled: boolean) => void;
-  setFlag: (v: boolean) => void;
-  flag: boolean;
+  isflagPlayAudio: (v: boolean) => void;
+  flagPlayAudio: boolean;
   userAggregatedWords: CurrentWords[];
   className: string;
+  setUserAggregatedWords: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
 }
 
 export interface PropsLocalDisabled {
@@ -49,10 +49,11 @@ export interface PropsWords {
   hard: number;
   numberPage: number;
   userAggregatedWords: CurrentWords[];
-  setUserAggregatedWords: (str: CurrentWords[]) => void;
+  setUserAggregatedWords: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
 }
 
 export interface IdWord {
-  id: string;
-  userAggregatedWords?: CurrentWords[];
+  objectWord: CurrentWords;
+  setUserAggregatedWords: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
+  className: string;
 }
