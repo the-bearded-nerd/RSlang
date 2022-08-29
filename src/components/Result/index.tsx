@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
+import url from '../../constants/url';
+
 import IWords from '../../types/IWords';
 
 interface ResultProps {
@@ -42,33 +44,63 @@ export default class Result extends Component<ResultProps> {
     }
   };
 
-  renderResult() {
+  renderGuessedWords() {
     return (
       <div className="words-status">
         <h3>Отгаданные слова</h3>
         <ul className="result">
-          {this.guessedWords.map((el) => (
-            <li key={uuidv4()}>
-              <span>{`${el.word} - ${el.wordTranslate}`}</span>
-            </li>
-          ))}
-        </ul>
-        <h3>Неотгаданные слова</h3>
-        <ul className="result">
-          {this.unGuessedWords.map((el) => (
-            <li key={uuidv4()}>
-              <span>{`${el.word} - ${el.wordTranslate}`}</span>
-            </li>
-          ))}
+          {this.guessedWords.map((el) => {
+            const audio = new Audio(`${url}${el.audio}`);
+            return (
+              <li key={uuidv4()}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    audio.play();
+                  }}
+                >
+                  Sound on
+                </button>
+                <span>{`${el.word} - ${el.wordTranslate}`}</span>
+              </li>
+            );
+          })}
         </ul>
       </div>
+    );
+  }
+
+  renderUnguessedWords() {
+    return (
+      <>
+        <h3>Неотгаданные слова</h3>
+        <ul className="result">
+          {this.unGuessedWords.map((el) => {
+            const audio = new Audio(`${url}${el.audio}`);
+            return (
+              <li key={uuidv4()}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    audio.play();
+                  }}
+                >
+                  Sound on
+                </button>
+                <span>{`${el.word} - ${el.wordTranslate}`}</span>
+              </li>
+            );
+          })}
+        </ul>
+      </>
     );
   }
 
   render() {
     return (
       <div className="audio-call-result">
-        {this.renderResult()}
+        {this.renderGuessedWords()}
+        {this.renderUnguessedWords()}
         <button type="button" onClick={this.restartGame}>
           Играть ещё
         </button>
