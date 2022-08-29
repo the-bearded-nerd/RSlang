@@ -6,11 +6,13 @@ import './index.css';
 import Quiz from '../Quiz';
 import Card from '../Card';
 
+// helpers
+import shuffle from '../../common/shuffle';
+
 // Constants
 import url from '../../constants/url';
 
-import shuffle from '../../common/shuffle';
-
+// Types
 import IWords from '../../types/IWords';
 
 interface RoundState {
@@ -24,6 +26,7 @@ interface RoundProps {
 
 interface RoundPropsData {
   data: IWords[];
+  isMute: boolean;
   saveRoundResult: (current: IWords, status: boolean) => void;
   finishGame: () => void;
 }
@@ -51,7 +54,7 @@ export default class Round extends Component<RoundProps, RoundState> {
       isQuizActive: true,
       currentRound: 0,
     };
-    const { data, finishGame, saveRoundResult } = props.data;
+    const { data, finishGame, saveRoundResult, isMute } = props.data;
     const { currentRound } = this.state;
     this.data = shuffle(data);
 
@@ -59,7 +62,6 @@ export default class Round extends Component<RoundProps, RoundState> {
     this.audio = new Audio(`${url}${this.currentWord.audio}`);
     this.wordStatus = false;
     this.roundWords = [];
-
     this.rightAnswer = 0;
 
     this.getRoundWords();
@@ -109,6 +111,7 @@ export default class Round extends Component<RoundProps, RoundState> {
 
   render() {
     const { currentWord, rightAnswer, changeQuizStatus, setWordStatus, roundWords, audio } = this;
+    const { data } = this.props;
     const quizOptions = {
       changeQuizStatus,
       setWordStatus,
@@ -119,15 +122,16 @@ export default class Round extends Component<RoundProps, RoundState> {
     };
     const cardOptions = {
       wordStatus: this.wordStatus,
-      finishRound: this.finishRound,
+      currentWord,
+      isMute: data.isMute,
       roundWords,
       rightAnswer,
-      currentWord,
+      finishRound: this.finishRound,
     };
     const { isQuizActive } = this.state;
     return (
       <div className="Round">
-        {isQuizActive ? <Quiz data={quizOptions} /> : <Card data={cardOptions} />}
+        {isQuizActive ? <Quiz data={quizOptions} /> : <Card options={cardOptions} />}
       </div>
     );
   }

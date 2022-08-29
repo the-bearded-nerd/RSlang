@@ -6,12 +6,15 @@ import IWords from '../../types/IWords';
 
 // Constants
 import url from '../../constants/url';
+import correctSoundUrl from '../../constants/correct-sound-url';
+import incorrectSoundUrl from '../../constants/incorrect-sound-url';
 
 interface CardProps {
-  data: CardOptions;
+  options: CardOptions;
 }
 
 interface CardOptions {
+  isMute: boolean;
   currentWord: IWords;
   wordStatus: boolean;
   roundWords: IWords[];
@@ -24,24 +27,36 @@ export default class Card extends Component<CardProps> {
 
   wordStatus;
 
+  wordStatusSound;
+
   roundWords;
 
   rightAnswer;
+
+  isMute;
 
   finishRound;
 
   constructor(props: CardProps) {
     super(props);
-    const { data } = this.props;
-    this.currentWord = data.currentWord;
-    this.wordStatus = data.wordStatus;
-    this.roundWords = data.roundWords;
-    this.rightAnswer = data.rightAnswer;
-    this.finishRound = data.finishRound;
+    const { options } = this.props;
+    const { currentWord, wordStatus, roundWords, rightAnswer, isMute, finishRound } = options;
+    this.currentWord = currentWord;
+    this.wordStatus = wordStatus;
+    this.roundWords = roundWords;
+    this.rightAnswer = rightAnswer;
+    this.isMute = isMute;
+    this.finishRound = finishRound;
+    this.wordStatusSound = new Audio();
   }
 
   componentDidMount() {
     window.addEventListener('keydown', this.finish);
+    const src = this.wordStatus ? correctSoundUrl : incorrectSoundUrl;
+    this.wordStatusSound.src = src;
+    if (!this.isMute) {
+      this.wordStatusSound.play();
+    }
   }
 
   componentWillUnmount() {

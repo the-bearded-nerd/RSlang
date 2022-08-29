@@ -48,13 +48,17 @@ export default class Result extends Component<ResultProps> {
         <h3>Отгаданные слова</h3>
         <ul className="result">
           {this.guessedWords.map((el) => (
-            <li key={uuidv4()}>{`${el.word} - ${el.wordTranslate}`}</li>
+            <li key={uuidv4()}>
+              <span>{`${el.word} - ${el.wordTranslate}`}</span>
+            </li>
           ))}
         </ul>
         <h3>Неотгаданные слова</h3>
         <ul className="result">
           {this.unGuessedWords.map((el) => (
-            <li key={uuidv4()}>{`${el.word} - ${el.wordTranslate}`}</li>
+            <li key={uuidv4()}>
+              <span>{`${el.word} - ${el.wordTranslate}`}</span>
+            </li>
           ))}
         </ul>
       </div>

@@ -20,6 +20,7 @@ class AudioCall extends Component<{}, AudioCallState> {
     this.state = {
       isGameStarted: false,
       isFullscreen: false,
+      isMute: false,
     };
     this.data = [];
     this.level = 0;
@@ -77,9 +78,17 @@ class AudioCall extends Component<{}, AudioCallState> {
     this.level = num;
   };
 
+  changeMuteStatus = () => {
+    const { isMute } = this.state;
+    this.setState({
+      isMute: !isMute,
+    });
+  };
+
   render() {
-    const { isGameStarted } = this.state;
+    const { isGameStarted, isMute } = this.state;
     const gameOptions = {
+      isMute,
       data: this.data,
       restartGame: this.startGame,
     };
@@ -89,9 +98,14 @@ class AudioCall extends Component<{}, AudioCallState> {
     };
     return (
       <div className="audio-call">
-        <button className="fullscreen" type="button" onClick={this.changeFullscreen}>
-          Fullscreen
-        </button>
+        <span>
+          <button className="fullscreen" type="button" onClick={this.changeFullscreen}>
+            Fullscreen
+          </button>
+          <button type="button" onClick={this.changeMuteStatus}>
+            {isMute ? 'Unmute' : 'Mute'}
+          </button>
+        </span>
         {!isGameStarted ? <Greeting options={greetOptions} /> : <Game options={gameOptions} />}
       </div>
     );

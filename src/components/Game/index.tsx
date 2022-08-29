@@ -11,6 +11,7 @@ interface GameProps {
 
 interface GamePropsData {
   data: IWords[];
+  isMute: boolean;
   restartGame: () => void;
 }
 
@@ -51,10 +52,12 @@ export default class Game extends Component<GameProps, GameState> {
 
   render() {
     const { isGameFinished } = this.state;
+    const { options } = this.props;
     const { data, finishGame, restartGame, saveRoundResult } = this;
     const { guessedWords, unGuessedWords } = this;
     const roundOptions = {
       data,
+      isMute: options.isMute,
       saveRoundResult,
       finishGame,
     };
