@@ -33,7 +33,7 @@ class UserAggregatedWords {
 
   static async getDifficultWords() {
     const result = await UserAggregatedWords.getWordsByDifficulty('hard');
-    return result;
+    return result[0].paginatedResults;
   }
 
   static async getLearnedtWords() {
