@@ -6,6 +6,7 @@ export interface TypeSection {
 }
 
 export interface CurrentWords {
+  _id: string;
   audio: string;
   audioExample: string;
   audioMeaning: string;
@@ -33,8 +34,10 @@ export interface PropsWordInfo {
   isflagPlayAudio: (v: boolean) => void;
   flagPlayAudio: boolean;
   userAggregatedWords: CurrentWords[];
-  className: string;
+  classNameDifficul: string;
   setUserAggregatedWords: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
+  classNameLearned: string;
+  setUserLearned: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
 }
 
 export interface PropsLocalDisabled {
@@ -43,17 +46,36 @@ export interface PropsLocalDisabled {
 export interface PropsBtnPage {
   setNumberPage: () => void;
   currentCount: number;
+  currentWords: CurrentWords[];
+  isLearnPage: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export interface PropsWords {
+export interface PropsWordsTextBook {
   hard: number;
   numberPage: number;
   userAggregatedWords: CurrentWords[];
   setUserAggregatedWords: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
+  userLearned: CurrentWords[];
+  setWords: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
+  currentWords: CurrentWords[];
+  setUserLearned: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
+  isLearnPage: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export interface IdWord {
+export interface PropsDifficulWord {
   objectWord: CurrentWords;
   setUserAggregatedWords: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
-  className: string;
+  classNameDifficul: string;
+  isFlagDifficul: React.Dispatch<React.SetStateAction<boolean | null>>;
+  flagDifficul: boolean | null;
+  setUserLearned: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
+}
+
+export interface PropsLearnedWord {
+  objectWord: CurrentWords;
+  setUserAggregatedWords: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
+  classNameLearned: string;
+  isFlagDifficul: React.Dispatch<React.SetStateAction<boolean | null>>;
+  flagDifficul: boolean | null;
+  setUserLearned: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
 }
