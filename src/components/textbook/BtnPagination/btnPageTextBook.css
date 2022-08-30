@@ -1,7 +1,14 @@
 .box-btn-page {
+  display: none;
+}
+.box-btn-page.active {
   display: flex;
   justify-content: center;
   align-items: baseline;
   gap: 15px;
   font-size: 25px;
+}
+
+.page-learn {
+  background-color: blue;
 }
