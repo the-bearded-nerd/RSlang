@@ -1,20 +1,29 @@
 import React from 'react';
 import Users from '../../../utils/Users/User';
-import UsersWords from '../../../utils/UsersWords/UserWords';
-import { IdWord } from '../../interface/interfaces';
+import UsersWords from '../../../utils/UsersWords/UsersWords';
+import { PropsLearnedWord } from '../../interface/interfaces';
 import './btnWord.css';
 
-function BtnStudiedWord({ id }: IdWord) {
+function BtnLearnedWord({
+  objectWord,
+  setUserAggregatedWords,
+  classNameLearned,
+  setUserLearned,
+}: PropsLearnedWord) {
   const resultAuthorizad = Users.isAuthorized();
+  const wordActive = classNameLearned.includes('no-learned');
+
   return (
     <>
       <button
-        disabled={!resultAuthorizad}
+        disabled={!wordActive || !resultAuthorizad}
         title={!resultAuthorizad ? 'Пожалуйста авторизуйтесь' : ''}
-        className="Btn-Word"
+        className="btn-Word"
         type="button"
         onClick={() => {
-          UsersWords.setLearned(id);
+          UsersWords.setLearned(objectWord.id);
+          setUserAggregatedWords((prev) => prev.filter((el) => el.word !== objectWord.word));
+          setUserLearned((prev) => [...prev, objectWord]);
         }}
       >
         Слово изучено
@@ -24,4 +33,4 @@ function BtnStudiedWord({ id }: IdWord) {
   );
 }
 
-export default BtnStudiedWord;
+export default BtnLearnedWord;
