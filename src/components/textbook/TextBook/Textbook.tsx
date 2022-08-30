@@ -11,6 +11,8 @@ function Textbook() {
   const resultHard: number = JSON.parse(localStorage.getItem('levelHard') || '0');
   const [currentCount, setCount] = React.useState<number>(resultPage);
   const [idHard, setIdHard] = React.useState<number>(resultHard);
+  const [currentWords, setWords] = React.useState<CurrentWords[]>([]);
+  const [learnPage, isLearnPage] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     localStorage.setItem('numberPage', JSON.stringify(currentCount));
@@ -18,12 +20,23 @@ function Textbook() {
   }, [currentCount, idHard]);
 
   const [userAggregatedWords, setUserAggregatedWords] = React.useState<CurrentWords[]>([]);
+  const [userLearned, setUserLearned] = React.useState<CurrentWords[]>([]);
 
   React.useEffect(() => {
     UserAggregatedWords.getDifficultWords()
       .then((res) => res)
       .then((data) => setUserAggregatedWords(data));
+
+    UserAggregatedWords.getLearnedtWords()
+      .then((res) => res)
+      .then((data) => setUserLearned(data));
   }, []);
+
+  UserAggregatedWords.allLearned(currentWords)
+    .then((e) => e)
+    .then((i) => isLearnPage(i));
+  const classHard = idHard !== 6 ? 'box-btn-page active' : 'box-btn-page';
+  UserAggregatedWords.getSetLearnedtWords();
 
   return (
     <>
@@ -43,24 +56,37 @@ function Textbook() {
         setNumberPage={() => setCount(1)}
         idHard={idHard}
       />
+
       <h2>Слова</h2>
-      <WordsTextBook
-        hard={idHard}
-        numberPage={currentCount - 1}
-        userAggregatedWords={userAggregatedWords}
-        setUserAggregatedWords={setUserAggregatedWords}
-      />
-      <div className="box-btn-page">
-        <BtnPrevPage
-          setNumberPage={() => setCount(currentCount < 2 ? 1 : currentCount - 1)}
-          currentCount={currentCount}
+      <section className={idHard !== 6 ? 'page' : 'difficul'}>
+        <WordsTextBook
+          hard={idHard}
+          numberPage={currentCount - 1}
+          userAggregatedWords={userAggregatedWords}
+          setUserAggregatedWords={setUserAggregatedWords}
+          userLearned={userLearned}
+          setWords={setWords}
+          currentWords={currentWords}
+          setUserLearned={setUserLearned}
+          isLearnPage={isLearnPage}
         />
-        <div>{currentCount}</div>
-        <BtnNextPage
-          setNumberPage={() => setCount(currentCount === 30 ? 30 : currentCount + 1)}
-          currentCount={currentCount}
-        />
-      </div>
+
+        <div className={classHard}>
+          <BtnPrevPage
+            setNumberPage={() => setCount(currentCount < 2 ? 1 : currentCount - 1)}
+            currentCount={currentCount}
+            currentWords={currentWords}
+            isLearnPage={isLearnPage}
+          />
+          <div className={learnPage ? 'page-learn' : 'no'}>{currentCount}</div>
+          <BtnNextPage
+            setNumberPage={() => setCount(currentCount === 30 ? 30 : currentCount + 1)}
+            currentCount={currentCount}
+            currentWords={currentWords}
+            isLearnPage={isLearnPage}
+          />
+        </div>
+      </section>
     </>
   );
 }

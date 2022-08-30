@@ -4,6 +4,7 @@ import DOMPurify from 'dompurify';
 import './wordInfo.css';
 import { PropsWordInfo } from '../../interface/interfaces';
 import BtnAddWord from '../BtnAddWord/BtnAddWord';
+import BtnStudiedWord from '../BtnStudiedWord/BtnStudiedWord';
 
 const baseURL = 'https://rslang-fe2022q1.herokuapp.com/';
 
@@ -13,9 +14,13 @@ function WordInfo({
   setDisabled,
   isflagPlayAudio,
   flagPlayAudio,
-  className,
+  classNameDifficul,
   setUserAggregatedWords,
+  classNameLearned,
+  setUserLearned,
 }: PropsWordInfo) {
+  const [flagDifficul, isFlagDifficul] = React.useState<boolean | null>(null);
+
   const correctionTextMeaning = DOMPurify.sanitize(objectWord.textMeaning);
   const correctionTranslateTextMeaning = DOMPurify.sanitize(objectWord.textMeaningTranslate);
   const correctionTextExample = DOMPurify.sanitize(objectWord.textExample);
@@ -46,66 +51,79 @@ function WordInfo({
   }, [audioElement, flagPlayAudio]);
 
   return (
-    <div className={className}>
-      <img className="image-word" src={`${baseURL}${objectWord.image}`} alt="img" width={200} />
-      <div className="box-word">
-        <div className="name-word">
-          <span>{objectWord.word} </span>
-          <span>{objectWord.transcription} </span>
-        </div>
-        <div>{objectWord.wordTranslate}</div>
-        <div className="audio-word">
-          <button
-            type="button"
-            disabled={booleanState}
-            onClick={(e) => {
-              if (e.target) {
-                setLocalDisabled(false);
-              }
-              audioWordMeaning.src = `${baseURL}${objectWord.audioMeaning}`;
-              audioWordExample.src = `${baseURL}${objectWord.audioExample}`;
-              audioWord.src = `${baseURL}${objectWord.audio}`;
-              if (flagPlayAudio === false) {
-                isflagPlayAudio(true);
-                setPlay(audioWord);
-                setAudioElement(audioWord);
-                audioWord.addEventListener('ended', () => {
-                  setPlay(audioWordMeaning);
-                  setAudioElement(audioWordMeaning);
-                });
-                audioWordMeaning.addEventListener('ended', () => {
-                  setPlay(audioWordExample);
-                  setAudioElement(audioWordExample);
-                  audioWordExample.play();
-                });
-                audioWordExample.addEventListener('ended', () => {
-                  setDisabled(false);
-                  setLocalDisabled(true);
+    <div className={classNameDifficul}>
+      <div className={classNameLearned}>
+        <img className="image-word" src={`${baseURL}${objectWord.image}`} alt="img" width={200} />
+        <div className="box-word">
+          <div className="name-word">
+            <span>{objectWord.word} </span>
+            <span>{objectWord.transcription} </span>
+          </div>
+          <div>{objectWord.wordTranslate}</div>
+          <div className="audio-word">
+            <button
+              type="button"
+              disabled={booleanState}
+              onClick={(e) => {
+                if (e.target) {
+                  setLocalDisabled(false);
+                }
+                audioWordMeaning.src = `${baseURL}${objectWord.audioMeaning}`;
+                audioWordExample.src = `${baseURL}${objectWord.audioExample}`;
+                audioWord.src = `${baseURL}${objectWord.audio}`;
+                if (flagPlayAudio === false) {
+                  isflagPlayAudio(true);
+                  setPlay(audioWord);
+                  setAudioElement(audioWord);
+                  audioWord.addEventListener('ended', () => {
+                    setPlay(audioWordMeaning);
+                    setAudioElement(audioWordMeaning);
+                  });
+                  audioWordMeaning.addEventListener('ended', () => {
+                    setPlay(audioWordExample);
+                    setAudioElement(audioWordExample);
+                    audioWordExample.play();
+                  });
+                  audioWordExample.addEventListener('ended', () => {
+                    setDisabled(false);
+                    setLocalDisabled(true);
+                    isflagPlayAudio(false);
+                  });
+                } else {
                   isflagPlayAudio(false);
-                });
-              } else {
-                isflagPlayAudio(false);
-                audioWord.pause();
-                audioWordExample.pause();
-                audioWordMeaning.pause();
+                  audioWord.pause();
+                  audioWordExample.pause();
+                  audioWordMeaning.pause();
+                  setDisabled(true);
+                }
                 setDisabled(true);
-              }
-              setDisabled(true);
-            }}
-          >
-            click
-          </button>
-        </div>
-        <div dangerouslySetInnerHTML={{ __html: correctionTextMeaning }} />
-        <div dangerouslySetInnerHTML={{ __html: correctionTranslateTextMeaning }} />
-        <div dangerouslySetInnerHTML={{ __html: correctionTextExample }} />
-        <div dangerouslySetInnerHTML={{ __html: correctionTranslateTextExample }} />
-        <div className="wrapper-btn-word">
-          <BtnAddWord
-            objectWord={objectWord}
-            setUserAggregatedWords={setUserAggregatedWords}
-            className={className}
-          />
+              }}
+            >
+              click
+            </button>
+          </div>
+          <div dangerouslySetInnerHTML={{ __html: correctionTextMeaning }} />
+          <div dangerouslySetInnerHTML={{ __html: correctionTranslateTextMeaning }} />
+          <div dangerouslySetInnerHTML={{ __html: correctionTextExample }} />
+          <div dangerouslySetInnerHTML={{ __html: correctionTranslateTextExample }} />
+          <div className="wrapper-btn-word">
+            <BtnAddWord
+              objectWord={objectWord}
+              setUserAggregatedWords={setUserAggregatedWords}
+              classNameDifficul={classNameDifficul}
+              isFlagDifficul={isFlagDifficul}
+              flagDifficul={flagDifficul}
+              setUserLearned={setUserLearned}
+            />
+            <BtnStudiedWord
+              objectWord={objectWord}
+              setUserAggregatedWords={setUserAggregatedWords}
+              classNameLearned={classNameLearned}
+              isFlagDifficul={isFlagDifficul}
+              flagDifficul={flagDifficul}
+              setUserLearned={setUserLearned}
+            />
+          </div>
         </div>
       </div>
     </div>

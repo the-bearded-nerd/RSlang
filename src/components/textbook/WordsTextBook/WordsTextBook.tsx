@@ -2,7 +2,7 @@ import React from 'react';
 import UserAggregatedWords from '../../../utils/UsersAggregatedWords/UserAggregatedWords';
 import Words from '../../../utils/Words/Words';
 
-import { CurrentWords, PropsWords } from '../../interface/interfaces';
+import { PropsWordsTextBook } from '../../interface/interfaces';
 import WordInfo from '../WordInfo/WordsInfo';
 
 import './wordTextBook.css';
@@ -12,11 +12,13 @@ function WordsTextBook({
   numberPage,
   userAggregatedWords,
   setUserAggregatedWords,
-}: PropsWords) {
-  const [currentWords, setWords] = React.useState<CurrentWords[]>([]);
+  userLearned,
+  setWords,
+  currentWords,
+  setUserLearned,
+}: PropsWordsTextBook) {
   const [currentDisabled, setDisabled] = React.useState<boolean>(false);
   const [flagPlayAudio, isflagPlayAudio] = React.useState<boolean>(false);
-
   React.useEffect(() => {
     if (hard !== 6) {
       Words.getWords(hard, numberPage)
@@ -33,36 +35,38 @@ function WordsTextBook({
     }
   }, [hard, numberPage]);
 
-  function checkW(word: string) {
-    const fillter = userAggregatedWords.filter((e) => e.word === word);
-    if (userAggregatedWords && !fillter) {
-      return userAggregatedWords;
-    }
+  function checkWordDifficul(word: string) {
     const result = userAggregatedWords.find((e) => e.word === word);
+
     return result;
   }
 
-  React.useEffect(() => {
-    UserAggregatedWords.getDifficultWords()
-      .then((res) => res)
-      .then((data) => setUserAggregatedWords(data));
-  }, []);
-
+  function checkWordLearned(word: string) {
+    const result = userLearned.find((e) => e.word === word);
+    return result;
+  }
   return (
     <>
-      {currentWords.map((e) => (
-        <WordInfo
-          key={e.id}
-          objectWord={e}
-          currentDisabled={currentDisabled}
-          setDisabled={setDisabled}
-          isflagPlayAudio={isflagPlayAudio}
-          flagPlayAudio={flagPlayAudio}
-          userAggregatedWords={userAggregatedWords}
-          className={checkW(e.word) ? 'word active' : 'word'}
-          setUserAggregatedWords={setUserAggregatedWords}
-        />
-      ))}
+      {currentWords.map((e) => {
+        const resDifficeul = checkWordDifficul(e.word) ? 'word active' : 'word';
+        const resLearned = checkWordLearned(e.word) ? 'learned' : 'no-learned';
+        return (
+          <WordInfo
+            // eslint-disable-next-line no-underscore-dangle
+            key={e.id || e._id}
+            objectWord={e}
+            currentDisabled={currentDisabled}
+            setDisabled={setDisabled}
+            isflagPlayAudio={isflagPlayAudio}
+            flagPlayAudio={flagPlayAudio}
+            userAggregatedWords={userAggregatedWords}
+            classNameDifficul={resDifficeul}
+            setUserAggregatedWords={setUserAggregatedWords}
+            classNameLearned={resLearned}
+            setUserLearned={setUserLearned}
+          />
+        );
+      })}
     </>
   );
 }

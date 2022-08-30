@@ -4,3 +4,13 @@
 .word.active {
   background-color: blueviolet;
 }
+.learned {
+  display: flex;
+
+  background-color: cadetblue;
+}
+
+.no-learned {
+  display: flex;
+  background-color: rgb(255, 255, 255);
+}
