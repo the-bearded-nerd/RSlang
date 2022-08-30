@@ -10,9 +10,10 @@ interface ResultProps {
 }
 
 interface ResultPropsData {
-  restartGame: () => void;
   guessedWords: IWords[];
   unGuessedWords: IWords[];
+  bestSequence: number;
+  restartGame: () => void;
 }
 
 export default class Result extends Component<ResultProps> {
@@ -20,13 +21,16 @@ export default class Result extends Component<ResultProps> {
 
   unGuessedWords;
 
+  bestSequence;
+
   restartGame;
 
   constructor(props: ResultProps) {
     super(props);
-    const { guessedWords, unGuessedWords, restartGame } = props.data;
+    const { guessedWords, unGuessedWords, bestSequence, restartGame } = props.data;
     this.guessedWords = guessedWords;
     this.unGuessedWords = unGuessedWords;
+    this.bestSequence = bestSequence;
     this.restartGame = restartGame;
   }
 
@@ -99,6 +103,7 @@ export default class Result extends Component<ResultProps> {
   render() {
     return (
       <div className="audio-call-result">
+        <div>лучшая серия из отгаданых подряд слов - {this.bestSequence}</div>
         {this.renderGuessedWords()}
         {this.renderUnguessedWords()}
         <button type="button" onClick={this.restartGame}>

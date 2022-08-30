@@ -20,6 +20,10 @@ export default class Game extends Component<GameProps, GameState> {
 
   unGuessedWords: IWords[];
 
+  currentSequence: number;
+
+  bestSequence: number;
+
   data: IWords[];
 
   restartGame: () => void;
@@ -31,10 +35,20 @@ export default class Game extends Component<GameProps, GameState> {
     };
     const { data, restartGame } = props.options;
     this.data = data;
-    this.restartGame = restartGame;
     this.guessedWords = [];
     this.unGuessedWords = [];
+    this.currentSequence = 0;
+    this.bestSequence = 0;
+    this.restartGame = restartGame;
   }
+
+  compareSequences = (status: boolean) => {
+    this.currentSequence = status ? this.currentSequence + 1 : 0;
+    const { currentSequence, bestSequence } = this;
+    if (currentSequence > bestSequence) {
+      this.bestSequence = currentSequence;
+    }
+  };
 
   saveRoundResult = (current: IWords, status: boolean) => {
     if (status) {
@@ -42,6 +56,7 @@ export default class Game extends Component<GameProps, GameState> {
     } else {
       this.unGuessedWords.push(current);
     }
+    this.compareSequences(status);
   };
 
   finishGame = () => {
@@ -53,8 +68,8 @@ export default class Game extends Component<GameProps, GameState> {
   render() {
     const { isGameFinished } = this.state;
     const { options } = this.props;
-    const { data, finishGame, restartGame, saveRoundResult } = this;
-    const { guessedWords, unGuessedWords } = this;
+    const { data, guessedWords, unGuessedWords, bestSequence } = this;
+    const { finishGame, restartGame, saveRoundResult } = this;
     const roundOptions = {
       data,
       isMute: options.isMute,
@@ -64,6 +79,7 @@ export default class Game extends Component<GameProps, GameState> {
     const resultOptions = {
       guessedWords,
       unGuessedWords,
+      bestSequence,
       restartGame,
     };
     return (
