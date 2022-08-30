@@ -7,6 +7,7 @@ import Game from '../Game';
 import LocalStorageService from '../../utils/LocalStorageService';
 import Words from '../../utils/Words/Words';
 
+// Import Types
 import IWords from '../../types/IWords';
 import AudioCallState from '../../types/AudioCallState';
 

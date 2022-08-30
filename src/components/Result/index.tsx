@@ -1,20 +1,11 @@
 import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
+// Import Constans
 import url from '../../constants/url';
 
-import IWords from '../../types/IWords';
-
-interface ResultProps {
-  data: ResultPropsData;
-}
-
-interface ResultPropsData {
-  guessedWords: IWords[];
-  unGuessedWords: IWords[];
-  bestSequence: number;
-  restartGame: () => void;
-}
+// Import Types
+import ResultProps from '../../types/ResultProps';
 
 export default class Result extends Component<ResultProps> {
   guessedWords;

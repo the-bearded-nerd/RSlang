@@ -2,18 +2,10 @@ import React, { Component } from 'react';
 import Round from '../Round';
 import Result from '../Result';
 
+// Types
 import IWords from '../../types/IWords';
+import GameProps from '../../types/GameProps';
 import GameState from '../../types/GameState';
-
-interface GameProps {
-  options: GamePropsData;
-}
-
-interface GamePropsData {
-  data: IWords[];
-  isMute: boolean;
-  restartGame: () => void;
-}
 
 export default class Game extends Component<GameProps, GameState> {
   guessedWords: IWords[];

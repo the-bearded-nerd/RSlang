@@ -2,25 +2,13 @@ import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import './index.css';
 
-import IWords from '../../types/IWords';
-
 // Constants
 import url from '../../constants/url';
 import correctSoundUrl from '../../constants/correct-sound-url';
 import incorrectSoundUrl from '../../constants/incorrect-sound-url';
 
-interface CardProps {
-  options: CardOptions;
-}
-
-interface CardOptions {
-  isMute: boolean;
-  currentWord: IWords;
-  wordStatus: boolean;
-  roundWords: IWords[];
-  rightAnswer: number;
-  finishRound: () => void;
-}
+// Import Types
+import CardProps from '../../types/CardProps';
 
 export default class Card extends Component<CardProps> {
   currentWord;

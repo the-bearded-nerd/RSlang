@@ -1,14 +1,8 @@
-import React, { Component, MouseEvent } from 'react';
+import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-interface GreetingProps {
-  options: GreetingPropsOptions;
-}
-
-interface GreetingPropsOptions {
-  startGame: () => void;
-  changeLevel: (num: number) => void;
-}
+// import types
+import GreetingProps from '../../types/GreetingProps';
 
 export default class Greeting extends Component<GreetingProps> {
   levels;

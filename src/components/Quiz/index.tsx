@@ -2,19 +2,8 @@ import React, { Component, MouseEvent } from 'react';
 import './index.css';
 import { v4 as uuidv4 } from 'uuid';
 
-import IWords from '../../types/IWords';
-
-interface QuizProps {
-  data: QuizOptions;
-}
-
-interface QuizOptions {
-  changeQuizStatus: () => void;
-  setWordStatus: (status: boolean) => void;
-  roundWords: IWords[];
-  audio: HTMLAudioElement;
-  rightAnswer: number;
-}
+// Import types
+import QuizProps from '../../types/QuizProps';
 
 export default class Quiz extends Component<QuizProps> {
   roundWords;

@@ -1,5 +1,4 @@
-import React, { Component, MouseEvent, MouseEventHandler } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { Component } from 'react';
 
 import './index.css';
 
@@ -14,22 +13,8 @@ import url from '../../constants/url';
 
 // Types
 import IWords from '../../types/IWords';
-
-interface RoundState {
-  isQuizActive: boolean;
-  currentRound: number;
-}
-
-interface RoundProps {
-  data: RoundPropsData;
-}
-
-interface RoundPropsData {
-  data: IWords[];
-  isMute: boolean;
-  saveRoundResult: (current: IWords, status: boolean) => void;
-  finishGame: () => void;
-}
+import RoundProps from '../../types/RoundProps';
+import RoundState from '../../types/RoundState';
 
 export default class Round extends Component<RoundProps, RoundState> {
   data: IWords[];
@@ -54,7 +39,7 @@ export default class Round extends Component<RoundProps, RoundState> {
       isQuizActive: true,
       currentRound: 0,
     };
-    const { data, finishGame, saveRoundResult, isMute } = props.data;
+    const { data, finishGame, saveRoundResult } = props.data;
     const { currentRound } = this.state;
     this.data = shuffle(data);
 
