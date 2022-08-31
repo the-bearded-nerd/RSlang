@@ -27,7 +27,6 @@ class GameMain extends Component<GameMainProps, GameMainState> {
     };
     this.data = [];
     this.level = 0;
-    // ToDo: add props.gameName
   }
 
   componentDidMount() {
@@ -47,6 +46,7 @@ class GameMain extends Component<GameMainProps, GameMainState> {
   };
 
   getData() {
+    // ToDo
     console.log(this.level);
     Words.getWords().then((res) => {
       this.data = res;
@@ -91,12 +91,15 @@ class GameMain extends Component<GameMainProps, GameMainState> {
 
   render() {
     const { isGameStarted, isMute } = this.state;
+    const { gameName } = this.props;
     const gameOptions = {
+      gameName,
       isMute,
       data: this.data,
       restartGame: this.startGame,
     };
     const greetOptions = {
+      gameName,
       startGame: this.startGame,
       changeLevel: this.changeLevel,
     };

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Round from '../Round';
 import Result from '../Result';
+import Sprint from '../Sprint';
 
 // Types
 import IWords from '../../types/IWords';
@@ -57,17 +58,22 @@ export default class Game extends Component<GameProps, GameState> {
     });
   };
 
-  render() {
-    const { isGameFinished } = this.state;
+  renderRound() {
     const { options } = this.props;
-    const { data, guessedWords, unGuessedWords, bestSequence } = this;
-    const { finishGame, restartGame, saveRoundResult } = this;
+    const { gameName, isMute } = options;
+    const { data, finishGame, saveRoundResult } = this;
     const roundOptions = {
       data,
-      isMute: options.isMute,
+      isMute,
       saveRoundResult,
       finishGame,
     };
+    return gameName === 'audio' ? <Round data={roundOptions} /> : <Sprint />;
+  }
+
+  render() {
+    const { isGameFinished } = this.state;
+    const { restartGame, guessedWords, unGuessedWords, bestSequence } = this;
     const resultOptions = {
       guessedWords,
       unGuessedWords,
@@ -76,7 +82,7 @@ export default class Game extends Component<GameProps, GameState> {
     };
     return (
       <div className="game">
-        {!isGameFinished ? <Round data={roundOptions} /> : <Result data={resultOptions} />}
+        {!isGameFinished ? this.renderRound() : <Result data={resultOptions} />}
       </div>
     );
   }

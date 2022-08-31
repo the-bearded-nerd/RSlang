@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
+// Constants
+import greetingContent from '../../constants/greetingContent';
+
 // import types
 import GreetingProps from '../../types/GreetingProps';
 
 export default class Greeting extends Component<GreetingProps> {
   levels;
+
+  gameName;
 
   startGame;
 
@@ -13,8 +18,9 @@ export default class Greeting extends Component<GreetingProps> {
 
   constructor(props: GreetingProps) {
     super(props);
-    const { startGame, changeLevel } = props.options;
+    const { startGame, changeLevel, gameName } = props.options;
     this.levels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+    this.gameName = gameName;
     this.startGame = startGame;
     this.changeLevel = changeLevel;
   }
@@ -52,15 +58,16 @@ export default class Greeting extends Component<GreetingProps> {
   }
 
   render() {
+    const { gameName } = this;
+    const obj = greetingContent[gameName];
     return (
-      <div className="audio-call-greeting">
-        <h2>Аудиовызов</h2>
-        <p>Выберите из предложенных вариантов ответов правильный перевод слова, который услышите</p>
+      <div className="game-greeting">
+        <h2>{obj.title}</h2>
+        <p>{obj.definition}</p>
         <ul>
-          <li>Используйте мышь, чтобы выбрать.</li>
-          <li>Используйте цифровые клавиши от 1 до 5 для выбора ответа</li>
-          <li>Используйте пробел для повтроного звучания слова</li>
-          <li>Используйте клавишу Enter для подсказки или для перехода к следующему слову</li>
+          {obj.listItems.map((el) => (
+            <li key={uuidv4()}>{el}</li>
+          ))}
         </ul>
         <div>
           <h3>Выберите уровень сложности</h3>

@@ -15,7 +15,7 @@ root.render(
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="games" element={<Games />} />
-      <Route path="games/audio" element={<GameMain gameName="audio-call" />} />
+      <Route path="games/audio" element={<GameMain gameName="audio" />} />
       <Route path="games/sprint" element={<GameMain gameName="sprint" />} />
     </Routes>
   </BrowserRouter>
