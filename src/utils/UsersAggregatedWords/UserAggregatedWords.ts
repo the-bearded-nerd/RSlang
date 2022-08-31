@@ -3,6 +3,34 @@ import Users from '../Users/User';
 const baseURL = 'https://rslang-fe2022q1.herokuapp.com/';
 
 class UserAggregatedWords {
+  static async getUsersWords(group: number, page: number, wordsPerPage = 20) {
+    const id = Users.getId();
+    const requestURL = new URL(`/users/${id}/aggregatedWords`, baseURL);
+    const token = Users.getToken();
+    if (wordsPerPage) requestURL.searchParams.append('wordsPerPage', wordsPerPage.toString());
+    requestURL.searchParams.append('filter', `{"$and":[{"page":${page}},{"group":${group}}]}`);
+    const response = await fetch(requestURL, {
+      method: 'GET',
+      credentials: 'omit',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+      },
+    });
+    if (response.ok) {
+      const responseJSON = await response.json();
+      const result = responseJSON[0].paginatedResults;
+      const newKey = 'id';
+      const oldKey = '_id';
+      for (let i = 0; i < result.length; i += 1) {
+        result[i][newKey] = result[i][oldKey];
+        delete result[i][oldKey];
+      }
+      return result;
+    }
+    return [];
+  }
+
   static async getWordsByDifficulty(
     difficulty: string,
     wordsPerPage = 4000,
@@ -31,8 +59,16 @@ class UserAggregatedWords {
     return [];
   }
 
+  //TODO переделать _id на id - СДЕЛАНО
   static async getDifficultWords() {
-    const result = await UserAggregatedWords.getWordsByDifficulty('hard');
+    const difficultWrods = await UserAggregatedWords.getWordsByDifficulty('hard');
+    let result = difficultWrods[0].paginatedResults;
+    const newKey = 'id';
+    const oldKey = '_id';
+    for (let i = 0; i < result.length; i += 1) {
+      result[i][newKey] = result[i][oldKey];
+      delete result[i][oldKey];
+    }
     return result;
   }
 
@@ -75,6 +111,11 @@ class UserAggregatedWords {
       return responseJSON;
     }
     return null;
+  }
+
+  static async isAllLearned(words: any) {
+    const learned = await UserAggregatedWords.getSetLearnedtWords();
+    return words.every((elem: any) => learned.has(elem.id));
   }
 }
 
