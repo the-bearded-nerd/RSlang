@@ -6,8 +6,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import Games from './components/App-Games';
-import AudioCall from './components/Audio-Call';
-import Sprint from './components/Sprint';
+import GameMain from './components/GameMain';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
@@ -16,8 +15,8 @@ root.render(
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="games" element={<Games />} />
-      <Route path="games/audio" element={<AudioCall />} />
-      <Route path="games/sprint" element={<Sprint />} />
+      <Route path="games/audio" element={<GameMain gameName="audio-call" />} />
+      <Route path="games/sprint" element={<GameMain gameName="sprint" />} />
     </Routes>
   </BrowserRouter>
 );

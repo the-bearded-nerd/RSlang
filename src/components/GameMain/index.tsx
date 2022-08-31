@@ -9,14 +9,16 @@ import Words from '../../utils/Words/Words';
 
 // Import Types
 import IWords from '../../types/IWords';
-import AudioCallState from '../../types/AudioCallState';
+import GameMainState from '../../types/GameMainState';
 
-class AudioCall extends Component<{}, AudioCallState> {
+import GameMainProps from '../../types/GameMainProps';
+
+class GameMain extends Component<GameMainProps, GameMainState> {
   level: number;
 
   data: IWords[];
 
-  constructor(props = {}) {
+  constructor(props: GameMainProps) {
     super(props);
     this.state = {
       isGameStarted: false,
@@ -25,6 +27,7 @@ class AudioCall extends Component<{}, AudioCallState> {
     };
     this.data = [];
     this.level = 0;
+    // ToDo: add props.gameName
   }
 
   componentDidMount() {
@@ -113,4 +116,4 @@ class AudioCall extends Component<{}, AudioCallState> {
   }
 }
 
-export default AudioCall;
+export default GameMain;
