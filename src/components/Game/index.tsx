@@ -62,13 +62,13 @@ export default class Game extends Component<GameProps, GameState> {
     const { options } = this.props;
     const { gameName, isMute } = options;
     const { data, finishGame, saveRoundResult } = this;
-    const roundOptions = {
+    const gameOptions = {
       data,
       isMute,
       saveRoundResult,
       finishGame,
     };
-    return gameName === 'audio' ? <Round data={roundOptions} /> : <Sprint />;
+    return gameName === 'audio' ? <Round data={gameOptions} /> : <Sprint />;
   }
 
   render() {
