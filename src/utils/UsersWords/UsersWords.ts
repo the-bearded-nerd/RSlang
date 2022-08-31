@@ -34,6 +34,43 @@ class UsersWords {
     };
   }
 
+  static async createWordWithOptional(
+    wordId: string,
+    difficulty: string,
+    optional = {
+      lastChanged: '',
+      isNew: true,
+      currentRight: 0,
+      currentWrong: 0,
+      audio: {
+        right: 0,
+        wrong: 0,
+      },
+      sprint: {
+        right: 0,
+        wrong: 0,
+      },
+    }
+  ) {
+    const userId = Users.getId();
+    const requestURL = new URL(`/users/${userId}/words/${wordId}`, baseURL);
+    const token = Users.getToken();
+    const response = await fetch(requestURL, {
+      method: 'POST',
+      credentials: 'omit',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ difficulty, optional }),
+    });
+    return {
+      ok: response.ok,
+      errcode: response.ok ? null : response.status,
+    };
+  }
+
   static async getWord(wordId: string) {
     const userId = Users.getId();
     const requestURL = new URL(`/users/${userId}/words/${wordId}`, baseURL);
@@ -48,6 +85,7 @@ class UsersWords {
     });
     if (response.ok) {
       const responseJSON = await response.json();
+      console.log(responseJSON);
       return responseJSON;
     }
     return null;
@@ -73,13 +111,33 @@ class UsersWords {
     };
   }
 
+  static async updateWordWithOptional(wordId: string, difficulty: string, optional: any) {
+    const userId = Users.getId();
+    const requestURL = new URL(`/users/${userId}/words/${wordId}`, baseURL);
+    const token = Users.getToken();
+    const response = await fetch(requestURL, {
+      method: 'PUT',
+      credentials: 'omit',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ difficulty, optional }),
+    });
+    return {
+      ok: response.ok,
+      errcode: response.ok ? null : response.status,
+    };
+  }
+
   static async deleteWord(wordId: string) {
     const userId = Users.getId();
     const token = Users.getToken();
     const requestURL = new URL(`/users/${userId}/words/${wordId}`, baseURL);
     const response = await fetch(requestURL, {
       method: 'DELETE',
-      credentials: 'include',
+      credentials: 'omit',
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: 'application/json',

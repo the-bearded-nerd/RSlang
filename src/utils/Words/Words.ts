@@ -1,3 +1,6 @@
+import Users from '../Users/User';
+import UserAggregatedWords from '../UsersAggregatedWords/UserAggregatedWords';
+
 const baseURL = 'https://rslang-fe2022q1.herokuapp.com/';
 
 class Words {
@@ -25,8 +28,10 @@ class Words {
     return [];
   }
 
-  static async getTextbookWords(group?: number, page?: number) {
-    const result = await this.getWords(group, page);
+  static async getTextbookWords(group: number, page: number) {
+    let result;
+    if (Users.isAuthorized()) result = await UserAggregatedWords.getUsersWords(group, page);
+    else result = await this.getWords(group, page);
     return result;
   }
 }
