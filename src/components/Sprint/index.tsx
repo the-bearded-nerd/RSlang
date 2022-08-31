@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { Component } from 'react';
 
 export default class Sprint extends Component {
@@ -9,3 +10,12 @@ export default class Sprint extends Component {
     return <div>Sprint</div>;
   }
 }
+=======
+import React from 'react';
+
+function Sprint() {
+  return <div>Sprint</div>;
+}
+
+export default Sprint;
+>>>>>>> 372a312 (feat: add basicsprint component)
