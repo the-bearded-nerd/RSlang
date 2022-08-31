@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Round from '../Round';
+import AudioCall from '../AudioCall';
 import Result from '../Result';
 import Sprint from '../Sprint';
 
@@ -68,7 +68,7 @@ export default class Game extends Component<GameProps, GameState> {
       saveRoundResult,
       finishGame,
     };
-    return gameName === 'audio' ? <Round data={gameOptions} /> : <Sprint />;
+    return gameName === 'audio' ? <AudioCall options={gameOptions} /> : <Sprint />;
   }
 
   render() {

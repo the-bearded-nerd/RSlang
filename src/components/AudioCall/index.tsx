@@ -16,7 +16,7 @@ import IWords from '../../types/IWords';
 import RoundProps from '../../types/RoundProps';
 import RoundState from '../../types/RoundState';
 
-export default class Round extends Component<RoundProps, RoundState> {
+export default class AudioCall extends Component<RoundProps, RoundState> {
   data: IWords[];
 
   currentWord: IWords;
@@ -39,7 +39,7 @@ export default class Round extends Component<RoundProps, RoundState> {
       isQuizActive: true,
       currentRound: 0,
     };
-    const { data, finishGame, saveRoundResult } = props.data;
+    const { data, finishGame, saveRoundResult } = props.options;
     const { currentRound } = this.state;
     this.data = shuffle(data);
 
@@ -96,7 +96,8 @@ export default class Round extends Component<RoundProps, RoundState> {
 
   render() {
     const { currentWord, rightAnswer, changeQuizStatus, setWordStatus, roundWords, audio } = this;
-    const { data } = this.props;
+    const { options } = this.props;
+
     const quizOptions = {
       changeQuizStatus,
       setWordStatus,
@@ -108,7 +109,7 @@ export default class Round extends Component<RoundProps, RoundState> {
     const cardOptions = {
       wordStatus: this.wordStatus,
       currentWord,
-      isMute: data.isMute,
+      isMute: options.isMute,
       roundWords,
       rightAnswer,
       finishRound: this.finishRound,
