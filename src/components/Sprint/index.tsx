@@ -4,36 +4,56 @@ import React, { Component } from 'react';
 import shuffle from '../../common/shuffle';
 import randomInteger from '../../common/randomInteger';
 
-import RoundProps from '../../types/RoundProps';
-import IWords from '../../types/IWords';
+// Constants
+import correctSoundUrl from '../../constants/correct-sound-url';
+import incorrectSoundUrl from '../../constants/incorrect-sound-url';
 
-interface SprintState {
-  currentRound: number;
-  currentWord: string;
-  randomAnswer: string;
-  timeLeft: number;
-}
+import RoundProps from '../../types/RoundProps';
+import SprintState from '../../types/SprintState';
+import IWords from '../../types/IWords';
 
 export default class Sprint extends Component<RoundProps, SprintState> {
   data: IWords[];
 
+  out;
+
+  score;
+
+  coefficient;
+
+  sequense;
+
+  audio;
+
+  currentRound;
+
+  saveRoundResult;
+
+  finishGame;
+
   constructor(props: RoundProps) {
     super(props);
     this.state = {
-      currentRound: 0,
-      currentWord: '',
-      randomAnswer: '',
       timeLeft: 60,
+      result: false,
     };
     const { options } = this.props;
     const { data } = options;
-    Object.assign(this, options);
     this.data = shuffle(data);
+    this.currentRound = 0;
+    this.score = 0;
+    this.coefficient = 20;
+    this.sequense = 0;
+    this.audio = new Audio();
+    this.out = '';
+    this.startGame();
+    this.finishGame = options.finishGame;
+    this.saveRoundResult = options.saveRoundResult;
+    // this.startTimer();
   }
 
   componentDidMount() {
     window.addEventListener('keydown', this.keyboardHandler);
-    this.startRound();
     this.startTimer();
   }
 
@@ -41,67 +61,117 @@ export default class Sprint extends Component<RoundProps, SprintState> {
     window.removeEventListener('keydown', this.keyboardHandler);
   }
 
-  setCurrentWord() {
-    const { currentRound } = this.state;
-    const { data } = this;
-    const { word } = data[currentRound];
-    this.setState({
-      currentWord: word,
-    });
-  }
+  startGame = () => {
+    const { result } = this.state;
+    const { currentRound } = this;
+    if (result) {
+      const { wordTranslate } = this.data[currentRound];
+      this.out = wordTranslate;
+    } else {
+      const arr = this.data.filter((item, i) => i !== currentRound);
+      const num = randomInteger(0, arr.length - 1);
+      const { wordTranslate } = arr[num];
+      this.out = wordTranslate;
+    }
+  };
 
-  getRandomAnswer() {
-    const { data } = this;
-    const { currentWord } = this.state;
-    const arrayOfAnwers = data.filter((el) => el.word === currentWord);
-    const num = randomInteger(0, this.data.length - 2);
-    const { wordTranslate } = data[num];
-    const answer = wordTranslate;
-    this.setState({
-      randomAnswer: wordTranslate,
-    });
-  }
+  changeRound = () => {
+    const { currentRound } = this;
+    const num = currentRound + 1;
+    if (currentRound < this.data.length - 1) {
+      this.currentRound = num;
+      this.startRound();
+    } else {
+      this.finishGame();
+    }
+  };
 
-  handleRightBtn = () => {
-    console.log('handleRightBtn');
-    console.log(this);
+  startRound = () => {
+    const { currentRound } = this;
+    const res = !!randomInteger(0, 1);
+    console.log(res);
+    if (res) {
+      const { wordTranslate } = this.data[currentRound];
+      this.out = wordTranslate;
+    } else {
+      const arr = this.data.filter((item, i) => i !== currentRound);
+      const num = randomInteger(0, arr.length - 1);
+      const { wordTranslate } = arr[num];
+      this.out = wordTranslate;
+    }
+    this.setState({
+      result: res,
+    });
   };
 
   handleLeftBtn = () => {
-    console.log('handleLeftBtn');
-    console.log(this);
+    this.verifyAnswer(true);
   };
 
-  keyboardHandler() {
-    console.log(this);
-  }
+  handleRightBtn = () => {
+    this.verifyAnswer(false);
+  };
 
-  startRound() {
-    this.setCurrentWord();
-    this.getRandomAnswer();
-  }
+  verifyAnswer = (answer: boolean) => {
+    const { result } = this.state;
+    const { data, currentRound } = this;
+    const status = answer === result;
+    this.playAudio(status);
+    this.saveRoundResult(data[currentRound], status);
+    this.handleAnswer(status);
+  };
 
-  startTimer() {
+  handleAnswer = (status: boolean) => {
+    if (status) {
+      const { coefficient, sequense, score } = this;
+      this.score = score + 1 * coefficient;
+      if (this.sequense < 3) {
+        this.sequense = sequense + 1;
+      }
+    } else {
+      this.sequense = 0;
+    }
+    this.changeRound();
+  };
+
+  playAudio = (status: boolean) => {
+    const url = status ? correctSoundUrl : incorrectSoundUrl;
+    this.audio.src = url;
+    this.audio.play();
+  };
+
+  startTimer = () => {
+    const { finishGame } = this;
     const timer = setInterval(() => {
       const { timeLeft } = this.state;
       const time = timeLeft - 1;
       if (time === 0) {
         clearInterval(timer);
+        finishGame();
       }
       this.setState({
         timeLeft: time,
       });
     }, 1000);
-  }
+    return this;
+  };
+
+  keyboardHandler = () => {
+    console.log(this);
+  };
 
   render() {
-    const { currentWord, randomAnswer, timeLeft } = this.state;
+    const { timeLeft } = this.state;
+    const { data, score, out, currentRound } = this;
+    const { word } = data[currentRound];
     return (
       <div className="sprint">
-        <h3>Sprint</h3>
         <p>{timeLeft}</p>
-        <p>{currentWord}</p>
-        <p>{randomAnswer}</p>
+        <p>Текущий результат {score}</p>
+        <h3>Sprint</h3>
+        <span>Количество птичек: {this.sequense}</span>
+        <p>{word}</p>
+        <p>{out}</p>
         <span>
           <button type="button" onClick={this.handleLeftBtn}>
             Верно
