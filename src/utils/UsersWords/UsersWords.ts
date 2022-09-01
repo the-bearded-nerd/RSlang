@@ -149,30 +149,5 @@ class UsersWords {
       errcode: response.ok ? null : response.status,
     };
   }
-
-  static async setDifficult(wordId: string) {
-    const isCreated = await UsersWords.getWord(wordId);
-    if (isCreated) {
-      UsersWords.updateWord(wordId, 'hard');
-    } else {
-      UsersWords.createWord(wordId, 'hard');
-    }
-  }
-
-  static async setLearned(wordId: string) {
-    const isCreated = await UsersWords.getWord(wordId);
-    if (isCreated) {
-      UsersWords.updateWord(wordId, 'learned');
-    } else {
-      UsersWords.createWord(wordId, 'learned');
-    }
-  }
-
-  static async resetDifficulty(wordId: string) {
-    const isCreated = await UsersWords.getWord(wordId);
-    if (isCreated) {
-      UsersWords.updateWord(wordId, ' ');
-    }
-  }
 }
 export default UsersWords;
