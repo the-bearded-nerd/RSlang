@@ -21,7 +21,6 @@ function Textbook() {
 
   const [userAggregatedWords, setUserAggregatedWords] = React.useState<CurrentWords[]>([]);
   const [userLearned, setUserLearned] = React.useState<CurrentWords[]>([]);
-
   React.useEffect(() => {
     UserAggregatedWords.getDifficultWords()
       .then((res) => res)
@@ -32,11 +31,7 @@ function Textbook() {
       .then((data) => setUserLearned(data));
   }, []);
 
-  UserAggregatedWords.allLearned(currentWords)
-    .then((e) => e)
-    .then((i) => isLearnPage(i));
   const classHard = idHard !== 6 ? 'box-btn-page active' : 'box-btn-page';
-  UserAggregatedWords.getSetLearnedtWords();
 
   return (
     <>

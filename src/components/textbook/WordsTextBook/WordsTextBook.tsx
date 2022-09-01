@@ -12,16 +12,17 @@ function WordsTextBook({
   numberPage,
   userAggregatedWords,
   setUserAggregatedWords,
-  userLearned,
   setWords,
   currentWords,
   setUserLearned,
 }: PropsWordsTextBook) {
   const [currentDisabled, setDisabled] = React.useState<boolean>(false);
   const [flagPlayAudio, isflagPlayAudio] = React.useState<boolean>(false);
+  console.log(userAggregatedWords, 'user');
+
   React.useEffect(() => {
     if (hard !== 6) {
-      Words.getWords(hard, numberPage)
+      Words.getTextbookWords(hard, numberPage)
         .then((res) => res)
         .then((data) => {
           setWords(data);
@@ -35,34 +36,21 @@ function WordsTextBook({
     }
   }, [hard, numberPage]);
 
-  function checkWordDifficul(word: string) {
-    const result = userAggregatedWords.find((e) => e.word === word);
+  console.log(currentWords);
 
-    return result;
-  }
-
-  function checkWordLearned(word: string) {
-    const result = userLearned.find((e) => e.word === word);
-    return result;
-  }
   return (
     <>
-      {currentWords.map((e) => {
-        const resDifficeul = checkWordDifficul(e.word) ? 'word active' : 'word';
-        const resLearned = checkWordLearned(e.word) ? 'learned' : 'no-learned';
+      {currentWords.map((word) => {
         return (
           <WordInfo
-            // eslint-disable-next-line no-underscore-dangle
-            key={e.id || e._id}
-            objectWord={e}
+            key={word.id}
+            objectWord={word}
             currentDisabled={currentDisabled}
             setDisabled={setDisabled}
             isflagPlayAudio={isflagPlayAudio}
             flagPlayAudio={flagPlayAudio}
             userAggregatedWords={userAggregatedWords}
-            classNameDifficul={resDifficeul}
             setUserAggregatedWords={setUserAggregatedWords}
-            classNameLearned={resLearned}
             setUserLearned={setUserLearned}
           />
         );

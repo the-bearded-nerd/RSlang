@@ -1,29 +1,39 @@
 import React from 'react';
 import Users from '../../../utils/Users/User';
+import UserAggregatedWords from '../../../utils/UsersAggregatedWords/UserAggregatedWords';
 import UsersWords from '../../../utils/UsersWords/UsersWords';
-import { PropsLearnedWord } from '../../interface/interfaces';
+import { PropsDifficulWord } from '../../interface/interfaces';
 import './btnWord.css';
 
 function BtnLearnedWord({
   objectWord,
   setUserAggregatedWords,
-  classNameLearned,
-  setUserLearned,
-}: PropsLearnedWord) {
+  classNameDifficul,
+}: PropsDifficulWord) {
   const resultAuthorizad = Users.isAuthorized();
-  const wordActive = classNameLearned.includes('no-learned');
+  const wordActive = classNameDifficul.includes('learned');
 
   return (
     <>
       <button
-        disabled={!wordActive || !resultAuthorizad}
+        disabled={wordActive || !resultAuthorizad}
         title={!resultAuthorizad ? 'Пожалуйста авторизуйтесь' : ''}
         className="btn-Word"
         type="button"
         onClick={() => {
           UsersWords.setLearned(objectWord.id);
           setUserAggregatedWords((prev) => prev.filter((el) => el.word !== objectWord.word));
-          setUserLearned((prev) => [...prev, objectWord]);
+          if (objectWord.userWord) {
+            const result = objectWord.userWord;
+            result.difficulty = 'learned';
+          } else {
+            const result = objectWord;
+            result.userWord = {
+              difficulty: 'learned',
+            };
+            console.log(result);
+          }
+          UserAggregatedWords.getLearnedtWords();
         }}
       >
         Слово изучено
