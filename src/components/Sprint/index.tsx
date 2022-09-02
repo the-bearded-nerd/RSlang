@@ -49,7 +49,6 @@ export default class Sprint extends Component<RoundProps, SprintState> {
     this.startGame();
     this.finishGame = options.finishGame;
     this.saveRoundResult = options.saveRoundResult;
-    // this.startTimer();
   }
 
   componentDidMount() {
@@ -135,9 +134,13 @@ export default class Sprint extends Component<RoundProps, SprintState> {
   };
 
   playAudio = (status: boolean) => {
+    const { options } = this.props;
+    const { isMute } = options;
     const url = status ? correctSoundUrl : incorrectSoundUrl;
     this.audio.src = url;
-    this.audio.play();
+    if (!isMute) {
+      this.audio.play();
+    }
   };
 
   startTimer = () => {
