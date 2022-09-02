@@ -11,11 +11,22 @@ code {
 }
 
 #root {
-  background-color: grey;
+  position: relative;
+  display: flex;
+  flex-direction:  column;
+  justify-content: center;
+  height: 100vh;
+  background-image: linear-gradient(rgb(24, 90, 157) 0%, rgb(67, 206, 162) 100%); 
+
 }
 
 .hide {
   display: none;
+}
+
+:fullscreen .toolbar {
+  position: fixed;
+  top: 0;
 }
 
 @keyframes animation {
