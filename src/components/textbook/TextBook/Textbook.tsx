@@ -30,13 +30,14 @@ function Textbook() {
     UserAggregatedWords.getLearnedtWords()
       .then((res) => res)
       .then((data) => setUserLearned(data));
+    UserAggregatedWords.isAllLearned(currentWords).then((res) => setResultLearnWords(res));
   }, []);
 
   const classHard = idHard !== 6 ? 'box-btn-page active' : 'box-btn-page';
 
   React.useEffect(() => {
     UserAggregatedWords.isAllLearned(currentWords).then((res) => setResultLearnWords(res));
-  });
+  }, [userAggregatedWords, currentWords]);
 
   return (
     <>
