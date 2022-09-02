@@ -60,6 +60,7 @@ class UserAggregatedWords {
   }
 
   static async getDifficultWords() {
+    if (!Users.isAuthorized()) return [];
     const difficultWrods = await UserAggregatedWords.getWordsByDifficulty('hard');
     const result = difficultWrods[0].paginatedResults;
     const newKey = 'id';
@@ -72,6 +73,7 @@ class UserAggregatedWords {
   }
 
   static async getLearnedtWords() {
+    if (!Users.isAuthorized()) return [];
     const result = await UserAggregatedWords.getWordsByDifficulty('learned');
     return result[0].paginatedResults;
   }
