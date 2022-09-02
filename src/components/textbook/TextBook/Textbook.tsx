@@ -13,6 +13,7 @@ function Textbook() {
   const [idHard, setIdHard] = React.useState<number>(resultHard);
   const [currentWords, setWords] = React.useState<CurrentWords[]>([]);
   const [resultLearnWords, setResultLearnWords] = React.useState();
+  console.log(currentWords);
 
   React.useEffect(() => {
     localStorage.setItem('numberPage', JSON.stringify(currentCount));
@@ -55,7 +56,10 @@ function Textbook() {
         setNumberPage={() => setCount(1)}
         idHard={idHard}
       />
-
+      <div>
+        <button type="button">Аудиовызов</button>
+        <button type="button">Спринт</button>
+      </div>
       <div className={classHard}>
         <BtnPrevPage
           setNumberPage={() => setCount(currentCount < 2 ? 1 : currentCount - 1)}
