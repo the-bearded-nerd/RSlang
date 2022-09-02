@@ -13,9 +13,6 @@ import Statistics from './components/Statistics/Statistics';
 function App() {
   return (
     <div className="App">
-      <User />
-      <Textbook />
-
       <button
         type="button"
         onClick={async () => {
@@ -28,7 +25,7 @@ function App() {
       <button
         type="button"
         onClick={async () => {
-          await Statistic.saveTurnResult('5e9f5ee35eb9e72bc21af4a3', 'audio', true, 1);
+          await Statistic.saveTurnResult('5e9f5ee35eb9e72bc21af4a7', 'audio', true, 1);
         }}
       >
         Правильный ответ
@@ -37,7 +34,7 @@ function App() {
       <button
         type="button"
         onClick={async () => {
-          await Statistic.saveTurnResult('5e9f5ee35eb9e72bc21af4a3', 'audio', false, 1);
+          await Statistic.saveTurnResult('5e9f5ee35eb9e72bc21af4a7', 'audio', false, 1);
         }}
       >
         Неправильный ответ
@@ -46,7 +43,7 @@ function App() {
       <button
         type="button"
         onClick={async () => {
-          await UsersWords.createWordWithOptional('5e9f5ee35eb9e72bc21af4a3', ' ');
+          await UsersWords.createWordWithOptional('5e9f5ee35eb9e72bc21af4a7', ' ');
         }}
       >
         Сохраняем слово с optional
@@ -54,7 +51,7 @@ function App() {
       <button
         type="button"
         onClick={async () => {
-          await UsersWords.deleteWord('5e9f5ee35eb9e72bc21af4a3');
+          await UsersWords.deleteWord('5e9f5ee35eb9e72bc21af4a7');
         }}
       >
         Удаляем слово
@@ -82,7 +79,7 @@ function App() {
       <button
         type="button"
         onClick={async () => {
-          await ChangeDifficulty.setLearned('5e9f5ee35eb9e72bc21af4a3');
+          await ChangeDifficulty.setLearned('5e9f5ee35eb9e72bc21af4a7');
         }}
       >
         делаем изученным
@@ -90,7 +87,7 @@ function App() {
       <button
         type="button"
         onClick={async () => {
-          await ChangeDifficulty.setDifficult('5e9f5ee35eb9e72bc21af4a3');
+          await ChangeDifficulty.setDifficult('5e9f5ee35eb9e72bc21af4a7');
         }}
       >
         делаем сложным
@@ -98,7 +95,7 @@ function App() {
       <button
         type="button"
         onClick={async () => {
-          await ChangeDifficulty.resetDifficulty('5e9f5ee35eb9e72bc21af4a3');
+          await ChangeDifficulty.resetDifficulty('5e9f5ee35eb9e72bc21af4a7');
         }}
       >
         сбрасываем сложность
@@ -106,13 +103,15 @@ function App() {
       <button
         type="button"
         onClick={async () => {
-          const words = await UsersWords.getWord('5e9f5ee35eb9e72bc21af4a3');
+          const words = await UsersWords.getWord('5e9f5ee35eb9e72bc21af4a7');
           console.log(words.difficulty);
         }}
       >
         Получаем слово getWords
       </button>
       <Statistics />
+      <User />
+      <Textbook />
     </div>
   );
 }

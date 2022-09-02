@@ -2,6 +2,7 @@ import React from 'react';
 import Users from '../../../utils/Users/User';
 
 import UsersWords from '../../../utils/UsersWords/UsersWords';
+import ChangeDifficulty from '../../../utils/UsersWords/ChangeDifficulty';
 
 import { PropsDifficulWord } from '../../interface/interfaces';
 import '../BtnStudiedWord/btnWord.css';
@@ -20,7 +21,7 @@ function BtnAddWord({ objectWord, setUserAggregatedWords, classNameDifficul }: P
         className="btn-Word"
         type="button"
         onClick={() => {
-          UsersWords.setDifficult(objectWord.id);
+          ChangeDifficulty.setDifficult(objectWord.id);
           setUserAggregatedWords((prev) => [...prev, objectWord]);
 
           if (objectWord.userWord) {

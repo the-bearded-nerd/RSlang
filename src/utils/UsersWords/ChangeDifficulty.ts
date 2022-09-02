@@ -7,7 +7,7 @@ export default class ChangeDifficulty {
     if (isCreated) {
       UsersWords.updateWord(wordId, 'hard');
     } else {
-      UsersWords.createWord(wordId, 'hard');
+      UsersWords.createWordWithOptional(wordId, 'hard');
     }
   }
 
@@ -17,7 +17,7 @@ export default class ChangeDifficulty {
     if (isCreated) {
       UsersWords.updateWord(wordId, 'learned');
     } else {
-      UsersWords.createWord(wordId, 'learned');
+      UsersWords.createWordWithOptional(wordId, 'learned');
     }
   }
 
