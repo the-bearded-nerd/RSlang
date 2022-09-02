@@ -163,6 +163,18 @@ export default class Sprint extends Component<SprintProps, SprintState> {
     console.log(this);
   };
 
+  showBirdsAmount = () => {
+    let out = 0;
+    const { sequense } = this;
+    if (sequense < 4) {
+      out = sequense;
+    }
+    if (sequense > 4) {
+      out = sequense % 4;
+    }
+    return out;
+  };
+
   render() {
     const { timeLeft } = this.state;
     const { data, score, out, currentRound } = this;
@@ -172,7 +184,7 @@ export default class Sprint extends Component<SprintProps, SprintState> {
         <p>{timeLeft}</p>
         <p>Текущий результат {score}</p>
         <h3>Sprint</h3>
-        <span>Количество птичек: {this.sequense}</span>
+        <span>Количество птичек: {this.showBirdsAmount()}</span>
         <p>{word}</p>
         <p>{out}</p>
         <span>
