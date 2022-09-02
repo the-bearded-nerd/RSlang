@@ -10,3 +10,8 @@ function App() {
     <div className="App">
       <User />
       <Textbook />
+    </div>
+  );
+}
+
+export default App;
