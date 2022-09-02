@@ -1,22 +1,14 @@
 import React from 'react';
-import UserAggregatedWords from '../../../utils/UsersAggregatedWords/UserAggregatedWords';
+
 import { PropsBtnPage } from '../../interface/interfaces';
 
-export function BtnNextPage({
-  setNumberPage,
-  currentCount,
-  currentWords,
-  isLearnPage,
-}: PropsBtnPage) {
+export function BtnNextPage({ setNumberPage, currentCount }: PropsBtnPage) {
   return (
     <button
       className="Btn-Word"
       disabled={currentCount === 30}
       type="button"
       onClick={() => {
-        UserAggregatedWords.allLearned(currentWords)
-          .then((e) => e)
-          .then((i) => isLearnPage(i));
         setNumberPage();
       }}
     >
@@ -25,21 +17,13 @@ export function BtnNextPage({
   );
 }
 
-export function BtnPrevPage({
-  setNumberPage,
-  currentCount,
-  currentWords,
-  isLearnPage,
-}: PropsBtnPage) {
+export function BtnPrevPage({ setNumberPage, currentCount }: PropsBtnPage) {
   return (
     <button
       className="Btn-Word"
       disabled={currentCount === 1}
       type="button"
       onClick={() => {
-        UserAggregatedWords.allLearned(currentWords)
-          .then((e) => e)
-          .then((i) => isLearnPage(i));
         setNumberPage();
       }}
     >

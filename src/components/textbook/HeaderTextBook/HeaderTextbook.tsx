@@ -5,7 +5,6 @@ import './menuTextBook.css';
 
 function HeaderTextbook({ typeSection, setIdHard, setNumberPage, idHard }: TypeSection) {
   const resultAuthorizad = Users.isAuthorized();
-  console.log(resultAuthorizad);
 
   const numberHard = [0, 1, 2, 3, 4, 5, 6];
   return (

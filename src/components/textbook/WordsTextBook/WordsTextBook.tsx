@@ -1,5 +1,5 @@
 import React from 'react';
-import UserAggregatedWords from '../../../utils/UsersAggregatedWords/UserAggregatedWords';
+// import UserAggregatedWords from '../../../utils/UsersAggregatedWords/UserAggregatedWords';
 import Words from '../../../utils/Words/Words';
 
 import { PropsWordsTextBook } from '../../interface/interfaces';
@@ -29,11 +29,7 @@ function WordsTextBook({
     }
 
     if (hard === 6) {
-      UserAggregatedWords.getDifficultWords()
-        .then((res) => res)
-        .then((data) => {
-          setWords(data);
-        });
+      setWords(userAggregatedWords);
     }
   }, [hard, numberPage]);
 

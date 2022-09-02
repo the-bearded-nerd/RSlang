@@ -34,9 +34,7 @@ function Textbook() {
   const classHard = idHard !== 6 ? 'box-btn-page active' : 'box-btn-page';
 
   React.useEffect(() => {
-    UserAggregatedWords.isAllLearned(currentWords)
-      .then((res) => res)
-      .then((data) => setResultLearnWords(data));
+    UserAggregatedWords.isAllLearned(currentWords).then((res) => setResultLearnWords(res));
   });
 
   return (
