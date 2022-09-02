@@ -20,8 +20,6 @@ function BtnAddWord({ objectWord, setUserAggregatedWords, classNameDifficul }: P
         className="btn-Word"
         type="button"
         onClick={() => {
-          console.log('1');
-
           UsersWords.setDifficult(objectWord.id);
           setUserAggregatedWords((prev) => [...prev, objectWord]);
 
@@ -33,7 +31,6 @@ function BtnAddWord({ objectWord, setUserAggregatedWords, classNameDifficul }: P
             result.userWord = {
               difficulty: 'hard',
             };
-            console.log(result);
           }
         }}
       >

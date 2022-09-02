@@ -1,10 +1,10 @@
 import React from 'react';
 import { BtnNextPage, BtnPrevPage } from '../BtnPagination/BtnPageTextBook';
-import HeaderTextbook from '../HeaderTextBook/HeaderTextbook';
 import WordsTextBook from '../WordsTextBook/WordsTextBook';
 import '../BtnPagination/btnPageTextBook.css';
 import UserAggregatedWords from '../../../utils/UsersAggregatedWords/UserAggregatedWords';
 import { CurrentWords } from '../../interface/interfaces';
+import HeaderTextbook from '../HeaderTextBook/HeaderTextbook';
 
 function Textbook() {
   const resultPage: number = JSON.parse(localStorage.getItem('numberPage') || '1');
@@ -12,7 +12,7 @@ function Textbook() {
   const [currentCount, setCount] = React.useState<number>(resultPage);
   const [idHard, setIdHard] = React.useState<number>(resultHard);
   const [currentWords, setWords] = React.useState<CurrentWords[]>([]);
-  const [learnPage, isLearnPage] = React.useState<boolean>(false);
+  const [resultLearnWords, setResultLearnWords] = React.useState();
 
   React.useEffect(() => {
     localStorage.setItem('numberPage', JSON.stringify(currentCount));
@@ -33,6 +33,12 @@ function Textbook() {
 
   const classHard = idHard !== 6 ? 'box-btn-page active' : 'box-btn-page';
 
+  React.useEffect(() => {
+    UserAggregatedWords.isAllLearned(currentWords)
+      .then((res) => res)
+      .then((data) => setResultLearnWords(data));
+  });
+
   return (
     <>
       <h1>Учебник</h1>
@@ -52,6 +58,20 @@ function Textbook() {
         idHard={idHard}
       />
 
+      <div className={classHard}>
+        <BtnPrevPage
+          setNumberPage={() => setCount(currentCount < 2 ? 1 : currentCount - 1)}
+          currentCount={currentCount}
+          currentWords={currentWords}
+        />
+        <div className={!resultLearnWords ? 'no' : 'page-learn'}>{currentCount}</div>
+        <BtnNextPage
+          setNumberPage={() => setCount(currentCount === 30 ? 30 : currentCount + 1)}
+          currentCount={currentCount}
+          currentWords={currentWords}
+        />
+      </div>
+
       <h2>Слова</h2>
       <section className={idHard !== 6 ? 'page' : 'difficul'}>
         <WordsTextBook
@@ -63,24 +83,7 @@ function Textbook() {
           setWords={setWords}
           currentWords={currentWords}
           setUserLearned={setUserLearned}
-          isLearnPage={isLearnPage}
         />
-
-        <div className={classHard}>
-          <BtnPrevPage
-            setNumberPage={() => setCount(currentCount < 2 ? 1 : currentCount - 1)}
-            currentCount={currentCount}
-            currentWords={currentWords}
-            isLearnPage={isLearnPage}
-          />
-          <div className={learnPage ? 'page-learn' : 'no'}>{currentCount}</div>
-          <BtnNextPage
-            setNumberPage={() => setCount(currentCount === 30 ? 30 : currentCount + 1)}
-            currentCount={currentCount}
-            currentWords={currentWords}
-            isLearnPage={isLearnPage}
-          />
-        </div>
       </section>
     </>
   );

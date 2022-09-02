@@ -18,7 +18,6 @@ function WordsTextBook({
 }: PropsWordsTextBook) {
   const [currentDisabled, setDisabled] = React.useState<boolean>(false);
   const [flagPlayAudio, isflagPlayAudio] = React.useState<boolean>(false);
-  console.log(userAggregatedWords, 'user');
 
   React.useEffect(() => {
     if (hard !== 6) {
@@ -32,11 +31,11 @@ function WordsTextBook({
     if (hard === 6) {
       UserAggregatedWords.getDifficultWords()
         .then((res) => res)
-        .then((data) => setWords(data));
+        .then((data) => {
+          setWords(data);
+        });
     }
   }, [hard, numberPage]);
-
-  console.log(currentWords);
 
   return (
     <>
@@ -52,6 +51,8 @@ function WordsTextBook({
             userAggregatedWords={userAggregatedWords}
             setUserAggregatedWords={setUserAggregatedWords}
             setUserLearned={setUserLearned}
+            hard={hard}
+            setWords={setWords}
           />
         );
       })}

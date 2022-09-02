@@ -9,7 +9,6 @@ import BtnStudiedWord from '../BtnStudiedWord/BtnStudiedWord';
 const baseURL = 'https://rslang-fe2022q1.herokuapp.com/';
 
 function WordInfo({
-  // b,
   objectWord,
   currentDisabled,
   setDisabled,
@@ -17,6 +16,8 @@ function WordInfo({
   flagPlayAudio,
   setUserAggregatedWords,
   setUserLearned,
+  hard,
+  setWords,
 }: PropsWordInfo) {
   let str = '';
   if (objectWord.userWord?.difficulty === 'learned') {
@@ -24,7 +25,6 @@ function WordInfo({
   } else if (objectWord.userWord?.difficulty === 'hard') {
     str = 'hard';
   } else {
-    //  (objectWord.userWord.difficulty !== 'learned' && objectWord.userWord.difficulty !== 'hard')
     str = 'word';
   }
 
@@ -61,6 +61,10 @@ function WordInfo({
     <div className={str}>
       <img className="image-word" src={`${baseURL}${objectWord.image}`} alt="img" width={200} />
       <div className="box-word">
+        <ul>
+          <li>Выбрано правильно</li>
+          <li>Выбрано неправильно</li>
+        </ul>
         <div className="name-word">
           <span>{objectWord.word} </span>
           <span>{objectWord.transcription} </span>
@@ -118,12 +122,16 @@ function WordInfo({
             setUserAggregatedWords={setUserAggregatedWords}
             classNameDifficul={str}
             setUserLearned={setUserLearned}
+            hard={hard}
+            setWords={setWords}
           />
           <BtnStudiedWord
             objectWord={objectWord}
             setUserAggregatedWords={setUserAggregatedWords}
             classNameDifficul={str}
             setUserLearned={setUserLearned}
+            hard={hard}
+            setWords={setWords}
           />
         </div>
       </div>

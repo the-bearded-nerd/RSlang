@@ -5,7 +5,6 @@ export interface TypeSection {
   idHard: number;
 }
 export interface CurrentWords {
-  _id: string;
   audio: string;
   audioExample: string;
   audioMeaning: string;
@@ -38,6 +37,8 @@ export interface PropsWordInfo {
   userAggregatedWords: CurrentWords[];
   setUserAggregatedWords: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
   setUserLearned: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
+  hard: number;
+  setWords: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
 }
 
 export interface PropsLocalDisabled {
@@ -47,7 +48,6 @@ export interface PropsBtnPage {
   setNumberPage: () => void;
   currentCount: number;
   currentWords: CurrentWords[];
-  isLearnPage: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface PropsWordsTextBook {
@@ -59,7 +59,6 @@ export interface PropsWordsTextBook {
   setWords: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
   currentWords: CurrentWords[];
   setUserLearned: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
-  isLearnPage: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface PropsDifficulWord {
@@ -67,6 +66,8 @@ export interface PropsDifficulWord {
   setUserAggregatedWords: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
   classNameDifficul: string;
   setUserLearned: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
+  hard: number;
+  setWords: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
 }
 
 export interface PropsLearnedWord {
