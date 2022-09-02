@@ -43,6 +43,8 @@ class GameMain extends Component<GameMainProps, GameMainState> {
     this.setState({
       isFullscreen: status,
     });
+    const { changeFullScreen } = this.props;
+    changeFullScreen();
   };
 
   getData() {
