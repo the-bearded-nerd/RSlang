@@ -68,7 +68,11 @@ export default class Game extends Component<GameProps, GameState> {
       saveRoundResult,
       finishGame,
     };
-    return gameName === 'audio' ? <AudioCall options={gameOptions} /> : <Sprint />;
+    return gameName === 'audio' ? (
+      <AudioCall options={gameOptions} />
+    ) : (
+      <Sprint options={gameOptions} />
+    );
   }
 
   render() {

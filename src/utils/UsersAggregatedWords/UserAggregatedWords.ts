@@ -59,10 +59,10 @@ class UserAggregatedWords {
     return [];
   }
 
-  //TODO переделать _id на id - СДЕЛАНО
+  // TODO переделать _id на id - СДЕЛАНО
   static async getDifficultWords() {
     const difficultWrods = await UserAggregatedWords.getWordsByDifficulty('hard');
-    let result = difficultWrods[0].paginatedResults;
+    const result = difficultWrods[0].paginatedResults;
     const newKey = 'id';
     const oldKey = '_id';
     for (let i = 0; i < result.length; i += 1) {
