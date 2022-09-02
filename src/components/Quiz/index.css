@@ -1,0 +1,26 @@
+.audio-game-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.audio-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.answers {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.answers__item {
+    display: flex;
+    gap: 5px;
+}
+
+.answers__item:hover {
+    background-color: grey;
+}

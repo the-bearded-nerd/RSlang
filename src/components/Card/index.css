@@ -1,0 +1,26 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card img {
+  width: auto;
+  height: auto;
+}
+
+.answers > .non-active {
+  cursor: auto
+}
+
+.non-active {
+  text-decoration: line-through;
+}
+
+.unguessed {
+  color: red;
+}
+
+.guessed {
+  color: green;
+}
