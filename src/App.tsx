@@ -1,16 +1,12 @@
 import React from 'react';
+// import logo from './logo.svg';
 import './App.css';
+import User from './components/User/User';
 
-import Header from './components/App-Header';
-import Main from './components/App-Main';
+import Textbook from './components/textbook/TextBook/Textbook';
 
 function App() {
   return (
-    <>
-      <Header />
-      <Main />
-    </>
-  );
-}
-
-export default App;
+    <div className="App">
+      <User />
+      <Textbook />
