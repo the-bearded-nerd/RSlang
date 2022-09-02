@@ -8,6 +8,7 @@ import Statistic from './utils/Statistic/Statistic';
 import UsersWords from './utils/UsersWords/UsersWords';
 import Words from './utils/Words/Words';
 import ChangeDifficulty from './utils/UsersWords/ChangeDifficulty';
+import Statistics from './components/Statistics/Statistics';
 
 function App() {
   return (
@@ -111,6 +112,7 @@ function App() {
       >
         Получаем слово getWords
       </button>
+      <Statistics />
     </div>
   );
 }
