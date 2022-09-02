@@ -8,11 +8,12 @@ import randomInteger from '../../common/randomInteger';
 import correctSoundUrl from '../../constants/correct-sound-url';
 import incorrectSoundUrl from '../../constants/incorrect-sound-url';
 
-import RoundProps from '../../types/RoundProps';
+// Types
+import SprintProps from '../../types/SprintProps';
 import SprintState from '../../types/SprintState';
 import IWords from '../../types/IWords';
 
-export default class Sprint extends Component<RoundProps, SprintState> {
+export default class Sprint extends Component<SprintProps, SprintState> {
   data: IWords[];
 
   out;
@@ -31,7 +32,7 @@ export default class Sprint extends Component<RoundProps, SprintState> {
 
   finishGame;
 
-  constructor(props: RoundProps) {
+  constructor(props: SprintProps) {
     super(props);
     this.state = {
       timeLeft: 60,
@@ -88,7 +89,6 @@ export default class Sprint extends Component<RoundProps, SprintState> {
   startRound = () => {
     const { currentRound } = this;
     const res = !!randomInteger(0, 1);
-    console.log(res);
     if (res) {
       const { wordTranslate } = this.data[currentRound];
       this.out = wordTranslate;
@@ -122,11 +122,11 @@ export default class Sprint extends Component<RoundProps, SprintState> {
 
   handleAnswer = (status: boolean) => {
     if (status) {
-      const { coefficient, sequense, score } = this;
-      this.score = score + 1 * coefficient;
-      if (this.sequense < 3) {
-        this.sequense = sequense + 1;
-      }
+      const { sequense, score } = this;
+      this.sequense = sequense + 1;
+      this.coefficient = Math.floor(this.sequense / 4 + 1);
+      console.log(this.coefficient);
+      this.score = score + 20 * this.coefficient;
     } else {
       this.sequense = 0;
     }
