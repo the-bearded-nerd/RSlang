@@ -12,14 +12,15 @@ import GameMain from './components/GameMain';
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="games" element={<Games />} />
-      <Route path="games/audio" element={<GameMain gameName="audio" />} />
-      <Route path="games/sprint" element={<GameMain gameName="sprint" />} />
-    </Routes>
-  </BrowserRouter>
+  <App />
+  // <BrowserRouter>
+  //   <Routes>
+  //     <Route path="/" element={<App />} />
+  //     <Route path="games" element={<Games />} />
+  //     <Route path="games/audio" element={<GameMain gameName="audio" />} />
+  //     <Route path="games/sprint" element={<GameMain gameName="sprint" />} />
+  //   </Routes>
+  // </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function
