@@ -1,6 +1,7 @@
 import React from 'react';
 import Users from '../../../utils/Users/User';
 import UserAggregatedWords from '../../../utils/UsersAggregatedWords/UserAggregatedWords';
+import ChangeDifficulty from '../../../utils/UsersWords/ChangeDifficulty';
 import UsersWords from '../../../utils/UsersWords/UsersWords';
 import { PropsDifficulWord } from '../../interface/interfaces';
 import './btnWord.css';
@@ -23,7 +24,7 @@ function BtnLearnedWord({
         className="btn-Word"
         type="button"
         onClick={() => {
-          UsersWords.setLearned(objectWord.id);
+          ChangeDifficulty.setLearned(objectWord.id);
           setUserAggregatedWords((arrayWords) =>
             arrayWords.filter((el) => el.word !== objectWord.word)
           );

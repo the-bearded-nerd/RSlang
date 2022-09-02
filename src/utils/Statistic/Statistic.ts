@@ -156,6 +156,30 @@ class Statistic {
       .join('.');
     return currDate;
   }
+
+  static async increaseLearnedWordsCount() {
+    if (!Users.isAuthorized()) return;
+    const stat = await this.getStatistic();
+    let { learnedWords } = stat;
+    const { optional } = stat;
+    const date = this.getDate();
+    if (optional.wordStatistics[date]) optional.wordStatistics[date] += 1;
+    else optional.wordStatistics[date] = 1;
+    learnedWords += 1;
+    this.saveStatistics(learnedWords, optional);
+  }
+
+  static async decreaseLearnedWordsCount() {
+    if (!Users.isAuthorized()) return;
+    const stat = await Statistic.getStatistic();
+    let { learnedWords } = stat;
+    const { optional } = stat;
+    const date = this.getDate();
+    if (optional.wordStatistics[date]) optional.wordStatistics[date] -= 1;
+    else optional.wordStatistics[date] = 0;
+    learnedWords -= 1;
+    this.saveStatistics(learnedWords, optional);
+  }
 }
 
 export default Statistic;
