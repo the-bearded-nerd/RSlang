@@ -29,14 +29,11 @@ function WordsTextBook({
     }
 
     if (hard === 6) {
-      if (userAggregatedWords.length < 1) {
-        UserAggregatedWords.getDifficultWords()
-          .then((res) => res)
-          .then((data) => {
-            setWords(data);
-          });
-      }
-      setWords(userAggregatedWords);
+      UserAggregatedWords.getDifficultWords()
+        .then((res) => res)
+        .then((data) => {
+          setWords(data);
+        });
     }
   }, [hard, numberPage]);
 
