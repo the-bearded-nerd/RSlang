@@ -3,4 +3,10 @@
   justify-content: center;
   align-items: center;
   height: 70px;
+  border: 2px solid black;
+}
+
+.nav-list {
+  display: flex;
+  gap: 5px;
 }
