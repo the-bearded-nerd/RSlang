@@ -57,6 +57,10 @@ export default class Sprint extends Component<SprintProps, SprintState> {
     this.startTimer();
   }
 
+  componentDidUpdate() {
+    window.addEventListener('keydown', this.keyboardHandler);
+  }
+
   componentWillUnmount() {
     window.removeEventListener('keydown', this.keyboardHandler);
   }
@@ -159,8 +163,13 @@ export default class Sprint extends Component<SprintProps, SprintState> {
     return this;
   };
 
-  keyboardHandler = () => {
-    console.log(this);
+  keyboardHandler = (e: KeyboardEvent) => {
+    if (e.key === 'ArrowRight') {
+      this.handleLeftBtn();
+    }
+    if (e.key === 'ArrowLeft') {
+      this.handleLeftBtn();
+    }
   };
 
   showBirdsAmount = () => {
