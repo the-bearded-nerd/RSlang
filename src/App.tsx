@@ -7,6 +7,8 @@ import MainPage from './components/App-Main';
 import Games from './components/App-Games';
 import GameMain from './components/GameMain';
 import Textbook from './components/textbook/TextBook/Textbook';
+import Statistic from './components/Statistics/Statistics';
+import About from './components/About';
 
 function App() {
   const [isFullScreen, setFullScreen] = useState(false);
@@ -17,12 +19,13 @@ function App() {
   return (
     <div className="wrapper">
       <BrowserRouter>
-        {/* <Header /> */}
         {!isFullScreen && <Header />}
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="textbook" element={<Textbook />} />
           <Route path="games" element={<Games />} />
+          <Route path="statistic" element={<Statistic />} />
+          <Route path="about" element={<About />} />
           <Route
             path="games/audio"
             element={<GameMain changeFullScreen={changeFullScreen} gameName="audio" />}

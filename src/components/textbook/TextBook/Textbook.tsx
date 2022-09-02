@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { BtnNextPage, BtnPrevPage } from '../BtnPagination/BtnPageTextBook';
 import WordsTextBook from '../WordsTextBook/WordsTextBook';
 import '../BtnPagination/btnPageTextBook.css';
@@ -13,7 +14,6 @@ function Textbook() {
   const [idHard, setIdHard] = React.useState<number>(resultHard);
   const [currentWords, setWords] = React.useState<CurrentWords[]>([]);
   const [resultLearnWords, setResultLearnWords] = React.useState();
-  console.log(currentWords);
 
   React.useEffect(() => {
     localStorage.setItem('numberPage', JSON.stringify(currentCount));
@@ -56,10 +56,16 @@ function Textbook() {
         setNumberPage={() => setCount(1)}
         idHard={idHard}
       />
-      <div>
-        <button type="button">Аудиовызов</button>
-        <button type="button">Спринт</button>
-      </div>
+      <nav className="textbook-games-nav">
+        <ul className="nav-list">
+          <li>
+            <Link to="../games/audio">Аудиовызов</Link>
+          </li>
+          <li>
+            <Link to="../games/sprint">Спринт</Link>
+          </li>
+        </ul>
+      </nav>
       <div className={classHard}>
         <BtnPrevPage
           setNumberPage={() => setCount(currentCount < 2 ? 1 : currentCount - 1)}
