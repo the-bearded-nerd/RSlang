@@ -1,10 +1,7 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './index.css';
 import User from '../User/User';
-
-// ToDo: Статистика, О команде
 
 function Header() {
   return (
@@ -19,6 +16,12 @@ function Header() {
           </li>
           <li>
             <Link to="/games">Игры</Link>
+          </li>
+          <li>
+            <Link to="/statistic">Статистика</Link>
+          </li>
+          <li>
+            <Link to="/about">О команде</Link>
           </li>
         </ul>
       </nav>
