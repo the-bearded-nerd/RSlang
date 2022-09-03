@@ -10,7 +10,6 @@ class Statistic {
     isRightAnswer: boolean,
     longestSeries: number
   ) {
-    console.log(isRightAnswer);
     if (!Users.isAuthorized()) return;
     const word = await UsersWords.getWord(wordId);
     console.log(word);
@@ -63,9 +62,11 @@ class Statistic {
     isNewWord: boolean,
     longestSeries: number
   ) {
+    console.log(isRightAnswer);
     const statistic = await this.getStatistic();
     if (statistic) {
       const learnedCount = isNewWord ? 1 : 0;
+      const isRightNumber = Number(isRightAnswer);
       statistic.learnedWords += learnedCount;
       const currentDate = this.getDate();
       statistic.optional.wordStatistics[currentDate] = statistic.optional.wordStatistics[
@@ -74,8 +75,8 @@ class Statistic {
         ? statistic.optional.wordStatistics[currentDate] + learnedCount
         : statistic.learnedWords;
       statistic.optional.gameStatistics[game].learnedWords += learnedCount;
-      statistic.optional.gameStatistics[game].right += learnedCount;
-      statistic.optional.gameStatistics[game].wrong += 1 - learnedCount;
+      statistic.optional.gameStatistics[game].right += isRightNumber;
+      statistic.optional.gameStatistics[game].wrong += 1 - isRightNumber;
       statistic.optional.gameStatistics[game].longestSeries = Math.max(
         statistic.optional.gameStatistics[game].longestSeries,
         longestSeries
