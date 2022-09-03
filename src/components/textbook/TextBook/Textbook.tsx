@@ -6,6 +6,7 @@ import UserAggregatedWords from '../../../utils/UsersAggregatedWords/UserAggrega
 import { CurrentWords, ObjectAggr } from '../../interface/interfaces';
 import HeaderTextbook from '../HeaderTextBook/HeaderTextbook';
 import Words from '../../../utils/Words/Words';
+import StudyProgress from '../StudyProgress/StudyProgress';
 
 function Textbook() {
   const resultPage: number = JSON.parse(localStorage.getItem('numberPage') || '1');
@@ -69,6 +70,7 @@ function Textbook() {
     }
   }, [idHard, currentCount]);
 
+  const [classStudy, isClassStudy] = React.useState<boolean>(false);
   return (
     <>
       <h1>Учебник</h1>
@@ -87,6 +89,7 @@ function Textbook() {
         setNumberPage={() => setCount(1)}
         idHard={idHard}
       />
+      <StudyProgress classStudy={classStudy} />;
       <div>
         <button type="button">Аудиовызов</button>
         <button type="button">Спринт</button>
@@ -106,7 +109,7 @@ function Textbook() {
       </div>
       <h2>Слова</h2>
       {loading ? (
-        <div>1</div>
+        <div className="box-loading">1</div>
       ) : (
         <section className={idHard !== 6 ? 'page' : 'difficul'}>
           <WordsTextBook
@@ -119,6 +122,8 @@ function Textbook() {
             currentWords={currentWords}
             setUserLearned={setUserLearned}
             isLoading={isLoading}
+            isClassStudy={isClassStudy}
+            classStudy={classStudy}
           />
         </section>
       )}

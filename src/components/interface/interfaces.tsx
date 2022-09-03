@@ -52,6 +52,8 @@ export interface PropsWordInfo {
   setUserLearned: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
   hard: number;
   setWords: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
+  isClassStudy: React.Dispatch<React.SetStateAction<boolean>>;
+  classStudy: boolean;
 }
 
 export interface PropsLocalDisabled {
@@ -77,6 +79,8 @@ export interface PropsWordsTextBook {
   currentWords: CurrentWords[];
   setUserLearned: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
   isLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  isClassStudy: React.Dispatch<React.SetStateAction<boolean>>;
+  classStudy: boolean;
 }
 
 export interface PropsDifficulWord {
