@@ -165,7 +165,7 @@ export default class Sprint extends Component<SprintProps, SprintState> {
 
   keyboardHandler = (e: KeyboardEvent) => {
     if (e.key === 'ArrowRight') {
-      this.handleLeftBtn();
+      this.handleRightBtn();
     }
     if (e.key === 'ArrowLeft') {
       this.handleLeftBtn();
