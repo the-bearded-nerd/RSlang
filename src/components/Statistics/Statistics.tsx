@@ -3,6 +3,7 @@ import Statistic from '../../utils/Statistic/Statistic';
 import Users from '../../utils/Users/User';
 import GameStatistics from '../GameStatistics/GameStatistics';
 import User from '../User/User';
+import UserChart from './UserChart/UserChart';
 
 function Statistics() {
   const currentDate = Statistic.getDate();
@@ -92,6 +93,7 @@ function Statistics() {
         wrong={sprintStat.wrong}
         longestSeries={sprintStat.longestSeries}
       />
+      <UserChart wordStatistics={wordStatistics} />
     </div>
   );
 }
