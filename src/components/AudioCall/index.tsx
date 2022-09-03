@@ -55,9 +55,8 @@ export default class AudioCall extends Component<RoundProps, RoundState> {
   }
 
   getRoundWords() {
-    const { currentRound } = this.state;
     const { currentWord } = this;
-    const arr = this.data.filter((_, i) => i !== currentRound);
+    const arr = this.data.filter((item) => item.word !== currentWord.word);
     const temp = shuffle(arr).slice(0, 4);
     temp.push(currentWord);
     this.roundWords = shuffle(temp);
