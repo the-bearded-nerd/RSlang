@@ -4,6 +4,18 @@ export interface TypeSection {
   setNumberPage: () => void;
   idHard: number;
 }
+
+interface ResultWordInGames {
+  audio: {
+    right: number;
+    wrong: number;
+  };
+  sprint: {
+    right: number;
+    wrong: number;
+  };
+}
+
 export interface CurrentWords {
   audio: string;
   audioExample: string;
@@ -21,6 +33,7 @@ export interface CurrentWords {
   wordTranslate: string;
   userWord: {
     difficulty: string;
+    optional?: ResultWordInGames;
   };
 }
 
@@ -47,9 +60,13 @@ export interface PropsLocalDisabled {
 export interface PropsBtnPage {
   setNumberPage: () => void;
   currentCount: number;
-  currentWords: CurrentWords[];
+  loading: boolean;
 }
 
+export interface ObjectAggr {
+  flag: boolean;
+  words: CurrentWords[];
+}
 export interface PropsWordsTextBook {
   hard: number;
   numberPage: number;
@@ -59,6 +76,7 @@ export interface PropsWordsTextBook {
   setWords: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
   currentWords: CurrentWords[];
   setUserLearned: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
+  isLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface PropsDifficulWord {
