@@ -6,6 +6,7 @@ import '../BtnPagination/btnPageTextBook.css';
 import UserAggregatedWords from '../../../utils/UsersAggregatedWords/UserAggregatedWords';
 import { CurrentWords } from '../../interface/interfaces';
 import HeaderTextbook from '../HeaderTextBook/HeaderTextbook';
+import LocalStorageService from '../../../utils/LocalStorageService/index';
 
 function Textbook() {
   const resultPage: number = JSON.parse(localStorage.getItem('numberPage') || '1');
@@ -59,10 +60,24 @@ function Textbook() {
       <nav className="textbook-games-nav">
         <ul className="nav-list">
           <li>
-            <Link to="../games/audio">Аудиовызов</Link>
+            <Link
+              to="../games/audio"
+              onClick={() => {
+                LocalStorageService.setItem('gameWords', currentWords);
+              }}
+            >
+              Аудиовызов
+            </Link>
           </li>
           <li>
-            <Link to="../games/sprint">Спринт</Link>
+            <Link
+              to="../games/sprint"
+              onClick={() => {
+                LocalStorageService.setItem('gameWords', currentWords);
+              }}
+            >
+              Спринт
+            </Link>
           </li>
         </ul>
       </nav>

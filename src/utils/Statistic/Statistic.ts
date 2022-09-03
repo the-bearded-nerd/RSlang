@@ -10,8 +10,10 @@ class Statistic {
     isRightAnswer: boolean,
     longestSeries: number
   ) {
+    console.log(isRightAnswer);
     if (!Users.isAuthorized()) return;
     const word = await UsersWords.getWord(wordId);
+    console.log(word);
     if (word) {
       let { difficulty } = word;
       const { optional } = word;
@@ -34,6 +36,7 @@ class Statistic {
       if (optional.isNew) optional.isNew = false;
       UsersWords.updateWordWithOptional(wordId, difficulty, optional);
     } else {
+      console.log('слова нет');
       const difficulty = ' ';
       const optional = {
         isNew: false,

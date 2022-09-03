@@ -61,7 +61,7 @@ export default class Game extends Component<GameProps, GameState> {
   };
 
   sendRoundStat(current: IWords, status: boolean) {
-    console.log('sendRoundStat');
+    console.log('sendRoundStat', status);
     const { options } = this.props;
     const { id } = current;
     const { gameName } = options;
