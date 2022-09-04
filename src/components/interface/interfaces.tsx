@@ -6,6 +6,7 @@ export interface TypeSection {
 }
 
 interface ResultWordInGames {
+  isNew: boolean;
   audio: {
     right: number;
     wrong: number;

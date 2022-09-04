@@ -3,6 +3,8 @@ import { PropsWordLearningProgress } from '../../interface/interfaces';
 import './studyProgress.css';
 
 function WordLearningProgress({ word }: PropsWordLearningProgress) {
+  console.log(word);
+  if (!word?.userWord) return <div />;
   return (
     <table className="table">
       <tbody>

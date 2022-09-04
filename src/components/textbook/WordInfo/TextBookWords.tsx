@@ -141,7 +141,8 @@ function TextBookWords({
             disabled={
               !resultAuthorizad ||
               objectWord.userWord === undefined ||
-              objectWord.userWord.optional === undefined
+              objectWord.userWord.optional === undefined ||
+              objectWord.userWord.optional.isNew
             }
             onClick={() => {
               setActiveModal(true);
