@@ -16,10 +16,13 @@ export default class Greeting extends Component<GreetingProps> {
 
   changeLevel;
 
+  isFromTextbook;
+
   constructor(props: GreetingProps) {
     super(props);
-    const { startGame, changeLevel, gameName } = props.options;
+    const { startGame, changeLevel, gameName, isFromTextbook } = props.options;
     this.levels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+    this.isFromTextbook = isFromTextbook;
     this.gameName = gameName;
     this.startGame = startGame;
     this.changeLevel = changeLevel;
@@ -46,6 +49,9 @@ export default class Greeting extends Component<GreetingProps> {
   };
 
   renderBtns() {
+    if (this.isFromTextbook) {
+      return <div />;
+    }
     return (
       <select onChange={this.selectLevel} defaultValue={0}>
         {this.levels.map((el, i) => (

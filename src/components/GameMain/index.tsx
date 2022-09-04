@@ -18,6 +18,8 @@ class GameMain extends Component<GameMainProps, GameMainState> {
 
   data: IWords[];
 
+  isFromTextbook: boolean;
+
   constructor(props: GameMainProps) {
     super(props);
     this.state = {
@@ -27,15 +29,19 @@ class GameMain extends Component<GameMainProps, GameMainState> {
     };
     this.data = [];
     this.level = 0;
+    this.isFromTextbook = false;
+    const storageData = LocalStorageService.getItem('gameWords');
+    if (storageData) {
+      this.isFromTextbook = true;
+      this.data = LocalStorageService.getItem('gameWords') as IWords[];
+      LocalStorageService.removeItem('gameWords');
+    }
+    console.log(this.isFromTextbook);
   }
 
   componentDidMount() {
     const { onFullscreenChange } = this;
     document.addEventListener('fullscreenchange', onFullscreenChange);
-    const storageData = LocalStorageService.getItem('gameWords');
-    if (storageData) {
-      this.data = LocalStorageService.getItem('gameWords') as IWords[];
-    }
   }
 
   onFullscreenChange = () => {
@@ -48,12 +54,6 @@ class GameMain extends Component<GameMainProps, GameMainState> {
   };
 
   getData() {
-    // ToDo
-    console.log(this.level);
-    // Words.getWords().then((res) => {
-    //   this.data = res;
-    //   this.changeGameStatus();
-    // });
     Words.get20RandomWordsByGroup(this.level).then((res) => {
       this.data = res;
       console.log(res);
@@ -99,6 +99,7 @@ class GameMain extends Component<GameMainProps, GameMainState> {
   render() {
     const { isGameStarted, isMute } = this.state;
     const { gameName } = this.props;
+    const { isFromTextbook } = this;
     const gameOptions = {
       gameName,
       isMute,
@@ -107,6 +108,7 @@ class GameMain extends Component<GameMainProps, GameMainState> {
     };
     const greetOptions = {
       gameName,
+      isFromTextbook,
       startGame: this.startGame,
       changeLevel: this.changeLevel,
     };
