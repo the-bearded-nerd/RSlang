@@ -91,7 +91,5 @@ export interface PropsBtnWord {
 }
 
 export interface PropsWordLearningProgress {
-  classStudy: boolean;
-  isClassStudy: React.Dispatch<React.SetStateAction<boolean>>;
   word: ContentWord | null;
 }
