@@ -17,3 +17,11 @@
   justify-content: center;
   gap: 5px;
 }
+
+.visible {
+  display: block;
+  margin: 0 auto;
+}
+.noVisible {
+  display: none;
+}
