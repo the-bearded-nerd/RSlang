@@ -6,6 +6,7 @@ export interface TypeSection {
 }
 
 interface ResultWordInGames {
+  isNew: boolean;
   audio: {
     right: number;
     wrong: number;
@@ -91,7 +92,5 @@ export interface PropsBtnWord {
 }
 
 export interface PropsWordLearningProgress {
-  classStudy: boolean;
-  isClassStudy: React.Dispatch<React.SetStateAction<boolean>>;
   word: ContentWord | null;
 }

@@ -1,11 +1,13 @@
 /* eslint-disable react/no-danger */
-import React from 'react';
+import React, { useState } from 'react';
 import DOMPurify from 'dompurify';
 import './textBookWords.css';
 import { PropsTextBookWords } from '../../interface/interfaces';
 import BtnStudiedWord from '../BtnStudiedWord/BtnStudiedWord';
 import Users from '../../../utils/Users/User';
 import BtnDifficultWord from '../BtnAddWord/BtnDifficultWord';
+import Modal from '../../Modal/Modal';
+import StudyProgress from '../StudyProgress/StudyProgress';
 
 const baseURL = 'https://rslang-fe2022q1.herokuapp.com/';
 
@@ -32,6 +34,7 @@ function TextBookWords({
   } else {
     str = 'word';
   }
+  const [activeModal, setActiveModal] = useState(false);
   const resultAuthorizad = Users.isAuthorized();
 
   const correctionTextMeaning = DOMPurify.sanitize(objectWord.textMeaning);
@@ -138,24 +141,28 @@ function TextBookWords({
             disabled={
               !resultAuthorizad ||
               objectWord.userWord === undefined ||
-              objectWord.userWord.optional === undefined
+              objectWord.userWord.optional === undefined ||
+              objectWord.userWord.optional.isNew
             }
             onClick={() => {
-              if (classStudy) {
-                document.body.style.overflow = '';
-
-                isClassStudy(false);
-              } else {
-                document.body.style.overflow = 'hidden';
-                isClassStudy(true);
-                setWord(objectWord);
-              }
+              setActiveModal(true);
+              // if (classStudy) {
+              //   document.body.style.overflow = '';
+              //   isClassStudy(false);
+              // } else {
+              //   document.body.style.overflow = 'hidden';
+              //   isClassStudy(true);
+              //   setWord(objectWord);
+              // }
             }}
           >
             Прогресс
           </button>
         </div>
       </div>
+      <Modal active={activeModal} setActive={setActiveModal}>
+        <StudyProgress word={objectWord} />
+      </Modal>
     </div>
   );
 }

@@ -92,7 +92,6 @@ function Textbook() {
         setNumberPage={() => setNumberPage(1)}
         difficultyLevel={difficultyLevel}
       />
-      <StudyProgress classStudy={classStudy} isClassStudy={isClassStudy} word={word} />;
       <nav className="textbook-games-nav">
         <ul className="nav-list">
           <li>
