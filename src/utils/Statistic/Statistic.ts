@@ -72,8 +72,8 @@ class Statistic {
       statistic.optional.wordStatistics[currentDate] = statistic.optional.wordStatistics[
         currentDate
       ]
-        ? statistic.optional.wordStatistics[currentDate] + learnedCount
-        : statistic.learnedWords;
+        ? statistic.optional.wordStatistics[currentDate]
+        : 0;
       statistic.optional.gameStatistics[game].learnedWords += learnedCount;
       statistic.optional.gameStatistics[game].right += isRightNumber;
       statistic.optional.gameStatistics[game].wrong += 1 - isRightNumber;

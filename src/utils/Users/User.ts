@@ -65,6 +65,7 @@ class Users {
   }
 
   static async signin(email: string, password: string) {
+    const loginTime = Date.now();
     const requestURL = new URL(`/signin`, baseURL);
     requestURL.searchParams.append('email', email);
     requestURL.searchParams.append('password', password);
@@ -82,6 +83,7 @@ class Users {
       localStorage.setItem('userId', responseJSON.userId);
       localStorage.setItem('refreshToken', responseJSON.refreshToken);
       localStorage.setItem('token', responseJSON.token);
+      localStorage.setItem('loginTime', JSON.stringify(loginTime));
     }
     return {
       ok: response.ok,
@@ -94,6 +96,18 @@ class Users {
   }
 
   static isAuthorized() {
+    const isAuth = !!localStorage.getItem('userName');
+    if (isAuth) {
+      const loginTime = JSON.parse(localStorage.getItem('loginTime') as string);
+      const interval = Date.now() - loginTime;
+      const hoursPastLogin = interval / 1000 / 60 / 60;
+      console.log(hoursPastLogin);
+      if (hoursPastLogin > 4) {
+        this.signout();
+        window.location.reload();
+        return false;
+      }
+    }
     return !!localStorage.getItem('userName');
   }
 
