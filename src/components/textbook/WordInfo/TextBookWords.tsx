@@ -66,29 +66,6 @@ function TextBookWords({
     <div className={str}>
       <img className="image-word" src={`${baseURL}${objectWord.image}`} alt="img" width={200} />
       <div className="box-word">
-        <button
-          type="button"
-          className={
-            objectWord.userWord !== undefined && objectWord.userWord.optional !== undefined
-              ? 'visible'
-              : 'noVisible'
-          }
-          disabled={!resultAuthorizad}
-          onClick={() => {
-            if (classStudy) {
-              document.body.style.overflow = '';
-
-              isClassStudy(false);
-            } else {
-              document.body.style.overflow = 'hidden';
-              isClassStudy(true);
-              setWord(objectWord);
-            }
-          }}
-        >
-          Прогресс
-        </button>
-
         <div className="name-word">
           <span>{objectWord.word} </span>
           <span>{objectWord.transcription} </span>
@@ -155,6 +132,28 @@ function TextBookWords({
             difficultyLevel={difficultyLevel}
             setWords={setWords}
           />
+
+          <button
+            type="button"
+            disabled={
+              !resultAuthorizad ||
+              objectWord.userWord === undefined ||
+              objectWord.userWord.optional === undefined
+            }
+            onClick={() => {
+              if (classStudy) {
+                document.body.style.overflow = '';
+
+                isClassStudy(false);
+              } else {
+                document.body.style.overflow = 'hidden';
+                isClassStudy(true);
+                setWord(objectWord);
+              }
+            }}
+          >
+            Прогресс
+          </button>
         </div>
       </div>
     </div>
