@@ -4,7 +4,6 @@ import DOMPurify from 'dompurify';
 import './textBookWords.css';
 import { PropsTextBookWords } from '../../interface/interfaces';
 import BtnStudiedWord from '../BtnStudiedWord/BtnStudiedWord';
-import StudyProgress from '../StudyProgress/StudyProgress';
 import Users from '../../../utils/Users/User';
 import BtnDifficultWord from '../BtnAddWord/BtnDifficultWord';
 
@@ -69,6 +68,11 @@ function TextBookWords({
       <div className="box-word">
         <button
           type="button"
+          className={
+            objectWord.userWord !== undefined && objectWord.userWord.optional !== undefined
+              ? 'visible'
+              : 'noVisible'
+          }
           disabled={!resultAuthorizad}
           onClick={() => {
             if (classStudy) {
