@@ -55,6 +55,8 @@ export interface PropsWordInfo {
   isClassStudy: React.Dispatch<React.SetStateAction<boolean>>;
   classStudy: boolean;
   setWord: React.Dispatch<React.SetStateAction<CurrentWords | null>>;
+  audioElement: HTMLAudioElement | undefined;
+  setAudioElement: React.Dispatch<React.SetStateAction<HTMLAudioElement | undefined>>;
 }
 
 export interface PropsLocalDisabled {
@@ -83,6 +85,8 @@ export interface PropsWordsTextBook {
   isClassStudy: React.Dispatch<React.SetStateAction<boolean>>;
   classStudy: boolean;
   setWord: React.Dispatch<React.SetStateAction<CurrentWords | null>>;
+  audioElement: HTMLAudioElement | undefined;
+  setAudioElement: React.Dispatch<React.SetStateAction<HTMLAudioElement | undefined>>;
 }
 
 export interface PropsDifficulWord {

@@ -25,6 +25,7 @@ function Textbook() {
   const [userAggregatedWords, setUserAggregatedWords] = React.useState<CurrentWords[]>([]);
   const [userLearned, setUserLearned] = React.useState<CurrentWords[]>([]);
   const [loading, isLoading] = React.useState<boolean>(false);
+  const [audioElement, setAudioElement] = React.useState<HTMLAudioElement>();
 
   React.useEffect(() => {
     UserAggregatedWords.getDifficultWords()
@@ -127,6 +128,8 @@ function Textbook() {
             isClassStudy={isClassStudy}
             classStudy={classStudy}
             setWord={setWord}
+            setAudioElement={setAudioElement}
+            audioElement={audioElement}
           />
         </section>
       )}
