@@ -21,6 +21,7 @@ function WordInfo({
   setWords,
   isClassStudy,
   classStudy,
+  setWord,
 }: PropsWordInfo) {
   let str = '';
   if (objectWord.userWord?.difficulty === 'learned') {
@@ -68,9 +69,13 @@ function WordInfo({
           type="button"
           onClick={() => {
             if (classStudy) {
+              document.body.style.overflow = '';
+
               isClassStudy(false);
             } else {
+              document.body.style.overflow = 'hidden';
               isClassStudy(true);
+              setWord(objectWord);
             }
 
             console.log('1');

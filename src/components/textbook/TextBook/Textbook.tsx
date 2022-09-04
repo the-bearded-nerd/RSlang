@@ -63,7 +63,6 @@ function Textbook() {
       UserAggregatedWords.getDifficultWords()
         .then((res) => res)
         .then((data) => {
-          // isLoading(true);
           setWords(data);
           isLoading(false);
         });
@@ -71,6 +70,9 @@ function Textbook() {
   }, [idHard, currentCount]);
 
   const [classStudy, isClassStudy] = React.useState<boolean>(false);
+  const [word, setWord] = React.useState<CurrentWords | null>(null);
+  console.log(word);
+
   return (
     <>
       <h1>Учебник</h1>
@@ -89,7 +91,7 @@ function Textbook() {
         setNumberPage={() => setCount(1)}
         idHard={idHard}
       />
-      <StudyProgress classStudy={classStudy} />;
+      <StudyProgress classStudy={classStudy} isClassStudy={isClassStudy} word={word} />;
       <div>
         <button type="button">Аудиовызов</button>
         <button type="button">Спринт</button>
@@ -124,6 +126,7 @@ function Textbook() {
             isLoading={isLoading}
             isClassStudy={isClassStudy}
             classStudy={classStudy}
+            setWord={setWord}
           />
         </section>
       )}

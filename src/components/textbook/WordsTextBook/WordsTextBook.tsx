@@ -16,6 +16,7 @@ function WordsTextBook({
   setUserLearned,
   isClassStudy,
   classStudy,
+  setWord,
 }: PropsWordsTextBook) {
   const [currentDisabled, setDisabled] = React.useState<boolean>(false);
   const [flagPlayAudio, isflagPlayAudio] = React.useState<boolean>(false);
@@ -38,6 +39,7 @@ function WordsTextBook({
             setWords={setWords}
             isClassStudy={isClassStudy}
             classStudy={classStudy}
+            setWord={setWord}
           />
         );
       })}
