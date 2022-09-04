@@ -1,31 +1,30 @@
 /* eslint-disable react/no-danger */
 import React from 'react';
 import DOMPurify from 'dompurify';
-import './wordInfo.css';
-import { PropsWordInfo } from '../../interface/interfaces';
-import BtnAddWord from '../BtnAddWord/BtnAddWord';
+import './textBookWords.css';
+import { PropsTextBookWords } from '../../interface/interfaces';
 import BtnStudiedWord from '../BtnStudiedWord/BtnStudiedWord';
 import StudyProgress from '../StudyProgress/StudyProgress';
 import Users from '../../../utils/Users/User';
+import BtnDifficultWord from '../BtnAddWord/BtnDifficultWord';
 
 const baseURL = 'https://rslang-fe2022q1.herokuapp.com/';
 
-function WordInfo({
+function TextBookWords({
   objectWord,
-  currentDisabled,
-  setDisabled,
+  audioBtnDisabled,
+  setAudioBtnDisabled,
   isflagPlayAudio,
   flagPlayAudio,
   setUserAggregatedWords,
-  setUserLearned,
-  hard,
+  difficultyLevel,
   setWords,
   isClassStudy,
   classStudy,
   setWord,
   setAudioElement,
   audioElement,
-}: PropsWordInfo) {
+}: PropsTextBookWords) {
   let str = '';
   if (objectWord.userWord?.difficulty === 'learned') {
     str = 'learned';
@@ -41,9 +40,9 @@ function WordInfo({
   const correctionTextExample = DOMPurify.sanitize(objectWord.textExample);
   const correctionTranslateTextExample = DOMPurify.sanitize(objectWord.textExampleTranslate);
 
-  const [isLocalDisabled, setLocalDisabled] = React.useState(true);
+  const [localAudioBtnDisabled, isLocalAudioBtnDisabled] = React.useState(true);
 
-  const booleanState = currentDisabled !== true ? currentDisabled : isLocalDisabled;
+  const audioState = audioBtnDisabled !== true ? audioBtnDisabled : localAudioBtnDisabled;
   const audioWordMeaning = new Audio();
   const audioWordExample = new Audio();
   const audioWord = new Audio();
@@ -56,11 +55,11 @@ function WordInfo({
     if (!flagPlayAudio) {
       const valueAudio = audioElement;
       valueAudio?.pause();
-      setDisabled(false);
-      setLocalDisabled(true);
+      setAudioBtnDisabled(false);
+      isLocalAudioBtnDisabled(true);
       isflagPlayAudio(false);
     } else {
-      setDisabled(true);
+      setAudioBtnDisabled(true);
     }
   }, [audioElement, flagPlayAudio]);
 
@@ -81,8 +80,6 @@ function WordInfo({
               isClassStudy(true);
               setWord(objectWord);
             }
-
-            console.log('1');
           }}
         >
           Прогресс
@@ -96,10 +93,10 @@ function WordInfo({
         <div className="audio-word">
           <button
             type="button"
-            disabled={booleanState}
+            disabled={audioState}
             onClick={(e) => {
               if (e.target) {
-                setLocalDisabled(false);
+                isLocalAudioBtnDisabled(false);
               }
               audioWordMeaning.src = `${baseURL}${objectWord.audioMeaning}`;
               audioWordExample.src = `${baseURL}${objectWord.audioExample}`;
@@ -118,8 +115,8 @@ function WordInfo({
                   audioWordExample.play();
                 });
                 audioWordExample.addEventListener('ended', () => {
-                  setDisabled(false);
-                  setLocalDisabled(true);
+                  setAudioBtnDisabled(false);
+                  isLocalAudioBtnDisabled(true);
                   isflagPlayAudio(false);
                 });
               } else {
@@ -127,9 +124,9 @@ function WordInfo({
                 audioWord.pause();
                 audioWordExample.pause();
                 audioWordMeaning.pause();
-                setDisabled(true);
+                setAudioBtnDisabled(true);
               }
-              setDisabled(true);
+              setAudioBtnDisabled(true);
             }}
           >
             click
@@ -140,20 +137,18 @@ function WordInfo({
         <div dangerouslySetInnerHTML={{ __html: correctionTextExample }} />
         <div dangerouslySetInnerHTML={{ __html: correctionTranslateTextExample }} />
         <div className="wrapper-btn-word">
-          <BtnAddWord
+          <BtnDifficultWord
             objectWord={objectWord}
             setUserAggregatedWords={setUserAggregatedWords}
-            classNameDifficul={str}
-            setUserLearned={setUserLearned}
-            hard={hard}
+            classNameDifficulty={str}
+            difficultyLevel={difficultyLevel}
             setWords={setWords}
           />
           <BtnStudiedWord
             objectWord={objectWord}
             setUserAggregatedWords={setUserAggregatedWords}
-            classNameDifficul={str}
-            setUserLearned={setUserLearned}
-            hard={hard}
+            classNameDifficulty={str}
+            difficultyLevel={difficultyLevel}
             setWords={setWords}
           />
         </div>
@@ -162,4 +157,4 @@ function WordInfo({
   );
 }
 
-export default WordInfo;
+export default TextBookWords;

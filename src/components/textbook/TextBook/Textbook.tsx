@@ -1,29 +1,28 @@
 import React from 'react';
 import { BtnNextPage, BtnPrevPage } from '../BtnPagination/BtnPageTextBook';
-import WordsTextBook from '../WordsTextBook/WordsTextBook';
+import WordsTextBook from '../WordsTextBook/TextBook';
 import '../BtnPagination/btnPageTextBook.css';
 import UserAggregatedWords from '../../../utils/UsersAggregatedWords/UserAggregatedWords';
-import { CurrentWords, ObjectAggr } from '../../interface/interfaces';
+import { ContentWord } from '../../interface/interfaces';
 import HeaderTextbook from '../HeaderTextBook/HeaderTextbook';
 import Words from '../../../utils/Words/Words';
 import StudyProgress from '../StudyProgress/StudyProgress';
 
 function Textbook() {
-  const resultPage: number = JSON.parse(localStorage.getItem('numberPage') || '1');
-  const resultHard: number = JSON.parse(localStorage.getItem('levelHard') || '0');
-  const [currentCount, setCount] = React.useState<number>(resultPage);
-  const [idHard, setIdHard] = React.useState<number>(resultHard);
-  const [currentWords, setWords] = React.useState<CurrentWords[]>([]);
+  const storagePage: number = JSON.parse(localStorage.getItem('numberPage') || '1');
+  const storageHard: number = JSON.parse(localStorage.getItem('levelHard') || '0');
+  const [numberPage, setNumberPage] = React.useState<number>(storagePage);
+  const [difficultyLevel, setDifficultyLevel] = React.useState<number>(storageHard);
+  const [listWords, setWords] = React.useState<ContentWord[]>([]);
   const [resultLearnWords, setResultLearnWords] = React.useState();
-  console.log(currentWords);
+  console.log(listWords);
 
   React.useEffect(() => {
-    localStorage.setItem('numberPage', JSON.stringify(currentCount));
-    localStorage.setItem('levelHard', JSON.stringify(idHard));
-  }, [currentCount, idHard]);
+    localStorage.setItem('numberPage', JSON.stringify(numberPage));
+    localStorage.setItem('levelHard', JSON.stringify(difficultyLevel));
+  }, [numberPage, difficultyLevel]);
 
-  const [userAggregatedWords, setUserAggregatedWords] = React.useState<CurrentWords[]>([]);
-  const [userLearned, setUserLearned] = React.useState<CurrentWords[]>([]);
+  const [userAggregatedWords, setUserAggregatedWords] = React.useState<ContentWord[]>([]);
   const [loading, isLoading] = React.useState<boolean>(false);
   const [audioElement, setAudioElement] = React.useState<HTMLAudioElement>();
 
@@ -34,21 +33,21 @@ function Textbook() {
 
     UserAggregatedWords.getLearnedtWords()
       .then((res) => res)
-      .then((data) => setUserLearned(data));
-    UserAggregatedWords.isAllLearned(currentWords).then((res) => setResultLearnWords(res));
+      .then((data) => data);
+    UserAggregatedWords.isAllLearned(listWords).then((res) => setResultLearnWords(res));
   }, []);
 
-  const classHard = idHard !== 6 ? 'box-btn-page active' : 'box-btn-page';
+  const classHard = difficultyLevel !== 6 ? 'number-page active' : 'number-page';
 
   React.useEffect(() => {
-    UserAggregatedWords.isAllLearned(currentWords).then((res) => setResultLearnWords(res));
-  }, [userAggregatedWords, currentWords]);
+    UserAggregatedWords.isAllLearned(listWords).then((res) => setResultLearnWords(res));
+  }, [userAggregatedWords, listWords]);
 
   React.useEffect(() => {
-    if (idHard !== 6) {
+    if (difficultyLevel !== 6) {
       isLoading(true);
 
-      Words.getTextbookWords(idHard, currentCount - 1)
+      Words.getTextbookWords(difficultyLevel, numberPage - 1)
         .then((res) => {
           return res;
         })
@@ -58,7 +57,7 @@ function Textbook() {
         });
     }
 
-    if (idHard === 6) {
+    if (difficultyLevel === 6) {
       isLoading(true);
 
       UserAggregatedWords.getDifficultWords()
@@ -68,11 +67,10 @@ function Textbook() {
           isLoading(false);
         });
     }
-  }, [idHard, currentCount]);
+  }, [difficultyLevel, numberPage]);
 
   const [classStudy, isClassStudy] = React.useState<boolean>(false);
-  const [word, setWord] = React.useState<CurrentWords | null>(null);
-  console.log(word);
+  const [word, setWord] = React.useState<ContentWord | null>(null);
 
   return (
     <>
@@ -88,9 +86,9 @@ function Textbook() {
           'Шестой',
           'Сложные слова',
         ]}
-        setIdHard={(id) => setIdHard(id)}
-        setNumberPage={() => setCount(1)}
-        idHard={idHard}
+        setDifficultyLevel={(id) => setDifficultyLevel(id)}
+        setNumberPage={() => setNumberPage(1)}
+        difficultyLevel={difficultyLevel}
       />
       <StudyProgress classStudy={classStudy} isClassStudy={isClassStudy} word={word} />;
       <div>
@@ -99,14 +97,14 @@ function Textbook() {
       </div>
       <div className={classHard}>
         <BtnPrevPage
-          setNumberPage={() => setCount(currentCount < 2 ? 1 : currentCount - 1)}
-          currentCount={currentCount}
+          setNumberPage={() => setNumberPage(numberPage < 2 ? 1 : numberPage - 1)}
+          numberPage={numberPage}
           loading={loading}
         />
-        <div className={!resultLearnWords ? 'no' : 'page-learn'}>{currentCount}</div>
+        <div className={!resultLearnWords ? 'page' : 'page learn'}>{numberPage}</div>
         <BtnNextPage
-          setNumberPage={() => setCount(currentCount === 30 ? 30 : currentCount + 1)}
-          currentCount={currentCount}
+          setNumberPage={() => setNumberPage(numberPage === 30 ? 30 : numberPage + 1)}
+          numberPage={numberPage}
           loading={loading}
         />
       </div>
@@ -114,16 +112,14 @@ function Textbook() {
       {loading ? (
         <div className="box-loading">1</div>
       ) : (
-        <section className={idHard !== 6 ? 'page' : 'difficul'}>
+        <section className={difficultyLevel !== 6 ? 'all-words' : 'difficulty-words'}>
           <WordsTextBook
-            hard={idHard}
-            numberPage={currentCount - 1}
+            difficultyLevel={difficultyLevel}
+            numberPage={numberPage - 1}
             userAggregatedWords={userAggregatedWords}
             setUserAggregatedWords={setUserAggregatedWords}
-            userLearned={userLearned}
             setWords={setWords}
-            currentWords={currentWords}
-            setUserLearned={setUserLearned}
+            listWords={listWords}
             isLoading={isLoading}
             isClassStudy={isClassStudy}
             classStudy={classStudy}

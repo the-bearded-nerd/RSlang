@@ -1,43 +1,39 @@
 import React from 'react';
-import UserAggregatedWords from '../../../utils/UsersAggregatedWords/UserAggregatedWords';
-import Words from '../../../utils/Words/Words';
 
 import { PropsWordsTextBook } from '../../interface/interfaces';
-import WordInfo from '../WordInfo/WordsInfo';
+import WordInfo from '../WordInfo/TextBookWords';
 
-import './wordTextBook.css';
+import './textBook.css';
 
-function WordsTextBook({
-  hard,
+function TextBook({
+  difficultyLevel,
   userAggregatedWords,
   setUserAggregatedWords,
   setWords,
-  currentWords,
-  setUserLearned,
+  listWords,
   isClassStudy,
   classStudy,
   setWord,
   setAudioElement,
   audioElement,
 }: PropsWordsTextBook) {
-  const [currentDisabled, setDisabled] = React.useState<boolean>(false);
+  const [audioBtnDisabled, setAudioBtnDisabled] = React.useState<boolean>(false);
   const [flagPlayAudio, isflagPlayAudio] = React.useState<boolean>(false);
 
   return (
     <>
-      {currentWords.map((word) => {
+      {listWords.map((word) => {
         return (
           <WordInfo
             key={word.id}
             objectWord={word}
-            currentDisabled={currentDisabled}
-            setDisabled={setDisabled}
+            audioBtnDisabled={audioBtnDisabled}
+            setAudioBtnDisabled={setAudioBtnDisabled}
             isflagPlayAudio={isflagPlayAudio}
             flagPlayAudio={flagPlayAudio}
             userAggregatedWords={userAggregatedWords}
             setUserAggregatedWords={setUserAggregatedWords}
-            setUserLearned={setUserLearned}
-            hard={hard}
+            difficultyLevel={difficultyLevel}
             setWords={setWords}
             isClassStudy={isClassStudy}
             classStudy={classStudy}
@@ -51,4 +47,4 @@ function WordsTextBook({
   );
 }
 
-export default WordsTextBook;
+export default TextBook;

@@ -1,8 +1,8 @@
 import React from 'react';
-import { ClassStudy } from '../../interface/interfaces';
+import { PropsWordLearningProgress } from '../../interface/interfaces';
 import './studyProgress.css';
 
-function StudyProgress({ classStudy, isClassStudy, word }: ClassStudy) {
+function WordLearningProgress({ classStudy, isClassStudy, word }: PropsWordLearningProgress) {
   return (
     <div className={classStudy ? 'study' : 'no-study'}>
       <button
@@ -42,4 +42,4 @@ function StudyProgress({ classStudy, isClassStudy, word }: ClassStudy) {
   );
 }
 
-export default StudyProgress;
+export default WordLearningProgress;

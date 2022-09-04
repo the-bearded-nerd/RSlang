@@ -2,18 +2,18 @@ import React from 'react';
 import Users from '../../../utils/Users/User';
 import UserAggregatedWords from '../../../utils/UsersAggregatedWords/UserAggregatedWords';
 import UsersWords from '../../../utils/UsersWords/UsersWords';
-import { PropsDifficulWord } from '../../interface/interfaces';
+import { PropsBtnWord } from '../../interface/interfaces';
 import './btnWord.css';
 
 function BtnLearnedWord({
   objectWord,
   setUserAggregatedWords,
-  classNameDifficul,
-  hard,
+  classNameDifficulty,
+  difficultyLevel,
   setWords,
-}: PropsDifficulWord) {
+}: PropsBtnWord) {
   const resultAuthorizad = Users.isAuthorized();
-  const wordActive = classNameDifficul.includes('learned');
+  const wordActive = classNameDifficulty.includes('learned');
 
   return (
     <>
@@ -27,7 +27,7 @@ function BtnLearnedWord({
           setUserAggregatedWords((arrayWords) =>
             arrayWords.filter((el) => el.word !== objectWord.word)
           );
-          if (hard === 6) {
+          if (difficultyLevel === 6) {
             setWords((arrayWords) => arrayWords.filter((el) => el.word !== objectWord.word));
           }
 

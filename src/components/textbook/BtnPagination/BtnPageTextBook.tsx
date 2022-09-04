@@ -2,11 +2,11 @@ import React from 'react';
 
 import { PropsBtnPage } from '../../interface/interfaces';
 
-export function BtnNextPage({ setNumberPage, currentCount, loading }: PropsBtnPage) {
+export function BtnNextPage({ setNumberPage, numberPage, loading }: PropsBtnPage) {
   return (
     <button
-      className="Btn-Word"
-      disabled={currentCount === 30 || loading}
+      className="btn-page"
+      disabled={numberPage === 30 || loading}
       type="button"
       onClick={() => {
         setNumberPage();
@@ -17,11 +17,11 @@ export function BtnNextPage({ setNumberPage, currentCount, loading }: PropsBtnPa
   );
 }
 
-export function BtnPrevPage({ setNumberPage, currentCount, loading }: PropsBtnPage) {
+export function BtnPrevPage({ setNumberPage, numberPage, loading }: PropsBtnPage) {
   return (
     <button
-      className="Btn-Word"
-      disabled={currentCount === 1 || loading}
+      className="btn-page"
+      disabled={numberPage === 1 || loading}
       type="button"
       onClick={() => {
         setNumberPage();
