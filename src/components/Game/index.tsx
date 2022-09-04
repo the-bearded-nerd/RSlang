@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AudioCall from '../AudioCall';
 import Result from '../Result';
 import Sprint from '../Sprint';
+import Statistic from '../../utils/Statistic/Statistic';
 
 // Types
 import IWords from '../../types/IWords';
@@ -35,12 +36,13 @@ export default class Game extends Component<GameProps, GameState> {
     this.restartGame = restartGame;
   }
 
-  compareSequences = (status: boolean) => {
+  compareSequences = (current: IWords, status: boolean) => {
     this.currentSequence = status ? this.currentSequence + 1 : 0;
     const { currentSequence, bestSequence } = this;
     if (currentSequence > bestSequence) {
       this.bestSequence = currentSequence;
     }
+    this.sendRoundStat(current, status);
   };
 
   saveRoundResult = (current: IWords, status: boolean) => {
@@ -49,7 +51,7 @@ export default class Game extends Component<GameProps, GameState> {
     } else {
       this.unGuessedWords.push(current);
     }
-    this.compareSequences(status);
+    this.compareSequences(current, status);
   };
 
   finishGame = () => {
@@ -57,6 +59,15 @@ export default class Game extends Component<GameProps, GameState> {
       isGameFinished: true,
     });
   };
+
+  sendRoundStat(current: IWords, status: boolean) {
+    console.log('sendRoundStat', status);
+    const { options } = this.props;
+    const { id } = current;
+    const { gameName } = options;
+    const { bestSequence } = this;
+    Statistic.saveTurnResult(id, gameName, status, bestSequence);
+  }
 
   renderRound() {
     const { options } = this.props;

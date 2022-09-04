@@ -59,8 +59,8 @@ class UserAggregatedWords {
     return [];
   }
 
-  // TODO переделать _id на id - СДЕЛАНО
   static async getDifficultWords() {
+    if (!Users.isAuthorized()) return [];
     const difficultWrods = await UserAggregatedWords.getWordsByDifficulty('hard');
     const result = difficultWrods[0].paginatedResults;
     const newKey = 'id';
@@ -73,6 +73,7 @@ class UserAggregatedWords {
   }
 
   static async getLearnedtWords() {
+    if (!Users.isAuthorized()) return [];
     const result = await UserAggregatedWords.getWordsByDifficulty('learned');
     return result[0].paginatedResults;
   }
@@ -114,8 +115,11 @@ class UserAggregatedWords {
   }
 
   static async isAllLearned(words: any) {
-    const learned = await UserAggregatedWords.getSetLearnedtWords();
-    return words.every((elem: any) => learned.has(elem.id));
+    return words.every(
+      (elem: any) =>
+        Object.prototype.hasOwnProperty.call(elem, 'userWord') &&
+        elem.userWord.difficulty === 'learned'
+    );
   }
 }
 

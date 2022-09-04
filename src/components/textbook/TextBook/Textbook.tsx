@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { BtnNextPage, BtnPrevPage } from '../BtnPagination/BtnPageTextBook';
 import WordsTextBook from '../WordsTextBook/TextBook';
 import '../BtnPagination/btnPageTextBook.css';
@@ -7,6 +8,7 @@ import { ContentWord } from '../../interface/interfaces';
 import HeaderTextbook from '../HeaderTextBook/HeaderTextbook';
 import Words from '../../../utils/Words/Words';
 import StudyProgress from '../StudyProgress/StudyProgress';
+import LocalStorageService from '../../../utils/LocalStorageService/index';
 
 function Textbook() {
   const storagePage: number = JSON.parse(localStorage.getItem('numberPage') || '1');
@@ -37,7 +39,7 @@ function Textbook() {
     UserAggregatedWords.isAllLearned(listWords).then((res) => setResultLearnWords(res));
   }, []);
 
-  const classHard = difficultyLevel !== 6 ? 'number-page active' : 'number-page';
+  const classHard = difficultyLevel !== 6 ? 'box-btn-page active' : 'box-btn-page';
 
   React.useEffect(() => {
     UserAggregatedWords.isAllLearned(listWords).then((res) => setResultLearnWords(res));
@@ -91,10 +93,30 @@ function Textbook() {
         difficultyLevel={difficultyLevel}
       />
       <StudyProgress classStudy={classStudy} isClassStudy={isClassStudy} word={word} />;
-      <div>
-        <button type="button">Аудиовызов</button>
-        <button type="button">Спринт</button>
-      </div>
+      <nav className="textbook-games-nav">
+        <ul className="nav-list">
+          <li>
+            <Link
+              to="../games/audio"
+              onClick={() => {
+                LocalStorageService.setItem('gameWords', listWords);
+              }}
+            >
+              Аудиовызов
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="../games/sprint"
+              onClick={() => {
+                LocalStorageService.setItem('gameWords', listWords);
+              }}
+            >
+              Спринт
+            </Link>
+          </li>
+        </ul>
+      </nav>
       <div className={classHard}>
         <BtnPrevPage
           setNumberPage={() => setNumberPage(numberPage < 2 ? 1 : numberPage - 1)}

@@ -43,13 +43,20 @@ class GameMain extends Component<GameMainProps, GameMainState> {
     this.setState({
       isFullscreen: status,
     });
+    const { changeFullScreen } = this.props;
+    changeFullScreen();
   };
 
   getData() {
     // ToDo
     console.log(this.level);
-    Words.getWords().then((res) => {
+    // Words.getWords().then((res) => {
+    //   this.data = res;
+    //   this.changeGameStatus();
+    // });
+    Words.get20RandomWordsByGroup(this.level).then((res) => {
       this.data = res;
+      console.log(res);
       this.changeGameStatus();
     });
   }

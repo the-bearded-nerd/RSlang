@@ -12,6 +12,7 @@ class Statistic {
   ) {
     if (!Users.isAuthorized()) return;
     const word = await UsersWords.getWord(wordId);
+    console.log(word);
     if (word) {
       let { difficulty } = word;
       const { optional } = word;
@@ -34,6 +35,7 @@ class Statistic {
       if (optional.isNew) optional.isNew = false;
       UsersWords.updateWordWithOptional(wordId, difficulty, optional);
     } else {
+      console.log('слова нет');
       const difficulty = ' ';
       const optional = {
         isNew: false,
@@ -60,9 +62,11 @@ class Statistic {
     isNewWord: boolean,
     longestSeries: number
   ) {
+    console.log(isRightAnswer);
     const statistic = await this.getStatistic();
     if (statistic) {
       const learnedCount = isNewWord ? 1 : 0;
+      const isRightNumber = Number(isRightAnswer);
       statistic.learnedWords += learnedCount;
       const currentDate = this.getDate();
       statistic.optional.wordStatistics[currentDate] = statistic.optional.wordStatistics[
@@ -71,8 +75,8 @@ class Statistic {
         ? statistic.optional.wordStatistics[currentDate] + learnedCount
         : statistic.learnedWords;
       statistic.optional.gameStatistics[game].learnedWords += learnedCount;
-      statistic.optional.gameStatistics[game].right += learnedCount;
-      statistic.optional.gameStatistics[game].wrong += 1 - learnedCount;
+      statistic.optional.gameStatistics[game].right += isRightNumber;
+      statistic.optional.gameStatistics[game].wrong += 1 - isRightNumber;
       statistic.optional.gameStatistics[game].longestSeries = Math.max(
         statistic.optional.gameStatistics[game].longestSeries,
         longestSeries
@@ -155,6 +159,30 @@ class Statistic {
       .map((component) => component.slice(-2))
       .join('.');
     return currDate;
+  }
+
+  static async increaseLearnedWordsCount() {
+    if (!Users.isAuthorized()) return;
+    const stat = await this.getStatistic();
+    let { learnedWords } = stat;
+    const { optional } = stat;
+    const date = this.getDate();
+    if (optional.wordStatistics[date]) optional.wordStatistics[date] += 1;
+    else optional.wordStatistics[date] = 1;
+    learnedWords += 1;
+    this.saveStatistics(learnedWords, optional);
+  }
+
+  static async decreaseLearnedWordsCount() {
+    if (!Users.isAuthorized()) return;
+    const stat = await Statistic.getStatistic();
+    let { learnedWords } = stat;
+    const { optional } = stat;
+    const date = this.getDate();
+    if (optional.wordStatistics[date]) optional.wordStatistics[date] -= 1;
+    else optional.wordStatistics[date] = 0;
+    learnedWords -= 1;
+    this.saveStatistics(learnedWords, optional);
   }
 }
 
