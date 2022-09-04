@@ -6,6 +6,7 @@ import { PropsWordInfo } from '../../interface/interfaces';
 import BtnAddWord from '../BtnAddWord/BtnAddWord';
 import BtnStudiedWord from '../BtnStudiedWord/BtnStudiedWord';
 import StudyProgress from '../StudyProgress/StudyProgress';
+import Users from '../../../utils/Users/User';
 
 const baseURL = 'https://rslang-fe2022q1.herokuapp.com/';
 
@@ -22,6 +23,8 @@ function WordInfo({
   isClassStudy,
   classStudy,
   setWord,
+  setAudioElement,
+  audioElement,
 }: PropsWordInfo) {
   let str = '';
   if (objectWord.userWord?.difficulty === 'learned') {
@@ -31,6 +34,7 @@ function WordInfo({
   } else {
     str = 'word';
   }
+  const resultAuthorizad = Users.isAuthorized();
 
   const correctionTextMeaning = DOMPurify.sanitize(objectWord.textMeaning);
   const correctionTranslateTextMeaning = DOMPurify.sanitize(objectWord.textMeaningTranslate);
@@ -48,7 +52,6 @@ function WordInfo({
     audio.play();
   };
 
-  const [audioElement, setAudioElement] = React.useState<HTMLAudioElement>();
   React.useEffect(() => {
     if (!flagPlayAudio) {
       const valueAudio = audioElement;
@@ -67,6 +70,7 @@ function WordInfo({
       <div className="box-word">
         <button
           type="button"
+          disabled={!resultAuthorizad}
           onClick={() => {
             if (classStudy) {
               document.body.style.overflow = '';
