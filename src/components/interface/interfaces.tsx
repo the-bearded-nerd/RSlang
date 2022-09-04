@@ -1,10 +1,22 @@
 export interface TypeSection {
   typeSection: string[];
-  setIdHard: (id: number) => void;
+  setDifficultyLevel: (id: number) => void;
   setNumberPage: () => void;
-  idHard: number;
+  difficultyLevel: number;
 }
-export interface CurrentWords {
+
+interface ResultWordInGames {
+  audio: {
+    right: number;
+    wrong: number;
+  };
+  sprint: {
+    right: number;
+    wrong: number;
+  };
+}
+
+export interface ContentWord {
   audio: string;
   audioExample: string;
   audioMeaning: string;
@@ -21,24 +33,29 @@ export interface CurrentWords {
   wordTranslate: string;
   userWord: {
     difficulty: string;
+    optional?: ResultWordInGames;
   };
 }
 
 export interface InforWordsProps {
-  objectWord: CurrentWords;
+  objectWord: ContentWord;
 }
 
-export interface PropsWordInfo {
-  objectWord: CurrentWords;
-  currentDisabled: boolean;
-  setDisabled: (disabled: boolean) => void;
+export interface PropsTextBookWords {
+  objectWord: ContentWord;
+  audioBtnDisabled: boolean;
+  setAudioBtnDisabled: (disabled: boolean) => void;
   isflagPlayAudio: (v: boolean) => void;
   flagPlayAudio: boolean;
-  userAggregatedWords: CurrentWords[];
-  setUserAggregatedWords: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
-  setUserLearned: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
-  hard: number;
-  setWords: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
+  userAggregatedWords: ContentWord[];
+  setUserAggregatedWords: React.Dispatch<React.SetStateAction<ContentWord[]>>;
+  difficultyLevel: number;
+  setWords: React.Dispatch<React.SetStateAction<ContentWord[]>>;
+  isClassStudy: React.Dispatch<React.SetStateAction<boolean>>;
+  classStudy: boolean;
+  setWord: React.Dispatch<React.SetStateAction<ContentWord | null>>;
+  audioElement: HTMLAudioElement | undefined;
+  setAudioElement: React.Dispatch<React.SetStateAction<HTMLAudioElement | undefined>>;
 }
 
 export interface PropsLocalDisabled {
@@ -46,34 +63,35 @@ export interface PropsLocalDisabled {
 }
 export interface PropsBtnPage {
   setNumberPage: () => void;
-  currentCount: number;
-  currentWords: CurrentWords[];
+  numberPage: number;
+  loading: boolean;
 }
 
 export interface PropsWordsTextBook {
-  hard: number;
+  difficultyLevel: number;
   numberPage: number;
-  userAggregatedWords: CurrentWords[];
-  setUserAggregatedWords: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
-  userLearned: CurrentWords[];
-  setWords: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
-  currentWords: CurrentWords[];
-  setUserLearned: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
+  userAggregatedWords: ContentWord[];
+  setUserAggregatedWords: React.Dispatch<React.SetStateAction<ContentWord[]>>;
+  setWords: React.Dispatch<React.SetStateAction<ContentWord[]>>;
+  listWords: ContentWord[];
+  isLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  isClassStudy: React.Dispatch<React.SetStateAction<boolean>>;
+  classStudy: boolean;
+  setWord: React.Dispatch<React.SetStateAction<ContentWord | null>>;
+  audioElement: HTMLAudioElement | undefined;
+  setAudioElement: React.Dispatch<React.SetStateAction<HTMLAudioElement | undefined>>;
 }
 
-export interface PropsDifficulWord {
-  objectWord: CurrentWords;
-  setUserAggregatedWords: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
-  classNameDifficul: string;
-  setUserLearned: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
-  hard: number;
-  setWords: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
+export interface PropsBtnWord {
+  objectWord: ContentWord;
+  setUserAggregatedWords: React.Dispatch<React.SetStateAction<ContentWord[]>>;
+  classNameDifficulty: string;
+  difficultyLevel: number;
+  setWords: React.Dispatch<React.SetStateAction<ContentWord[]>>;
 }
 
-export interface PropsLearnedWord {
-  objectWord: CurrentWords;
-  setUserAggregatedWords: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
-  isFlagDifficul: React.Dispatch<React.SetStateAction<boolean | null>>;
-  flagDifficul: boolean | null;
-  setUserLearned: React.Dispatch<React.SetStateAction<CurrentWords[]>>;
+export interface PropsWordLearningProgress {
+  classStudy: boolean;
+  isClassStudy: React.Dispatch<React.SetStateAction<boolean>>;
+  word: ContentWord | null;
 }

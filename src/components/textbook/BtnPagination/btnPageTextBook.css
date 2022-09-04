@@ -1,7 +1,7 @@
-.box-btn-page {
+.number-page {
   display: none;
 }
-.box-btn-page.active {
+.number-page.active {
   display: flex;
   justify-content: center;
   align-items: baseline;
@@ -9,6 +9,6 @@
   font-size: 25px;
 }
 
-.page-learn {
+.page.learn {
   background-color: blue;
 }

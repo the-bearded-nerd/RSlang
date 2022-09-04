@@ -4,12 +4,16 @@ import Users from '../../../utils/Users/User';
 import UsersWords from '../../../utils/UsersWords/UsersWords';
 import ChangeDifficulty from '../../../utils/UsersWords/ChangeDifficulty';
 
-import { PropsDifficulWord } from '../../interface/interfaces';
+import { PropsBtnWord } from '../../interface/interfaces';
 import '../BtnStudiedWord/btnWord.css';
 
-function BtnAddWord({ objectWord, setUserAggregatedWords, classNameDifficul }: PropsDifficulWord) {
+function BtnDifficultWord({
+  objectWord,
+  setUserAggregatedWords,
+  classNameDifficulty,
+}: PropsBtnWord) {
   const resultAuthorizad = Users.isAuthorized();
-  const wordActive = classNameDifficul.includes('hard');
+  const wordActive = classNameDifficulty.includes('hard');
 
   const textBtn = 'Добавить сложное слово';
 
@@ -42,4 +46,4 @@ function BtnAddWord({ objectWord, setUserAggregatedWords, classNameDifficul }: P
   );
 }
 
-export default BtnAddWord;
+export default BtnDifficultWord;

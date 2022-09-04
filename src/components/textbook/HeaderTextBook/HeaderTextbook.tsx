@@ -3,7 +3,12 @@ import Users from '../../../utils/Users/User';
 import { TypeSection } from '../../interface/interfaces';
 import './menuTextBook.css';
 
-function HeaderTextbook({ typeSection, setIdHard, setNumberPage, idHard }: TypeSection) {
+function HeaderTextbook({
+  typeSection,
+  setDifficultyLevel,
+  setNumberPage,
+  difficultyLevel,
+}: TypeSection) {
   const resultAuthorizad = Users.isAuthorized();
 
   const numberHard = [0, 1, 2, 3, 4, 5, 6];
@@ -14,9 +19,9 @@ function HeaderTextbook({ typeSection, setIdHard, setNumberPage, idHard }: TypeS
           disabled={i === 6 ? !resultAuthorizad : false}
           title={!resultAuthorizad ? 'Пожалуйста авторизуйтесь' : ''}
           type="button"
-          className={idHard === i ? `typeSection active` : 'typeSection'}
+          className={difficultyLevel === i ? `typeSection active` : 'typeSection'}
           onClick={() => {
-            setIdHard(numberHard[i]);
+            setDifficultyLevel(numberHard[i]);
             setNumberPage();
           }}
           key={e}
