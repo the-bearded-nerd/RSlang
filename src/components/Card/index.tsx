@@ -75,7 +75,7 @@ export default class Card extends Component<CardProps> {
   render() {
     const { image, word } = this.currentWord;
     return (
-      <div className="card">
+      <div className="game-card">
         <img src={`${url}${image}`} alt="" />
         <p>{this.wordStatus ? 'отгадано' : 'не отгадано'}</p>
         <p>{word}</p>
