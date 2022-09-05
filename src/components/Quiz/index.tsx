@@ -61,7 +61,6 @@ export default class Quiz extends Component<QuizProps> {
     const firstChild = e.currentTarget.firstChild as HTMLElement;
     const value = firstChild.textContent?.trim() as string;
     const status = +value === this.rightAnswer + 1;
-    console.log(status);
     this.setWordStatus(status);
     this.changeQuizStatus();
   };
@@ -102,7 +101,7 @@ export default class Quiz extends Component<QuizProps> {
           </button>
         </div>
         {this.renderAnswers()}
-        <button type="button" onClick={this.skip}>
+        <button className="btn" type="button" onClick={this.skip}>
           Skip
         </button>
       </div>

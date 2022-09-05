@@ -19,9 +19,16 @@
   padding: 0;
 }
 
+@media (max-width: 600px) {
+  .nav-list {
+    gap: 10px;
+  }
+}
+
 .nav__link {
   text-decoration: none;
   color: #cdcdcd;
+  transition: all 0.5s linear;
 }
 
 .nav__link:visited {

@@ -1,0 +1,19 @@
+.sprint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.sprint-card {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sprint-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
