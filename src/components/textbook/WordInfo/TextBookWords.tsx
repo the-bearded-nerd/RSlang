@@ -138,6 +138,7 @@ function TextBookWords({
 
           <button
             type="button"
+            className="btn-progress"
             title={
               !resultAuthorizad ? 'Функция доступна только зарегистрированным пользователям' : ''
             }
