@@ -75,9 +75,8 @@ function Statistics() {
 
   return (
     <div>
-      <h3>я статистика!</h3>
-      <p>всего выучено слов: {learnedWords}</p>
-      <p>Сегодня изучено слов: {learnedToday}</p>
+      <p>Всего выучено слов: {learnedWords}</p>
+      <p>Новых слов за сегодня: {learnedToday}</p>
 
       <GameStatistics
         gameName="Аудиовызов"

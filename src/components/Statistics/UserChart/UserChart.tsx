@@ -39,13 +39,12 @@ function UserChart(props: any) {
   console.log(labels, values);
   return (
     <div>
-      <h3>Графиг</h3>
       <Bar
         data={{
           labels,
           datasets: [
             {
-              label: 'Изучено за день',
+              label: 'Новых слов за день',
               data: values,
               backgroundColor: 'rgba(153, 102, 255, 0.3)',
               borderColor: 'rgba(153, 102, 255, 1)',
@@ -69,7 +68,7 @@ function UserChart(props: any) {
           labels,
           datasets: [
             {
-              label: 'Изучено всего',
+              label: 'Всего новых слов',
               data: values1,
               backgroundColor: 'rgba(255, 206, 86, 0.3)',
               borderColor: 'rgba(255, 206, 86, 1)',

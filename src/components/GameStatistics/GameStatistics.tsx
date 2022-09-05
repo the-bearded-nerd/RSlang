@@ -6,7 +6,7 @@ function GameStatistics(props: any) {
   return (
     <div className="game-statistics">
       <h4>Статистика {gameName} на сегодня:</h4>
-      <p>Изучено слов сегодня: {learnedWords}</p>
+      <p>Новых слов за сегодня: {learnedWords}</p>
       <p>Процент правильных ответов: {hitRate}%</p>
       <p>Лучшая серия: {longestSeries}</p>
     </div>
