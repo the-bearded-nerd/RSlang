@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ClimbingBoxLoader } from 'react-spinners';
 import { BtnNextPage, BtnPrevPage } from '../BtnPagination/BtnPageTextBook';
 import WordsTextBook from '../WordsTextBook/TextBook';
 import '../BtnPagination/btnPageTextBook.css';
@@ -126,7 +127,9 @@ function Textbook() {
             />
           </div>
           {loading ? (
-            <div className="box-loading">1</div>
+            <div className="box-loading">
+              <ClimbingBoxLoader />
+            </div>
           ) : (
             <section className={difficultyLevel !== 6 ? 'all-words' : 'difficulty-words'}>
               <WordsTextBook
