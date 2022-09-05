@@ -13,11 +13,10 @@
   align-items: center;
 }
 
-
-
 .nav-list {
   display: flex;
-  gap: 30px;
+  gap: 37px;
+  padding: 0;
 }
 
 .nav__link {

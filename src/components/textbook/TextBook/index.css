@@ -31,12 +31,21 @@
   padding-top: 20px;
   max-width: 700px;
   flex-wrap: wrap;
+  padding-left: 25px;
 }
 
 .all-words > div {
   color: #000;
   background-color: #fefefe;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.all-words .hard {
+  background-color: #535d5d;
+}
+
+.all-words .learned {
+  background: #89cd84;
 }
 
 .texbook-title {
@@ -48,7 +57,7 @@
 }
 
 .box-btn-page {
-  display: flex;
+  display: none;
 }
 
 .btn-nav {

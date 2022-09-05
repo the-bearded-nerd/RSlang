@@ -128,7 +128,7 @@ function Textbook() {
           </div>
           {loading ? (
             <div className="box-loading">
-              <ClimbingBoxLoader />
+              <ClimbingBoxLoader color="#ffffff" />
             </div>
           ) : (
             <section className={difficultyLevel !== 6 ? 'all-words' : 'difficulty-words'}>
