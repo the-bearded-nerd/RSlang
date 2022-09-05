@@ -80,7 +80,7 @@ export default class Card extends Component<CardProps> {
         <p>{this.wordStatus ? 'отгадано' : 'не отгадано'}</p>
         <p>{word}</p>
         {this.renderAnswers()}
-        <button type="button" onClick={this.finish}>
+        <button className="btn card-btn" type="button" onClick={this.finish}>
           Далее
         </button>
       </div>

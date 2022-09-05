@@ -80,7 +80,7 @@ export default class Greeting extends Component<GreetingProps> {
           {this.renderBtns()}
         </div>
         <p>press Enter to start or click on button below</p>
-        <button type="button" onClick={this.startGame}>
+        <button className="btn" type="button" onClick={this.startGame}>
           Начать
         </button>
       </div>

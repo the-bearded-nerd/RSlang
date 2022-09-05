@@ -20,7 +20,7 @@ function BtnLearnedWord({
     <button
       disabled={wordActive || !resultAuthorizad}
       title={!resultAuthorizad ? 'Функция доступна только зарегистрированным пользователям' : ''}
-      className="btn-Word"
+      className="btn-word btn"
       type="button"
       onClick={() => {
         ChangeDifficulty.setLearned(objectWord.id);

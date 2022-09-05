@@ -1,4 +1,5 @@
 .about-main {
+  padding: 10px 0;
   background-color: #223b40;
   flex: 1 0 100%;
 }
@@ -16,7 +17,7 @@
 }
 
 .cards {
-  padding-top: 30px;
+  padding: 10px 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -24,8 +25,30 @@
   color: #000;
 }
 
-.card-img {
-  display: block;
+.card {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card__img {
+
+}
+
+.card__img img {
   width: 200px;
-  height: auto;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.card-list-item {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 5px;
+  font-size: 14px;
+  font-style: italic;
 }

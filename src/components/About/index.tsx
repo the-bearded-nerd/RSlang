@@ -9,9 +9,11 @@ export default function About() {
           <h4 className="title">О команде</h4>
           <div className="cards">
             <div className="card">
-              <div className="title">Дмитрий</div>
-              <img className="card__image" src="../../about-photos/dmk.png" alt="" />
-              <div className="subtitle">Team lead</div>
+              <h3 className="subtitle">Дмитрий</h3>
+              <div className="card__img">
+                <img src="../../about-photos/dmk.png" alt="" />
+              </div>
+              <h4 className="subtitle">Team lead</h4>
               <ul className="card-list-item">
                 <li>Общее руководство проектом</li>
                 <li>Разработка статистики</li>
@@ -19,21 +21,26 @@ export default function About() {
               </ul>
             </div>
             <div className="card">
-              <div className="title">Анна</div>
-              <img className="card-img" src="../../about-photos/ann.jpg" alt="" />
-              <div className="subtitle">Frontend developer</div>
+              <h3 className="subtitle">Анна</h3>
+              <div className="card__img">
+                <img src="../../about-photos/ann.jpg" alt="" />
+              </div>
+              <h4 className="subtitle">Frontend developer</h4>
               <ul className="card-list-item">
-                <li>разработка учебника и списка слов</li>
-                <li>прогресс изучения и изученные слова</li>
+                <li>Разработка учебника и списка слов</li>
+                <li>Прогресс изучения и изученные слова</li>
               </ul>
             </div>
             <div className="card">
-              <div className="title">Виталий</div>
-              <div className="subtitle">Frontend developer</div>
+              <h3 className="subtitle">Виталий</h3>
+              <div className="card__img">
+                <img src="../../about-photos/vit.jpg" alt="" />
+              </div>
+              <h4 className="subtitle">Frontend developer</h4>
               <ul className="card-list-item">
-                <li>разработка игр Аудиовызов и Спринт</li>
-                <li>настройка роутинга</li>
-                <li>верстка приложения</li>
+                <li>Разработка игр Аудиовызов и Спринт</li>
+                <li>Настройка роутинга</li>
+                <li>Верстка приложения</li>
               </ul>
             </div>
           </div>
