@@ -3,12 +3,10 @@
   background-color: #000;
 }
 
-.container {
+.footer-inner {
   display: flex;
   justify-content: space-around;
-  padding: 0;
   align-items: center;
-  padding: 0 1.2%;
 }
 
 .footer_git {

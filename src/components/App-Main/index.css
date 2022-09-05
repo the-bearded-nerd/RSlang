@@ -1,6 +1,7 @@
 .hero {
   background-color: #223b40;
   flex: 1 0 100%;
+  min-height: 100vh;
 }
 
 .main {
