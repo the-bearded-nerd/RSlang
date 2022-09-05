@@ -5,14 +5,14 @@ import { PropsBtnPage } from '../../interface/interfaces';
 export function BtnNextPage({ setNumberPage, numberPage, loading }: PropsBtnPage) {
   return (
     <button
-      className="btn-page"
+      className="btn-page btn btn-nav"
       disabled={numberPage === 30 || loading}
       type="button"
       onClick={() => {
         setNumberPage();
       }}
     >
-      Следующая страница
+      Дальше
     </button>
   );
 }
@@ -20,14 +20,14 @@ export function BtnNextPage({ setNumberPage, numberPage, loading }: PropsBtnPage
 export function BtnPrevPage({ setNumberPage, numberPage, loading }: PropsBtnPage) {
   return (
     <button
-      className="btn-page"
+      className="btn-page btn btn-nav"
       disabled={numberPage === 1 || loading}
       type="button"
       onClick={() => {
         setNumberPage();
       }}
     >
-      предыдущая страница
+      Назад
     </button>
   );
 }

@@ -113,7 +113,7 @@ function TextBookWords({
               setAudioBtnDisabled(true);
             }}
           >
-            click
+            Sound on
           </button>
         </div>
         <div dangerouslySetInnerHTML={{ __html: correctionTextMeaning }} />

@@ -1,0 +1,56 @@
+.texbook-inner {
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.texbook-main {
+  flex: 1 0 100%;
+  background-color: #223b40;
+}
+
+.textbook-games-nav {
+  display: flex;
+  justify-content: center;
+}
+
+.box-btn-page {
+  display: flex;
+  gap: 15px;
+}
+
+.all-words {
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.menu {
+  padding-top: 20px;
+  max-width: 700px;
+  flex-wrap: wrap;
+}
+
+.all-words > div {
+  color: #000;
+  background-color: #fefefe;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.texbook-title {
+  color: #a6e7df;
+}
+
+.subtitle {
+  padding-top: 30px;
+}
+
+.box-btn-page {
+  align-self: left;
+}
+
+.btn-nav {
+  background-color: #0ca678;
+}

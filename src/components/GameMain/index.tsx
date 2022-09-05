@@ -113,7 +113,7 @@ class GameMain extends Component<GameMainProps, GameMainState> {
       changeLevel: this.changeLevel,
     };
     return (
-      <div className="audio-call">
+      <main className="audio-call">
         <span>
           <button className="fullscreen" type="button" onClick={this.changeFullscreen}>
             Fullscreen
@@ -123,7 +123,7 @@ class GameMain extends Component<GameMainProps, GameMainState> {
           </button>
         </span>
         {!isGameStarted ? <Greeting options={greetOptions} /> : <Game options={gameOptions} />}
-      </div>
+      </main>
     );
   }
 }

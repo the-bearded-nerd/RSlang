@@ -25,6 +25,10 @@
   transform: scale(0.5);
   transition: 0.4s all;
   width: 60vw;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .modal__content.active {

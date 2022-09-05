@@ -9,8 +9,9 @@ function SignOrRegister() {
   const [registrationActive, setRegistrationActive] = useState(false);
   const [signinActive, setSigninActive] = useState(false);
   return (
-    <span>
+    <span className="hero-btns">
       <button
+        className="btn"
         type="button"
         onClick={() => {
           setSigninActive(true);
@@ -19,6 +20,7 @@ function SignOrRegister() {
         Вход
       </button>
       <button
+        className="btn"
         type="button"
         onClick={() => {
           setRegistrationActive(true);

@@ -2,11 +2,35 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #223b40;
+  color: #cdcdcd;
   height: 70px;
-  border: 2px solid black;
 }
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
 
 .nav-list {
   display: flex;
-  gap: 5px;
+  gap: 30px;
+}
+
+.nav__link {
+  text-decoration: none;
+  color: #cdcdcd;
+}
+
+.nav__link:visited {
+  color: #cdcdcd;
+}
+.nav__link:hover {
+  color: #fafafa;
+}
+.nav__link:active {
+  color: #fafafa;
 }

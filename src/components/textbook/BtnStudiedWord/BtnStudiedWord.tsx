@@ -17,37 +17,34 @@ function BtnLearnedWord({
   const wordActive = classNameDifficulty.includes('learned');
 
   return (
-    <>
-      <button
-        disabled={wordActive || !resultAuthorizad}
-        title={!resultAuthorizad ? 'Пожалуйста авторизуйтесь' : ''}
-        className="btn-Word"
-        type="button"
-        onClick={() => {
-          ChangeDifficulty.setLearned(objectWord.id);
-          setUserAggregatedWords((arrayWords) =>
-            arrayWords.filter((el) => el.word !== objectWord.word)
-          );
-          if (difficultyLevel === 6) {
-            setWords((arrayWords) => arrayWords.filter((el) => el.word !== objectWord.word));
-          }
+    <button
+      disabled={wordActive || !resultAuthorizad}
+      title={!resultAuthorizad ? 'Пожалуйста авторизуйтесь' : ''}
+      className="btn-word btn"
+      type="button"
+      onClick={() => {
+        ChangeDifficulty.setLearned(objectWord.id);
+        setUserAggregatedWords((arrayWords) =>
+          arrayWords.filter((el) => el.word !== objectWord.word)
+        );
+        if (difficultyLevel === 6) {
+          setWords((arrayWords) => arrayWords.filter((el) => el.word !== objectWord.word));
+        }
 
-          if (objectWord.userWord) {
-            const result = objectWord.userWord;
-            result.difficulty = 'learned';
-          } else {
-            const result = objectWord;
-            result.userWord = {
-              difficulty: 'learned',
-            };
-          }
-          UserAggregatedWords.getLearnedtWords();
-        }}
-      >
-        Слово изучено
-      </button>
-      ;
-    </>
+        if (objectWord.userWord) {
+          const result = objectWord.userWord;
+          result.difficulty = 'learned';
+        } else {
+          const result = objectWord;
+          result.userWord = {
+            difficulty: 'learned',
+          };
+        }
+        UserAggregatedWords.getLearnedtWords();
+      }}
+    >
+      Изучено
+    </button>
   );
 }
 

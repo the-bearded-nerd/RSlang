@@ -1,6 +1,51 @@
+.hero {
+  background-color: #223b40;
+  flex: 1 0 100%;
+}
+
 .main {
-  flex: 0 1 100%;
+  flex: 1 0 100%;
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.hero-inner {
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.hero-welcome {
+  flex: 0 1 60%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.hero-image-box {
+  flex: 1 1 40%;
+}
+
+.hero__title {
+  color: #a6e7df;
+}
+
+.hero__text {
+  color: #fefefe;
+  max-width: 300px;
+}
+
+.hero__img {
+  border-radius: 5px;
+  width: 300px;
+  height: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero-btns {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
