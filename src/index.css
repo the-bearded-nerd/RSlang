@@ -57,7 +57,7 @@ a:link {
   border: none;
   font-size: 17px;
   letter-spacing: 0.06em;
-  background-color: #a6e7df;;
+  background-color: #a6e7df;
   color: #000;
   width: 150px;
   height: 40px;
@@ -67,6 +67,12 @@ a:link {
 .btn:disabled {
   background-color: #b0c0be;;
 }
+
+.btn:hover {
+  background-color: #000;;
+  color: #fff;
+}
+
 
 
 @keyframes animation {

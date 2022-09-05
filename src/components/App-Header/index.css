@@ -13,16 +13,15 @@
   align-items: center;
 }
 
-
-
 .nav-list {
   display: flex;
-  gap: 30px;
+  gap: 15px;
 }
 
 .nav__link {
   text-decoration: none;
   color: #cdcdcd;
+  transition: all 0.5s linear;
 }
 
 .nav__link:visited {

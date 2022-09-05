@@ -97,7 +97,7 @@ export default class Result extends Component<ResultProps> {
         <div>лучшая серия из отгаданых подряд слов - {this.bestSequence}</div>
         {this.renderGuessedWords()}
         {this.renderUnguessedWords()}
-        <button type="button" onClick={this.restartGame}>
+        <button className="btn" type="button" onClick={this.restartGame}>
           Играть ещё
         </button>
       </div>

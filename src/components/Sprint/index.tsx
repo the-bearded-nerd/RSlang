@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './index.css';
 
 // helpers
 import shuffle from '../../common/shuffle';
@@ -192,18 +193,20 @@ export default class Sprint extends Component<SprintProps, SprintState> {
       <div className="sprint">
         <p>{timeLeft}</p>
         <p>Текущий результат {score}</p>
-        <h3>Sprint</h3>
-        <span>Количество птичек: {this.showBirdsAmount()}</span>
-        <p>{word}</p>
-        <p>{out}</p>
-        <span>
-          <button type="button" onClick={this.handleLeftBtn}>
-            Верно
-          </button>
-          <button type="button" onClick={this.handleRightBtn}>
-            Неверно
-          </button>
-        </span>
+        <div className="sprint-card">
+          <h3>Sprint</h3>
+          <span>Количество птичек: {this.showBirdsAmount()}</span>
+          <p>{word}</p>
+          <p>{out}</p>
+          <span className="sprint-btns">
+            <button className="sprint-btn" type="button" onClick={this.handleLeftBtn}>
+              Верно
+            </button>
+            <button className="sprint-btn" type="button" onClick={this.handleRightBtn}>
+              Неверно
+            </button>
+          </span>
+        </div>
       </div>
     );
   }
