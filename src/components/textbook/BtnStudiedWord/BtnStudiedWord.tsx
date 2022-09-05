@@ -19,8 +19,8 @@ function BtnLearnedWord({
   return (
     <button
       disabled={wordActive || !resultAuthorizad}
-      title={!resultAuthorizad ? 'Пожалуйста авторизуйтесь' : ''}
-      className="btn-word btn"
+      title={!resultAuthorizad ? 'Функция доступна только зарегистрированным пользователям' : ''}
+      className="btn-Word"
       type="button"
       onClick={() => {
         ChangeDifficulty.setLearned(objectWord.id);

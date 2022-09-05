@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import DOMPurify from 'dompurify';
 import './textBookWords.css';
 import { PropsTextBookWords } from '../../interface/interfaces';
-import BtnStudiedWord from '../BtnStudiedWord/BtnStudiedWord';
 import Users from '../../../utils/Users/User';
-import BtnDifficultWord from '../BtnAddWord/BtnDifficultWord';
 import Modal from '../../Modal/Modal';
 import StudyProgress from '../StudyProgress/StudyProgress';
+import BtnDifficultWord from '../BtnAddWord/BtnDifficultWord';
+import BtnStudiedWord from '../BtnStudiedWord/BtnStudiedWord';
 
 const baseURL = 'https://rslang-fe2022q1.herokuapp.com/';
 
@@ -138,6 +138,9 @@ function TextBookWords({
 
           <button
             type="button"
+            title={
+              !resultAuthorizad ? 'Функция доступна только зарегистрированным пользователям' : ''
+            }
             disabled={
               !resultAuthorizad ||
               objectWord.userWord === undefined ||
