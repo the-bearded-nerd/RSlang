@@ -1,0 +1,31 @@
+.about-main {
+  background-color: #223b40;
+  flex: 1 0 100%;
+}
+
+.inner-about {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-title {
+  justify-content: center;
+  color: #fff;
+}
+
+.cards {
+  padding-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  color: #000;
+}
+
+.card-img {
+  display: block;
+  width: 200px;
+  height: auto;
+}

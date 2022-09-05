@@ -4,6 +4,7 @@ import Users from '../../utils/Users/User';
 import GameStatistics from '../GameStatistics/GameStatistics';
 import User from '../User/User';
 import UserChart from './UserChart/UserChart';
+import './index.css';
 
 function Statistics() {
   const currentDate = Statistic.getDate();
@@ -74,9 +75,10 @@ function Statistics() {
   }, [stat]);
 
   return (
-    <div>
-      <p>Всего выучено слов: {learnedWords}</p>
-      <p>Новых слов за сегодня: {learnedToday}</p>
+    <main className="stat-main">
+      <h3>я статистика!</h3>
+      <p>всего выучено слов: {learnedWords}</p>
+      <p>Сегодня изучено слов: {learnedToday}</p>
 
       <GameStatistics
         gameName="Аудиовызов"
@@ -93,7 +95,7 @@ function Statistics() {
         longestSeries={sprintStat.longestSeries}
       />
       <UserChart wordStatistics={wordStatistics} />
-    </div>
+    </main>
   );
 }
 

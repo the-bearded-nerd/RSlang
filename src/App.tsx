@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Header from './components/App-Header';
+import Footer from './components/App-Footer';
 import MainPage from './components/App-Main';
 import Games from './components/App-Games';
 import GameMain from './components/GameMain';
@@ -20,16 +21,7 @@ function App() {
     setFullScreen(status);
   };
   return (
-    <div className="wrapper">
-      <button
-        type="button"
-        onClick={async () => {
-          const stat = await Statistic.getStatistic();
-          console.log(stat);
-        }}
-      >
-        Статы
-      </button>
+    <div className="app">
       <BrowserRouter>
         {!isFullScreen && <Header />}
         <Routes>
@@ -47,6 +39,7 @@ function App() {
             element={<GameMain changeFullScreen={changeFullScreen} gameName="sprint" />}
           />
         </Routes>
+        {!isFullScreen && <Footer />}
       </BrowserRouter>
     </div>
   );

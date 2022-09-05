@@ -37,6 +37,7 @@ function RegistrationForm() {
       <label htmlFor="password">
         Password:
         <input
+          className="password-input"
           type="password"
           name="password"
           value={password}

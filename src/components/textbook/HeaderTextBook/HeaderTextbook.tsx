@@ -19,7 +19,7 @@ function HeaderTextbook({
           disabled={i === 6 ? !resultAuthorizad : false}
           title={!resultAuthorizad ? 'Пожалуйста авторизуйтесь' : ''}
           type="button"
-          className={difficultyLevel === i ? `typeSection active` : 'typeSection'}
+          className={difficultyLevel === i ? `typeSection active btn` : 'typeSection btn'}
           onClick={() => {
             setDifficultyLevel(numberHard[i]);
             setNumberPage();
