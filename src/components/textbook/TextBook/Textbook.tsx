@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ClimbingBoxLoader } from 'react-spinners';
 import { BtnNextPage, BtnPrevPage } from '../BtnPagination/BtnPageTextBook';
 import WordsTextBook from '../WordsTextBook/TextBook';
 import '../BtnPagination/btnPageTextBook.css';
@@ -7,8 +8,8 @@ import UserAggregatedWords from '../../../utils/UsersAggregatedWords/UserAggrega
 import { ContentWord } from '../../interface/interfaces';
 import HeaderTextbook from '../HeaderTextBook/HeaderTextbook';
 import Words from '../../../utils/Words/Words';
-import StudyProgress from '../StudyProgress/StudyProgress';
 import LocalStorageService from '../../../utils/LocalStorageService/index';
+import './loading.css';
 
 function Textbook() {
   const storagePage: number = JSON.parse(localStorage.getItem('numberPage') || '1');
@@ -131,7 +132,9 @@ function Textbook() {
       </div>
       <h2>Слова</h2>
       {loading ? (
-        <div className="box-loading">1</div>
+        <div className="box-loading">
+          <ClimbingBoxLoader />
+        </div>
       ) : (
         <section className={difficultyLevel !== 6 ? 'all-words' : 'difficulty-words'}>
           <WordsTextBook

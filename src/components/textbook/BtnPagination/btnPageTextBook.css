@@ -12,3 +12,10 @@
 .page.learn {
   background-color: blue;
 }
+
+.box-btn-page {
+  display: none;
+}
+.box-btn-page.active {
+  display: block;
+}
