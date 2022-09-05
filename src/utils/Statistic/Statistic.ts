@@ -126,7 +126,31 @@ class Statistic {
       const responseJSON = await response.json();
       return responseJSON;
     }
-    return null;
+    return {
+      id,
+      learnedWords: 0,
+      optional: {
+        wordStatistics: {
+          [this.getDate()]: 0,
+        },
+        gameStatistics: {
+          audio: {
+            right: 0,
+            wrong: 0,
+            learnedWords: 0,
+            lastChanged: null,
+            longestSeries: 0,
+          },
+          sprint: {
+            right: 0,
+            wrong: 0,
+            learnedWords: 0,
+            lastChanged: null,
+            longestSeries: 0,
+          },
+        },
+      },
+    };
   }
 
   static async saveStatistics(learnedWords: any, optional: any) {
