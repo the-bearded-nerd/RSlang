@@ -1,3 +1,8 @@
 .box-loading {
   margin: 0 auto;
 }
+
+.box-loading span {
+  color: #a6e7df;
+  background-color: #a6e7df;
+}

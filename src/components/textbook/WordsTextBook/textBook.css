@@ -1,16 +1,16 @@
 .word {
   display: flex;
-
+  gap: 30px;
   background-color: aliceblue;
 }
 .hard {
   display: flex;
-
-  background-color: blueviolet;
+  gap: 30px;
+  background-color: #535d5d;
 }
 .learned {
   display: flex;
-
+  gap: 30px;
   background-color: cadetblue;
 }
 
@@ -20,5 +20,4 @@
 }
 
 .btn-Word {
-  
 }

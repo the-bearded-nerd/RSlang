@@ -15,7 +15,8 @@
 
 .nav-list {
   display: flex;
-  gap: 15px;
+  gap: 35px;
+  padding: 0;
 }
 
 @media (max-width: 600px) {
