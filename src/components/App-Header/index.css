@@ -24,6 +24,32 @@
   }
 }
 
+@media (max-width: 550px) {
+ .header-nav {
+  padding-top: 10px;
+ }
+  .header-logo {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 500px) {
+  .hero__img {
+    max-width: 100%;
+  }
+
+}
+
+
 .nav__link {
   text-decoration: none;
   color: #cdcdcd;

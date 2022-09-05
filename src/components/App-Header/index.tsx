@@ -7,7 +7,7 @@ function Header() {
     <header className="header">
       <div className="container">
         <div className="header-inner">
-          <Link to="/" className="nav__link">
+          <Link to="/" className="nav__link header-logo">
             RSLang
           </Link>
           <nav className="header-nav">
