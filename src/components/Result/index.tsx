@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import './index.css';
 
 // Import Constans
 import url from '../../constants/url';
@@ -47,7 +48,7 @@ export default class Result extends Component<ResultProps> {
           {this.guessedWords.map((el) => {
             const audio = new Audio(`${url}${el.audio}`);
             return (
-              <li key={uuidv4()}>
+              <li className="list-item" key={uuidv4()}>
                 <button
                   type="button"
                   onClick={() => {
@@ -73,7 +74,7 @@ export default class Result extends Component<ResultProps> {
           {this.unGuessedWords.map((el) => {
             const audio = new Audio(`${url}${el.audio}`);
             return (
-              <li key={uuidv4()}>
+              <li className="list-item" key={uuidv4()}>
                 <button
                   type="button"
                   onClick={() => {

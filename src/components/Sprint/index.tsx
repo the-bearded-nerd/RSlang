@@ -191,10 +191,10 @@ export default class Sprint extends Component<SprintProps, SprintState> {
     const { word } = data[currentRound];
     return (
       <div className="sprint">
+        <h3>Спринт</h3>
         <p>{timeLeft}</p>
         <p>Текущий результат {score}</p>
         <div className="sprint-card">
-          <h3>Sprint</h3>
           <span>Количество птичек: {this.showBirdsAmount()}</span>
           <p>{word}</p>
           <p>{out}</p>

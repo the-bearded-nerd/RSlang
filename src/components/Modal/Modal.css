@@ -25,6 +25,7 @@
   transform: scale(0.5);
   transition: 0.4s all;
   width: 60vw;
+  max-width: 300px;
   color: #000;
   display: flex;
   flex-direction: column;
@@ -33,4 +34,15 @@
 
 .modal__content.active {
   transform: scale(1);
+}
+
+.modal__content form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+form label {
+  display: flex;
+  justify-content: space-between;
 }
