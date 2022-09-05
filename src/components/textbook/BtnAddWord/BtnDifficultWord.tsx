@@ -21,7 +21,7 @@ function BtnDifficultWord({
     <button
       disabled={wordActive || !resultAuthorizad}
       title={!resultAuthorizad ? 'Функция доступна только зарегистрированным пользователям' : ''}
-      className="btn-Word"
+      className="btn-word btn"
       type="button"
       onClick={() => {
         ChangeDifficulty.setDifficult(objectWord.id);
