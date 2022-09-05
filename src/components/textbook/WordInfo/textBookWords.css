@@ -25,3 +25,7 @@
 .noVisible {
   display: none;
 }
+
+.btn-progress {
+  cursor: pointer;
+}

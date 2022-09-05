@@ -17,7 +17,9 @@ function HeaderTextbook({
       {typeSection.map((e, i) => (
         <button
           disabled={i === 6 ? !resultAuthorizad : false}
-          title={!resultAuthorizad ? 'Пожалуйста авторизуйтесь' : ''}
+          title={
+            !resultAuthorizad ? 'Функция доступна только зарегистрированным пользователям' : ''
+          }
           type="button"
           className={difficultyLevel === i ? `typeSection active btn` : 'typeSection btn'}
           onClick={() => {
