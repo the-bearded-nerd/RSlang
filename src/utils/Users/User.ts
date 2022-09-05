@@ -101,7 +101,6 @@ class Users {
       const loginTime = JSON.parse(localStorage.getItem('loginTime') as string);
       const interval = Date.now() - loginTime;
       const hoursPastLogin = interval / 1000 / 60 / 60;
-      console.log(hoursPastLogin);
       if (hoursPastLogin > 4) {
         this.signout();
         window.location.reload();
