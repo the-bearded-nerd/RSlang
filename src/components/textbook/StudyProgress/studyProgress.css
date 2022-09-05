@@ -1,0 +1,22 @@
+.study {
+  width: 100%;
+  background: rgba(46, 247, 6, 0.5);
+  height: 100vh;
+  top: 0;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-study {
+  display: none;
+}
+
+.table {
+  padding: 20px;
+}
+.buttonStudy {
+  background-color: aliceblue;
+}

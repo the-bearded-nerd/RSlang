@@ -1,24 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import Header from './components/App-Header';
+import Footer from './components/App-Footer';
+import MainPage from './components/App-Main';
+import Games from './components/App-Games';
+import GameMain from './components/GameMain';
+import Statistics from './components/Statistics/Statistics';
+import Textbook from './components/textbook/TextBook/Textbook';
+import About from './components/About';
+import Statistic from './utils/Statistic/Statistic';
+import Words from './utils/Words/Words';
 
 function App() {
+  Words.get20RandomWordsByGroup(1);
+  const [isFullScreen, setFullScreen] = useState(false);
+  const changeFullScreen = () => {
+    const status = !isFullScreen;
+    setFullScreen(status);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <BrowserRouter>
+        {!isFullScreen && <Header />}
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="textbook" element={<Textbook />} />
+          <Route path="games" element={<Games />} />
+          <Route path="statistic" element={<Statistics />} />
+          <Route path="about" element={<About />} />
+          <Route
+            path="games/audio"
+            element={<GameMain changeFullScreen={changeFullScreen} gameName="audio" />}
+          />
+          <Route
+            path="games/sprint"
+            element={<GameMain changeFullScreen={changeFullScreen} gameName="sprint" />}
+          />
+        </Routes>
+        {!isFullScreen && <Footer />}
+      </BrowserRouter>
     </div>
   );
 }

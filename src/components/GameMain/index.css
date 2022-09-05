@@ -1,0 +1,13 @@
+.audio-call {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1 0 100%;
+    background-color: #223b40;
+}
+
+.fullscreen {
+    position: relative;
+    top: 0;
+}

@@ -1,0 +1,19 @@
+.footer {
+  height: 100px;
+  background-color: #000;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.footer_git {
+  display: flex;
+  gap: 10px;
+}
+
+.footer_logoRs {
+  filter: invert(1);
+}

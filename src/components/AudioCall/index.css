@@ -1,0 +1,11 @@
+.audio-call {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.answers > div {
+    cursor: pointer;
+  }
+  

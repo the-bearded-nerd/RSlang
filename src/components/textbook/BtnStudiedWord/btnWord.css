@@ -1,0 +1,9 @@
+.btn-Word {
+  padding: 15px;
+  border-radius: 100px;
+  cursor: pointer;
+  background-color: #fd0909;
+}
+.btn-Word.active {
+  background-color: blue;
+}

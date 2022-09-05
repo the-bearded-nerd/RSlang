@@ -65,24 +65,61 @@ class Users {
   }
 
   static async signin(email: string, password: string) {
+    const loginTime = Date.now();
     const requestURL = new URL(`/signin`, baseURL);
     requestURL.searchParams.append('email', email);
     requestURL.searchParams.append('password', password);
     const response = await fetch(requestURL, {
       method: 'POST',
       headers: {
+        Accept: 'application/json',
         'Content-Type': 'application/json;charset=utf-8',
       },
       body: JSON.stringify({ email, password }),
     });
     if (response.ok) {
       const responseJSON = await response.json();
-      localStorage.setItem('userData', responseJSON);
+      localStorage.setItem('userName', responseJSON.name);
+      localStorage.setItem('userId', responseJSON.userId);
+      localStorage.setItem('refreshToken', responseJSON.refreshToken);
+      localStorage.setItem('token', responseJSON.token);
+      localStorage.setItem('loginTime', JSON.stringify(loginTime));
     }
     return {
       ok: response.ok,
       errcode: response.ok ? null : response.status,
     };
+  }
+
+  static signout() {
+    localStorage.clear();
+  }
+
+  static isAuthorized() {
+    const isAuth = !!localStorage.getItem('userName');
+    if (isAuth) {
+      const loginTime = JSON.parse(localStorage.getItem('loginTime') as string);
+      const interval = Date.now() - loginTime;
+      const hoursPastLogin = interval / 1000 / 60 / 60;
+      if (hoursPastLogin > 4) {
+        this.signout();
+        window.location.reload();
+        return false;
+      }
+    }
+    return !!localStorage.getItem('userName');
+  }
+
+  static getName() {
+    return localStorage.getItem('userName');
+  }
+
+  static getToken() {
+    return localStorage.getItem('token');
+  }
+
+  static getId() {
+    return localStorage.getItem('userId');
   }
 }
 
