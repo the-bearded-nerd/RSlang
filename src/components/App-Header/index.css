@@ -16,6 +16,7 @@
 .nav-list {
   display: flex;
   gap: 15px;
+  padding: 0;
 }
 
 @media (max-width: 600px) {
@@ -25,9 +26,9 @@
 }
 
 @media (max-width: 550px) {
- .header-nav {
-  padding-top: 10px;
- }
+  .header-nav {
+    padding-top: 10px;
+  }
   .header-logo {
     display: none;
   }
@@ -46,9 +47,7 @@
   .hero__img {
     max-width: 100%;
   }
-
 }
-
 
 .nav__link {
   text-decoration: none;

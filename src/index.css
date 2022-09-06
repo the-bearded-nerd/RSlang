@@ -31,7 +31,6 @@ a:link {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-
 }
 
 .container {
@@ -65,15 +64,46 @@ a:link {
 }
 
 .btn:disabled {
-  background-color: #b0c0be;;
+  background-color: #b0c0be;
 }
 
+.all-words.Learn {
+  background-color: #5f948d;
+  margin-top: 20px;
+}
 .btn:hover {
-  background-color: #000;;
+  background-color: #000;
   color: #fff;
 }
 
+.btn-game {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  font-size: 17px;
+  letter-spacing: 0.06em;
+  background-color: #a6e7df;
+  color: #000;
+  width: 150px;
+  height: 40px;
+  transition: all 0.5s ease-in-out;
+  border-radius: 5px;
+}
+.btn-game:hover {
+  background-color: #000;
+  color: #fff;
+}
 
+.learn {
+  background-color: #000;
+}
+
+.btn.no-active {
+  pointer-events: none;
+  background-color: #93a4a2;
+  color: rgb(255 255 255 / 50%);
+}
 
 @keyframes animation {
   from {
