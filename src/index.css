@@ -90,8 +90,9 @@ a:link {
   transition: all 0.5s ease-in-out;
   border-radius: 5px;
 }
-.btn.game {
-  background-color: rgb(21, 191, 33) 0;
+.btn-game:hover {
+  background-color: #000;
+  color: #fff;
 }
 
 .learn {
