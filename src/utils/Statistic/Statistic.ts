@@ -48,7 +48,7 @@ class Statistic {
         },
         sprint: {
           right: game === 'sprint' && isRightAnswer ? 1 : 0,
-          wrong: game === 'spring' && !isRightAnswer ? 1 : 0,
+          wrong: game === 'sprint' && !isRightAnswer ? 1 : 0,
         },
       };
       this.saveUserStat(game, isRightAnswer, true, longestSeries);
