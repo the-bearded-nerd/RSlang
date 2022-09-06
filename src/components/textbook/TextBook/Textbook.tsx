@@ -74,6 +74,17 @@ function Textbook() {
 
   const [classStudy, isClassStudy] = React.useState<boolean>(false);
   const [word, setWord] = React.useState<ContentWord | null>(null);
+  // let classWords = '';
+  // if (difficultyLevel !== 6) {
+  //   classWords = 'all-words';
+  // } else if (resultLearnWords) {
+  //   classWords = 'learn';
+  // } else {
+  //   classWords = 'difficulty-words';
+  // }
+
+  const wordsAggr = difficultyLevel !== 6 ? 'all-words' : 'difficulty-words';
+  // difficultyLevel !== 6 ? 'all-words' : 'difficulty-words'
 
   return (
     <main className="texbook-main">
@@ -91,7 +102,7 @@ function Textbook() {
             <ul className="nav-list">
               <li>
                 <Link
-                  className="btn"
+                  className={!resultLearnWords ? 'btn-game' : 'btn no-active'}
                   to="../games/audio"
                   onClick={() => {
                     LocalStorageService.setItem('gameWords', listWords);
@@ -102,7 +113,7 @@ function Textbook() {
               </li>
               <li>
                 <Link
-                  className="btn"
+                  className={!resultLearnWords ? 'btn-game' : 'btn no-active'}
                   to="../games/sprint"
                   onClick={() => {
                     LocalStorageService.setItem('gameWords', listWords);
@@ -131,7 +142,7 @@ function Textbook() {
               <ClimbingBoxLoader color="#ffffff" />
             </div>
           ) : (
-            <section className={difficultyLevel !== 6 ? 'all-words' : 'difficulty-words'}>
+            <section className={resultLearnWords ? 'all-words Learn' : wordsAggr}>
               <WordsTextBook
                 difficultyLevel={difficultyLevel}
                 numberPage={numberPage - 1}
