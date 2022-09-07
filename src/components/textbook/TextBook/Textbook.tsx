@@ -11,6 +11,7 @@ import Words from '../../../utils/Words/Words';
 import StudyProgress from '../StudyProgress/StudyProgress';
 import LocalStorageService from '../../../utils/LocalStorageService/index';
 import './index.css';
+import Footer from '../../App-Footer';
 
 function Textbook() {
   const storagePage: number = JSON.parse(localStorage.getItem('numberPage') || '1');
@@ -87,81 +88,84 @@ function Textbook() {
   // difficultyLevel !== 6 ? 'all-words' : 'difficulty-words'
 
   return (
-    <main className="texbook-main">
-      <div className="container">
-        <div className="texbook-inner">
-          <h2 className="texbook-title">Добро пожаловать в учебник!</h2>
-          <h4 className="subtitle">Пожалуйста, Выберите уровень сложности</h4>
-          <HeaderTextbook
-            typeSection={['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'Сложные']}
-            setDifficultyLevel={(id) => setDifficultyLevel(id)}
-            setNumberPage={() => setNumberPage(1)}
-            difficultyLevel={difficultyLevel}
-          />
-          <nav className="textbook-games-nav">
-            <ul className="nav-list">
-              <li>
-                <Link
-                  className={!resultLearnWords ? 'btn-game' : 'btn no-active'}
-                  to="../games/audio"
-                  onClick={() => {
-                    LocalStorageService.setItem('gameWords', listWords);
-                  }}
-                >
-                  Аудиовызов
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={!resultLearnWords ? 'btn-game' : 'btn no-active'}
-                  to="../games/sprint"
-                  onClick={() => {
-                    LocalStorageService.setItem('gameWords', listWords);
-                  }}
-                >
-                  Спринт
-                </Link>
-              </li>
-            </ul>
-          </nav>
-          <div className={classHard}>
-            <BtnPrevPage
-              setNumberPage={() => setNumberPage(numberPage < 2 ? 1 : numberPage - 1)}
-              numberPage={numberPage}
-              loading={loading}
+    <>
+      <main className="texbook-main">
+        <div className="container">
+          <div className="texbook-inner">
+            <h2 className="texbook-title">Добро пожаловать в учебник!</h2>
+            <h4 className="subtitle">Пожалуйста, Выберите уровень сложности</h4>
+            <HeaderTextbook
+              typeSection={['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'Сложные']}
+              setDifficultyLevel={(id) => setDifficultyLevel(id)}
+              setNumberPage={() => setNumberPage(1)}
+              difficultyLevel={difficultyLevel}
             />
-            <div className={!resultLearnWords ? 'page' : 'page learn'}>{numberPage}</div>
-            <BtnNextPage
-              setNumberPage={() => setNumberPage(numberPage === 30 ? 30 : numberPage + 1)}
-              numberPage={numberPage}
-              loading={loading}
-            />
-          </div>
-          {loading ? (
-            <div className="box-loading">
-              <ClimbingBoxLoader color="#ffffff" />
-            </div>
-          ) : (
-            <section className={resultLearnWords ? 'all-words Learn' : wordsAggr}>
-              <WordsTextBook
-                difficultyLevel={difficultyLevel}
-                numberPage={numberPage - 1}
-                userAggregatedWords={userAggregatedWords}
-                setUserAggregatedWords={setUserAggregatedWords}
-                setWords={setWords}
-                listWords={listWords}
-                isLoading={isLoading}
-                isClassStudy={isClassStudy}
-                classStudy={classStudy}
-                setWord={setWord}
-                setAudioElement={setAudioElement}
-                audioElement={audioElement}
+            <nav className="textbook-games-nav">
+              <ul className="nav-list">
+                <li>
+                  <Link
+                    className={!resultLearnWords ? 'btn-game' : 'btn no-active'}
+                    to="../games/audio"
+                    onClick={() => {
+                      LocalStorageService.setItem('gameWords', listWords);
+                    }}
+                  >
+                    Аудиовызов
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className={!resultLearnWords ? 'btn-game' : 'btn no-active'}
+                    to="../games/sprint"
+                    onClick={() => {
+                      LocalStorageService.setItem('gameWords', listWords);
+                    }}
+                  >
+                    Спринт
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+            <div className={classHard}>
+              <BtnPrevPage
+                setNumberPage={() => setNumberPage(numberPage < 2 ? 1 : numberPage - 1)}
+                numberPage={numberPage}
+                loading={loading}
               />
-            </section>
-          )}
+              <div className={!resultLearnWords ? 'page' : 'page learn'}>{numberPage}</div>
+              <BtnNextPage
+                setNumberPage={() => setNumberPage(numberPage === 30 ? 30 : numberPage + 1)}
+                numberPage={numberPage}
+                loading={loading}
+              />
+            </div>
+            {loading ? (
+              <div className="box-loading">
+                <ClimbingBoxLoader color="#ffffff" />
+              </div>
+            ) : (
+              <section className={resultLearnWords ? 'all-words Learn' : wordsAggr}>
+                <WordsTextBook
+                  difficultyLevel={difficultyLevel}
+                  numberPage={numberPage - 1}
+                  userAggregatedWords={userAggregatedWords}
+                  setUserAggregatedWords={setUserAggregatedWords}
+                  setWords={setWords}
+                  listWords={listWords}
+                  isLoading={isLoading}
+                  isClassStudy={isClassStudy}
+                  classStudy={classStudy}
+                  setWord={setWord}
+                  setAudioElement={setAudioElement}
+                  audioElement={audioElement}
+                />
+              </section>
+            )}
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+      <Footer />
+    </>
   );
 }
 
