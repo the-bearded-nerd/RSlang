@@ -8,7 +8,6 @@ class UsersWords {
     const response = await fetch(requestURL);
     if (response.ok) {
       const responseJSON = await response.json();
-      console.log(responseJSON);
       return responseJSON;
     }
     return [];
@@ -85,7 +84,6 @@ class UsersWords {
     });
     if (response.ok) {
       const responseJSON = await response.json();
-      console.log(responseJSON);
       return responseJSON;
     }
     return null;

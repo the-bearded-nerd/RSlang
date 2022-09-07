@@ -27,7 +27,6 @@ ChartJS.register(
 
 function UserChart(props: any) {
   const { wordStatistics } = props;
-  console.log(wordStatistics);
   const labels = Object.keys(wordStatistics);
   const values = Object.values(wordStatistics);
   const values1 = [];
@@ -36,7 +35,6 @@ function UserChart(props: any) {
     sum += values[i] as number;
     values1.push(sum);
   }
-  console.log(labels, values);
   return (
     <div>
       <Bar
@@ -44,7 +42,7 @@ function UserChart(props: any) {
           labels,
           datasets: [
             {
-              label: 'Новых слов за день',
+              label: 'Выучено слов за день',
               data: values,
               backgroundColor: 'rgba(153, 102, 255, 0.3)',
               borderColor: 'rgba(153, 102, 255, 1)',
@@ -68,7 +66,7 @@ function UserChart(props: any) {
           labels,
           datasets: [
             {
-              label: 'Всего новых слов',
+              label: 'Всего выучено слов',
               data: values1,
               backgroundColor: 'rgba(255, 206, 86, 0.3)',
               borderColor: 'rgba(255, 206, 86, 1)',

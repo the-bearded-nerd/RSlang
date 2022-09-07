@@ -78,8 +78,8 @@ function Statistics() {
   return (
     <>
       <main className="stat-main">
-        <p>всего выучено слов: {learnedWords}</p>
-        <p>Новых слов за сегодня: {learnedToday}</p>
+        <p>Всего выучено слов: {learnedWords}</p>
+        <p>Выучено слов за сегодня: {learnedToday}</p>
 
         <GameStatistics
           gameName="Аудиовызов"

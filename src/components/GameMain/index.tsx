@@ -36,7 +36,6 @@ class GameMain extends Component<GameMainProps, GameMainState> {
       this.data = LocalStorageService.getItem('gameWords') as IWords[];
       LocalStorageService.removeItem('gameWords');
     }
-    console.log(this.isFromTextbook);
   }
 
   componentDidMount() {
@@ -56,7 +55,6 @@ class GameMain extends Component<GameMainProps, GameMainState> {
   getData() {
     Words.get20RandomWordsByGroup(this.level).then((res) => {
       this.data = res;
-      console.log(res);
       this.changeGameStatus();
     });
   }

@@ -10,9 +10,9 @@ class Statistic {
     isRightAnswer: boolean,
     longestSeries: number
   ) {
+    let isNewLearned = false;
     if (!Users.isAuthorized()) return;
     const word = await UsersWords.getWord(wordId);
-    console.log(word);
     if (word) {
       let { difficulty } = word;
       const { optional } = word;
@@ -29,13 +29,13 @@ class Statistic {
         (optional.currentRight >= 5 && difficulty === 'hard')
       ) {
         difficulty = 'learned';
+        isNewLearned = true;
       }
 
-      this.saveUserStat(game, isRightAnswer, optional.isNew, longestSeries);
+      this.saveUserStat(game, isRightAnswer, optional.isNew, longestSeries, isNewLearned);
       if (optional.isNew) optional.isNew = false;
       UsersWords.updateWordWithOptional(wordId, difficulty, optional);
     } else {
-      console.log('слова нет');
       const difficulty = ' ';
       const optional = {
         isNew: false,
@@ -51,7 +51,7 @@ class Statistic {
           wrong: game === 'sprint' && !isRightAnswer ? 1 : 0,
         },
       };
-      this.saveUserStat(game, isRightAnswer, true, longestSeries);
+      this.saveUserStat(game, isRightAnswer, true, longestSeries, false);
       UsersWords.createWordWithOptional(wordId, difficulty, optional);
     }
   }
@@ -60,20 +60,18 @@ class Statistic {
     game: string,
     isRightAnswer: boolean,
     isNewWord: boolean,
-    longestSeries: number
+    longestSeries: number,
+    isNewLearned: boolean
   ) {
-    console.log(isRightAnswer);
     const statistic = await this.getStatistic();
     if (statistic) {
       const learnedCount = isNewWord ? 1 : 0;
       const isRightNumber = Number(isRightAnswer);
-      statistic.learnedWords += learnedCount;
+      if (isNewLearned) statistic.learnedWords += 1;
       const currentDate = this.getDate();
-      statistic.optional.wordStatistics[currentDate] = statistic.optional.wordStatistics[
-        currentDate
-      ]
-        ? statistic.optional.wordStatistics[currentDate]
-        : 0;
+      if (statistic.optional.wordStatistics[currentDate])
+        statistic.optional.wordStatistics[currentDate] += isNewLearned ? 1 : 0;
+      else statistic.optional.wordStatistics[currentDate] = isNewLearned ? 1 : 0;
       statistic.optional.gameStatistics[game].learnedWords += learnedCount;
       statistic.optional.gameStatistics[game].right += isRightNumber;
       statistic.optional.gameStatistics[game].wrong += 1 - isRightNumber;

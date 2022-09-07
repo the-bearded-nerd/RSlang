@@ -130,7 +130,6 @@ export default class Sprint extends Component<SprintProps, SprintState> {
       const { sequense, score } = this;
       this.sequense = sequense + 1;
       this.coefficient = Math.floor(this.sequense / 4 + 1);
-      console.log(this.coefficient);
       this.score = score + 20 * this.coefficient;
     } else {
       this.sequense = 0;
