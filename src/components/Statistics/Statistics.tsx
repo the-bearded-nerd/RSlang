@@ -5,6 +5,7 @@ import GameStatistics from '../GameStatistics/GameStatistics';
 import User from '../User/User';
 import UserChart from './UserChart/UserChart';
 import './index.css';
+import Footer from '../App-Footer';
 
 function Statistics() {
   const currentDate = Statistic.getDate();
@@ -75,26 +76,29 @@ function Statistics() {
   }, [stat]);
 
   return (
-    <main className="stat-main">
-      <p>всего выучено слов: {learnedWords}</p>
-      <p>Новых слов за сегодня: {learnedToday}</p>
+    <>
+      <main className="stat-main">
+        <p>всего выучено слов: {learnedWords}</p>
+        <p>Новых слов за сегодня: {learnedToday}</p>
 
-      <GameStatistics
-        gameName="Аудиовызов"
-        learnedWords={audioStat.learnedWords}
-        right={audioStat.right}
-        wrong={audioStat.wrong}
-        longestSeries={audioStat.longestSeries}
-      />
-      <GameStatistics
-        gameName="Спринт"
-        learnedWords={sprintStat.learnedWords}
-        right={sprintStat.right}
-        wrong={sprintStat.wrong}
-        longestSeries={sprintStat.longestSeries}
-      />
-      <UserChart wordStatistics={wordStatistics} />
-    </main>
+        <GameStatistics
+          gameName="Аудиовызов"
+          learnedWords={audioStat.learnedWords}
+          right={audioStat.right}
+          wrong={audioStat.wrong}
+          longestSeries={audioStat.longestSeries}
+        />
+        <GameStatistics
+          gameName="Спринт"
+          learnedWords={sprintStat.learnedWords}
+          right={sprintStat.right}
+          wrong={sprintStat.wrong}
+          longestSeries={sprintStat.longestSeries}
+        />
+        <UserChart wordStatistics={wordStatistics} />
+      </main>
+      <Footer />
+    </>
   );
 }
 

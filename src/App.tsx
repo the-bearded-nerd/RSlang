@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 
 import Header from './components/App-Header';
 import Footer from './components/App-Footer';
@@ -22,7 +22,7 @@ function App() {
   };
   return (
     <div className="app">
-      <BrowserRouter>
+      <HashRouter>
         {!isFullScreen && <Header />}
         <Routes>
           <Route path="/" element={<MainPage />} />
@@ -39,8 +39,7 @@ function App() {
             element={<GameMain changeFullScreen={changeFullScreen} gameName="sprint" />}
           />
         </Routes>
-        {!isFullScreen && <Footer />}
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }
